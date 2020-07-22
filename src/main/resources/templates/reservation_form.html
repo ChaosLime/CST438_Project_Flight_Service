@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Flight Reservation</title>
+</head>
+<body>
+	<h3>Flight Reservation Form</h3>
+	<a>Please fill in details about your flight below</a>
+	
+	<form action="#" th:action="@{/flights}" th:object="${flight}" method="get">
+		City of Origin:<br>
+		<input type="text" th:field="*{originCity}"/>
+		<span th:if="${#fields.hasErrors('originCity')}" th:errors="*{originCity}"> </span> <br>
+		Destination City: <br>
+		<input type="text" th:field="*{destinationCity}"/>
+		<span th:if="${#fields.hasErrors('destinationCity')}" th:errors="*{destinationCity}"> </span> <br>
+		
+		Date Range: <br>
+		Start Date:
+		<input type="date" th:field="*{startDate}"/>
+		<span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"> </span> <br>
+		End Date:
+		<input type="date" th:field="*{endDate}"/>
+		<span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"> </span> <br>
+
+		<input type="submit" value="Submit" />	
+	</form>
+	
+</body>
+</html>
