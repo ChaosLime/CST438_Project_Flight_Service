@@ -7,7 +7,7 @@
 	<h3>Flight Reservation Form</h3>
 	<a>Please fill in details about your flight below</a>
 	
-	<form action="#" th:action="@{/flights}" th:object="${flight}" method="get">
+	<form action="#" th:action="@{/flights}" th:object="${flight}" method="POST">
 		City of Origin:<br>
 		<input type="text" th:field="*{originCity}"/>
 		<span th:if="${#fields.hasErrors('originCity')}" th:errors="*{originCity}"> </span> <br>

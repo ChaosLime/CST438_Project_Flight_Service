@@ -8,7 +8,7 @@ import com.sun.istack.NotNull;
 // TODO: what more info is required for API calls?
 // TODO: input validation
 @Entity
-public class FlightInfo {
+public class LocationInfo {
 
   @Id
   @GeneratedValue
@@ -26,14 +26,14 @@ public class FlightInfo {
   @NotNull
   private String endDate;
 
-  public FlightInfo() {
+  public LocationInfo() {
     originCity = null;
     destinationCity = null;
     startDate = null;
     endDate = null;
   }
 
-  public FlightInfo(long id, String originCity, String destinationCity, String startDate,
+  public LocationInfo(long id, String originCity, String destinationCity, String startDate,
       String endDate) {
     super();
     this.id = id;
