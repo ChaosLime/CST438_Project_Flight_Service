@@ -1,16 +1,14 @@
 package CST438.domain;
 
-import java.util.List;
+//import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+//import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
-public interface ReservationRepository extends CrudRepository<LocationInfo, Long> {
-
-  // List data from database here
-  @Query("SELECT f FROM gqlse881o0dv9zhn f ORDER BY start")
+@Repository
+public interface ReservationRepository extends JpaRepository<Flight, String> {
 	
-  List<LocationInfo>findByStartDate(String startDate);
-		
-	
+    Flight findByFlightNumber(String flightNumber);
+    
 }

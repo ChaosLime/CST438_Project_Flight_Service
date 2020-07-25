@@ -5,13 +5,20 @@
 package CST438.domain;
 
 import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 // TODO: do we need a company attribute (ie: Southwest, United, etc)
 // TODO: find out if flightNumber is an int or a String
+@Entity
+@Table(name="flight")
 public class Flight {
 
   @NotNull
+  @GeneratedValue 
   private String flightNumber;
 
   @NotNull
@@ -92,5 +99,14 @@ public class Flight {
   public void setArrivalAirport(String arrivalAirport) {
     this.arrivalAirport = arrivalAirport;
   }
+
+  @Override
+  public String toString() {
+	return "Flight [flightNumber=" + flightNumber + ", cost=" + cost + ", departureAirport=" + departureAirport
+			+ ", departureTime=" + departureTime + ", arrivalAirport=" + arrivalAirport + ", arrivalTime=" + arrivalTime
+			+ "]";
+  }
+  
+  
 
 }

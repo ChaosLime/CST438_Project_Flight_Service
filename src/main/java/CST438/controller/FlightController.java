@@ -1,5 +1,8 @@
 package CST438.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import CST438.domain.LocationInfo;
 import CST438.domain.ReservationRepository;
+import CST438.service.FlightListService;
+import CST438.domain.FlightInfo;
 
 @Controller
 public class FlightController {
@@ -16,6 +21,9 @@ public class FlightController {
   // repo that holds flight reservations
   @Autowired
   ReservationRepository reservationRepository;
+  
+  @Autowired
+  FlightListService flightListService;
 
   @GetMapping("/reservation")
   public String getLocationInfo(Model model) {
@@ -43,6 +51,15 @@ public class FlightController {
 
     return "display_flight_listing";
 
+  }
+  
+  @GetMapping("/flights/list")
+  public String listFlights (Model model, HttpServletRequest request, HttpServletResponse response) {
+      
+      FlightInfo flightList = flightListService.getFlightList();
+      model.addAttribute("flightList", flightList.getFlights());
+      return "display_flight_listing";
+      
   }
 
   @GetMapping("/receipt")
