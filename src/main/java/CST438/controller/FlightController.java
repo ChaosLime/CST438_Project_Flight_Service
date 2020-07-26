@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import CST438.domain.LocationInfo;
-import CST438.domain.ReservationRepository;
+import CST438.domain.FlightRepository;
 import CST438.service.FlightListService;
 import CST438.domain.FlightInfo;
 
@@ -20,7 +20,7 @@ public class FlightController {
 
   // repo that holds flight reservations
   @Autowired
-  ReservationRepository reservationRepository;
+  FlightRepository reservationRepository;
   
   @Autowired
   FlightListService flightListService;

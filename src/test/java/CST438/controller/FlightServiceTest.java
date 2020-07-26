@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import CST438.domain.ReservationRepository;
+import CST438.domain.FlightRepository;
 
 @SpringBootTest
 public class FlightServiceTest {
@@ -17,6 +17,6 @@ public class FlightServiceTest {
 	
 	
 	@MockBean
-	  private ReservationRepository reservationRepository;
+	  private FlightRepository reservationRepository;
 
 }
