@@ -17,8 +17,8 @@
 	</style>
 </head>
 <body>
-	<h2>Flight Listing</h2>
-	<!-- 
+	<h3>Flight Listing</h3>
+	<a>(TODO:put field selectors here for API call?)</a>
 	<table>
 		<tr>
 			<th>ID</th>
@@ -35,14 +35,5 @@
 			<td th:text="${flight.endDate}"></td>
 		</tr>
 	</table>
-	-->
-	<div>
-
-        Flight List
-        <ul th:each="flight : ${flightList}">
-		    <li th:text="${flight}"></li>
-		</ul>
-        
-    </div>
 </body>
 </html>

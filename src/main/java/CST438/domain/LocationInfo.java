@@ -1,6 +1,5 @@
 package CST438.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,19 +15,15 @@ public class LocationInfo {
   private long id;
 
   @NotNull
-  @Column(name="origin")
   private String originCity;
 
   @NotNull
-  @Column(name="destination")
   private String destinationCity;
 
   @NotNull
-  @Column(name="start")
   private String startDate;
 
   @NotNull
-  @Column(name="end")
   private String endDate;
 
   public LocationInfo() {
