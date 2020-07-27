@@ -17,6 +17,11 @@ public class FlightController {
   @Autowired
   ReservationRepository reservationRepository;
 
+  @GetMapping("/")
+  public String landingPage() {
+    return "landing_page";
+  }
+
   @GetMapping("/reservation")
   public String getLocationInfo(Model model) {
     LocationInfo location = new LocationInfo();
