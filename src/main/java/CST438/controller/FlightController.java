@@ -12,8 +12,6 @@ import CST438.domain.ReservationRepository;
 @Controller
 public class FlightController {
 
-
-  // repo that holds flight reservations
   @Autowired
   ReservationRepository reservationRepository;
 
@@ -40,21 +38,8 @@ public class FlightController {
     model.addAttribute("startDate", startDate);
     model.addAttribute("endDate", endDate);
 
-    // TODO: set up and retrieve API for geolocation for reservation/api page
-    // TODO: return geolocation object from API and pass into flight API.
-    // TODO: set up and retrive API for flight info.
-    // TODO: use flight API object for both locations, and return object to be passed
-    // into the display_flight_listing page
-
     return "display_flight_listing";
 
   }
 
-  @GetMapping("/receipt")
-  public String showRecept(Model model) {
-
-    // TODO: pass API object created from the booking service.
-    return "reservation_receipt";
-
-  }
 }
