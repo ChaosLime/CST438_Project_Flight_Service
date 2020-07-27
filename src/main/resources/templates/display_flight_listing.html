@@ -17,21 +17,43 @@
 	</style>
 </head>
 <body>
-	<h3>Flight Listing</h3>
+	<h3 th:inline="text">Flights Leaving [[${departDate}]]</h3>
 	<table>
 		<tr>
 			<th>Flight #</th>
-			<th>Date</th>
 			<th>Airline</th>
-			<th>Depart</th>
-			<th>Arrive</th>
+			<th>Departing City</th>
+			<th>Arrival City</th>
+			<th>Departure Time</th>
+			<th>Arrival Time</th>
 		</tr>
-		<tr th:each="flight : ${flights}">
-			<td th:text="${flight.flightNumber}"></td>
-			<td th:text="${flight.date}"></td>
-			<td th:text="${flight.airline}"></td>
-			<td th:text="${flight.departureAirport}"></td>
-			<td th:text="${flight.arrivalAirport}"></td>
+		<tr th:each="departureFlight : ${departureFlights}">
+			<td th:text="${departureFlight.flightNumber}"></td>
+			<td th:text="${departureFlight.airline}"></td>
+			<td th:text="${departureFlight.departureAirport}"></td>
+			<td th:text="${departureFlight.arrivalAirport}"></td>
+			<td th:text="${departureFlight.departureTime}"></td>
+			<td th:text="${departureFlight.arrivalTime}"></td>
+		</tr>
+	</table>
+	<br />
+	<h3 th:inline="text">Flights Returning [[${returnDate}]]</h3>
+	<table>
+		<tr>
+			<th>Flight #</th>
+			<th>Airline</th>
+			<th>Departing City</th>
+			<th>Arrival City</th>
+			<th>Departure Time</th>
+			<th>Arrival Time</th>
+		</tr>
+		<tr th:each="returnFlight : ${returnFlights}">
+			<td th:text="${returnFlight.flightNumber}"></td>
+			<td th:text="${returnFlight.airline}"></td>
+			<td th:text="${returnFlight.departureAirport}"></td>
+			<td th:text="${returnFlight.arrivalAirport}"></td>
+			<td th:text="${returnFlight.departureTime}"></td>
+			<td th:text="${returnFlight.arrivalTime}"></td>
 		</tr>
 	</table>
 </body>

@@ -42,12 +42,16 @@ public class FlightController {
       Model model) {
 
     startDate = formatFlightDate(startDate);
-
     List<Flight> departureFlights = flightService.getFlightList(startDate, originCity,
         destinationCity);
+
+    model.addAttribute("departDate", startDate);
+    model.addAttribute("departureFlights", departureFlights);
+
+    endDate = formatFlightDate(endDate);
     List<Flight> returnFlights = flightService.getFlightList(endDate, destinationCity, originCity);
 
-    model.addAttribute("flights", departureFlights);
+    model.addAttribute("returnDate", endDate);
     model.addAttribute("returnFlights", returnFlights);
 
     return "display_flight_listing";
