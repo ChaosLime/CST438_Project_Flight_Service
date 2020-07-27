@@ -1,37 +1,27 @@
 package CST438.domain;
 
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "dummy_flight_data")
 public class Flight {
 
-  @NotNull
+  @Id
   private int flightNumber;
-
-  @NotNull
   private String airline;
-
-  @NotNull
   private String departureAirport;
-
-  @NotNull
   private String departureTime;
-
-  @NotNull
   private String arrivalAirport;
-
-  @NotNull
   private String arrivalTime;
-
-  @NotNull
   private String date;
 
   public Flight() {
-
+    this(0, "airline", "departureAirport", "departureTime", "arrivalAirport", "arrivalTime",
+        "date");
   }
 
-  public Flight(@NotNull int flightNumber, @NotNull String airline,
-      @NotNull String departureAirport, @NotNull String departureTime,
-      @NotNull String arrivalAirport, @NotNull String arrivalTime, @NotNull String date) {
+  public Flight(int flightNumber, String airline, String departureAirport, String departureTime,
+      String arrivalAirport, String arrivalTime, String date) {
     super();
     this.flightNumber = flightNumber;
     this.airline = airline;
