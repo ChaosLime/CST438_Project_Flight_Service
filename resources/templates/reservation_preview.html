@@ -17,8 +17,9 @@
 	</style>
 </head>
 <body>
-	<h2>Flight Listing</h2>
-	<!-- 
+	<h3>Flight Reservation preview</h3>
+	This page should display the clients flight info that 
+	they have choosen and allow them to confirm, edit, or cancel at this stage.
 	<table>
 		<tr>
 			<th>ID</th>
@@ -35,14 +36,5 @@
 			<td th:text="${flight.endDate}"></td>
 		</tr>
 	</table>
-	-->
-	<div>
-
-        Flight List
-        <ul th:each="flight : ${flightList}">
-		    <li th:text="${flight}"></li>
-		</ul>
-        
-    </div>
 </body>
 </html>

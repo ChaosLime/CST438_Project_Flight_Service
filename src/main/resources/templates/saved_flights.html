@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymeleaf.org">
 <head>
-    <title>Flights</title>
+	 <title>Saved Flights</title>
     <style>
 		table {
 		  border-collapse: collapse;
@@ -17,8 +17,8 @@
 	</style>
 </head>
 <body>
-	<h2>Flight Listing</h2>
-	<!-- 
+	<h3>Saved Flight Info</h3>
+	
 	<table>
 		<tr>
 			<th>ID</th>
@@ -27,7 +27,7 @@
 			<th>startDate</th>
 			<th>endDate</th>
 		</tr>
-		<tr th:each="flight : ${flights}">
+		<tr>
 			<td th:text="${flight.id}"></td>
 			<td th:text="${flight.originCity}"></td>
 			<td th:text="${flight.destinationCity}"></td>
@@ -35,14 +35,5 @@
 			<td th:text="${flight.endDate}"></td>
 		</tr>
 	</table>
-	-->
-	<div>
-
-        Flight List
-        <ul th:each="flight : ${flightList}">
-		    <li th:text="${flight}"></li>
-		</ul>
-        
-    </div>
 </body>
 </html>

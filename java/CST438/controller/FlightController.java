@@ -1,18 +1,17 @@
 package CST438.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import CST438.domain.LocationInfo;
-import CST438.domain.FlightRepository;
-import CST438.service.FlightListService;
-import CST438.domain.FlightInfo;
+import CST438.domain.ReservationRepository;
 
 @Controller
 public class FlightController {
@@ -20,10 +19,7 @@ public class FlightController {
 
   // repo that holds flight reservations
   @Autowired
-  FlightRepository reservationRepository;
-  
-  @Autowired
-  FlightListService flightListService;
+  ReservationRepository reservationRepository;
 
   @GetMapping("/reservation")
   public String getLocationInfo(Model model) {
@@ -53,13 +49,18 @@ public class FlightController {
 
   }
   
-  @GetMapping("/flights/list")
-  public String listFlights (Model model, HttpServletRequest request, HttpServletResponse response) {
-      
-      FlightInfo flightList = flightListService.getFlightList();
-      model.addAttribute("flightList", flightList.getFlights());
-      return "display_flight_listing";
-      
+  @PostMapping("/flights/add")
+  public String processMovieForm(@Valid LocationInfo flight, BindingResult result, Model model) {
+
+    // Spring validates form input via POST message from http, and if no errors then
+    if (result.hasErrors()) {
+      return "reservation_form";
+    }
+    
+    reservationRepository.save(flight);
+
+    return "saved_flights";
+
   }
 
   @GetMapping("/receipt")
