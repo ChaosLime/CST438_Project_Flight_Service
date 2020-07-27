@@ -20,18 +20,18 @@
 	<h3>Flight Listing</h3>
 	<table>
 		<tr>
-			<th>ID</th>
-			<th>origin</th>
-			<th>destination</th>
-			<th>startDate</th>
-			<th>endDate</th>
+			<th>Flight #</th>
+			<th>Date</th>
+			<th>Airline</th>
+			<th>Depart</th>
+			<th>Arrive</th>
 		</tr>
 		<tr th:each="flight : ${flights}">
-			<td th:text="${flight.id}"></td>
-			<td th:text="${flight.originCity}"></td>
-			<td th:text="${flight.destinationCity}"></td>
-			<td th:text="${flight.startDate}"></td>
-			<td th:text="${flight.endDate}"></td>
+			<td th:text="${flight.flightNumber}"></td>
+			<td th:text="${flight.date}"></td>
+			<td th:text="${flight.airline}"></td>
+			<td th:text="${flight.departureAirport}"></td>
+			<td th:text="${flight.arrivalAirport}"></td>
 		</tr>
 	</table>
 </body>
