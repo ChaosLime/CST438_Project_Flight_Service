@@ -15,4 +15,12 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
       @Param("departureAirport") String departureAirport,
       @Param("arrivalAirport") String arrivalAirport);
 
+  @Query("SELECT flight FROM Flight flight")
+  List<Flight> findAllFlights();
+
+  @Query(value = "SELECT * FROM dummy_flight_data WHERE arrivalAirport = ?1", nativeQuery = true)
+  List<Flight> findByArrivalAirport(String arrivalAirport);
+
+  @Query(value = "SELECT * FROM dummy_flight_data WHERE date = ?1", nativeQuery = true)
+  List<Flight> findByDate(String date);
 }

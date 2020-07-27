@@ -11,13 +11,14 @@ public class Flight {
   private String airline;
   private String departureAirport;
   private String departureTime;
+  private String date;
   private String arrivalAirport;
   private String arrivalTime;
-  private String date;
 
   public Flight() {
-    this(0, "airline", "departureAirport", "departureTime", "arrivalAirport", "arrivalTime",
-        "date");
+    // this(0, "airline", "departureAirport", "departureTime", "arrivalAirport",
+    // "arrivalTime",
+    // "date");
   }
 
   public Flight(int flightNumber, String airline, String departureAirport, String departureTime,
