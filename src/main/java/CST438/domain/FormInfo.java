@@ -3,37 +3,42 @@ package CST438.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 import com.sun.istack.NotNull;
 
-// TODO: what more info is required for API calls?
-// TODO: input validation
 @Entity
-public class LocationInfo {
+public class FormInfo {
 
   @Id
   @GeneratedValue
   private long id;
 
   @NotNull
-  private String originCity;
+  @Size(min = 1, max = 25)
+  public String originCity;
 
   @NotNull
-  private String destinationCity;
+  @Size(min = 1, max = 25)
+  public String destinationCity;
+
+  // TODO: Change @size to something more approiate?
+  // Consider using datatype date or datatime?
+  @NotNull
+  @Size(min = 10, max = 10)
+  public String startDate;
 
   @NotNull
-  private String startDate;
+  @Size(min = 10, max = 10)
+  public String endDate;
 
-  @NotNull
-  private String endDate;
-
-  public LocationInfo() {
+  public FormInfo() {
     originCity = null;
     destinationCity = null;
     startDate = null;
     endDate = null;
   }
 
-  public LocationInfo(long id, String originCity, String destinationCity, String startDate,
+  public FormInfo(long id, String originCity, String destinationCity, String startDate,
       String endDate) {
     super();
     this.id = id;
