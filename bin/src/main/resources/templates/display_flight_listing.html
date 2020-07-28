@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Flights</title>
+    <style>
+		table {
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+		
+		th, td {
+		  text-align: left;
+		  padding: 8px;
+		}
+		
+		tr:nth-child(even) {background-color: #f2f2f2;}
+	</style>
+</head>
+<body>
+	<h3 th:inline="text">Flights Leaving [[${departDate}]]</h3>
+	<table>
+		<tr>
+			<th>Flight #</th>
+			<th>Airline</th>
+			<th>Departing City</th>
+			<th>Arrival City</th>
+			<th>Departure Time</th>
+			<th>Arrival Time</th>
+		</tr>
+		<tr th:each="departureFlight : ${departureFlights}">
+			<td th:text="${departureFlight.flightNumber}"></td>
+			<td th:text="${departureFlight.airline}"></td>
+			<td th:text="${departureFlight.departureAirport}"></td>
+			<td th:text="${departureFlight.arrivalAirport}"></td>
+			<td th:text="${departureFlight.departureTime}"></td>
+			<td th:text="${departureFlight.arrivalTime}"></td>
+		</tr>
+	</table>
+	<br />
+	<h3 th:inline="text">Flights Returning [[${returnDate}]]</h3>
+	<table>
+		<tr>
+			<th>Flight #</th>
+			<th>Airline</th>
+			<th>Departing City</th>
+			<th>Arrival City</th>
+			<th>Departure Time</th>
+			<th>Arrival Time</th>
+		</tr>
+		<tr th:each="returnFlight : ${returnFlights}">
+			<td th:text="${returnFlight.flightNumber}"></td>
+			<td th:text="${returnFlight.airline}"></td>
+			<td th:text="${returnFlight.departureAirport}"></td>
+			<td th:text="${returnFlight.arrivalAirport}"></td>
+			<td th:text="${returnFlight.departureTime}"></td>
+			<td th:text="${returnFlight.arrivalTime}"></td>
+		</tr>
+	</table>
+</body>
+</html>

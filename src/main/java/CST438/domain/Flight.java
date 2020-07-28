@@ -15,6 +15,9 @@ public class Flight {
   private String arrivalAirport;
   private String arrivalTime;
 
+  //@JoinColumn(name = "flightNumber")
+  //private FlightSeatInfo flightSeatInfo;
+  
   public Flight() {
     // this(0, "airline", "departureAirport", "departureTime", "arrivalAirport",
     // "arrivalTime",
@@ -22,7 +25,7 @@ public class Flight {
   }
 
   public Flight(int flightNumber, String airline, String departureAirport, String departureTime,
-      String arrivalAirport, String arrivalTime, String date) {
+      String arrivalAirport, String arrivalTime, String date, FlightSeatInfo f) {
     super();
     this.flightNumber = flightNumber;
     this.airline = airline;
@@ -31,6 +34,7 @@ public class Flight {
     this.arrivalAirport = arrivalAirport;
     this.arrivalTime = arrivalTime;
     this.date = date;
+    //this.flightSeatInfo = f;
   }
 
   public String getAirline() {
@@ -88,5 +92,15 @@ public class Flight {
   public void setArrivalAirport(String arrivalAirport) {
     this.arrivalAirport = arrivalAirport;
   }
+  
+  /*
+  public FlightSeatInfo getFlightSeatInfo() {
+    return flightSeatInfo;
+  }
+
+  public void setFlightSeatInfo(FlightSeatInfo flightSeatInfo) {
+    this.flightSeatInfo = flightSeatInfo;
+  }
+  */
 
 }
