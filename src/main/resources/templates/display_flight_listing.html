@@ -18,6 +18,7 @@
 </head>
 <body>
 	<h3 th:inline="text">Flights Leaving [[${departDate}]]</h3>
+	<a th:inline="text">[[${departNotFound}]]</a>
 	<table>
 		<tr>
 			<th>Flight #</th>
@@ -28,7 +29,7 @@
 			<th>Arrival Time</th>
 		</tr>
 		<tr th:each="departureFlight : ${departureFlights}">
-			<td th:text="${departureFlight.flightNumber}"></td>
+		    <td th:text="${departureFlight.flightNumber}"></td>
 			<td th:text="${departureFlight.airline}"></td>
 			<td th:text="${departureFlight.departureAirport}"></td>
 			<td th:text="${departureFlight.arrivalAirport}"></td>
@@ -38,6 +39,7 @@
 	</table>
 	<br />
 	<h3 th:inline="text">Flights Returning [[${returnDate}]]</h3>
+	<a th:inline="text">[[${returnNotFound}]]</a>
 	<table>
 		<tr>
 			<th>Flight #</th>
