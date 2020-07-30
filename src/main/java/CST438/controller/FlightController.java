@@ -9,7 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import CST438.domain.Flight;
+import CST438.domain.FlightInfo;
 import CST438.domain.FormInfo;
 import CST438.service.FlightService;
 
@@ -48,8 +48,8 @@ public class FlightController {
     String flightNotFound;
 
     startDate = formatFlightDate(startDate);
-    List<Flight> departureFlights =
-        flightService.getFlightList(startDate, originCity, destinationCity);
+    List<FlightInfo> departureFlights = flightService.getFlightAndSeatInfo(startDate, originCity,
+        destinationCity);
 
     // If no departure flights are found
     if (departureFlights.isEmpty()) {
@@ -62,9 +62,9 @@ public class FlightController {
     model.addAttribute("departDate", startDate);
     model.addAttribute("departureFlights", departureFlights);
 
-
     endDate = formatFlightDate(endDate);
-    List<Flight> returnFlights = flightService.getFlightList(endDate, destinationCity, originCity);
+    List<FlightInfo> returnFlights = flightService.getFlightAndSeatInfo(endDate, destinationCity,
+        originCity);
 
     // If no return flights are found
     if (returnFlights.isEmpty()) {
@@ -76,7 +76,6 @@ public class FlightController {
     model.addAttribute("returnNotFound", flightNotFound);
     model.addAttribute("returnDate", endDate);
     model.addAttribute("returnFlights", returnFlights);
-
 
     return "display_flight_listing";
   }

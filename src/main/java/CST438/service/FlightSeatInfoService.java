@@ -10,15 +10,15 @@ import CST438.domain.*;
 @Service
 public class FlightSeatInfoService {
 
-	@Autowired
-	FlightSeatInfoRepository flightSeatRepo;
-	
-	public List<FlightSeatInfo> getSeatInfo(String flightNumber, int seatsAvailable, String seatType) {
-	    
-		List<FlightSeatInfo> seatInfo = flightSeatRepo.findByFlightNumber(flightNumber);
+  @Autowired
+  FlightSeatInfoRepository flightSeatRepo;
 
-	    return seatInfo;
-	    
-	}
+  public List<FlightSeatInfo> getSeatInfo(int flightNumber, int seatsAvailable, String seatType) {
+
+    List<FlightSeatInfo> seatInfo = flightSeatRepo.findByFlightNumber(flightNumber);
+
+    return seatInfo;
+
+  }
 
 }
