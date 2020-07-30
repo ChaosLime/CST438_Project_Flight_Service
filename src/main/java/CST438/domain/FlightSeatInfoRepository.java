@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FlightSeatInfoRepository extends JpaRepository<FlightSeatInfo, String> {
 
-  @Query(value = "SELECT * FROM dummy_flight_seat_information WHERE flightNumber = ?1", nativeQuery = true)
+  @Query(value = "SELECT * FROM dummy_flight_seat_information WHERE flight_number = ?1", nativeQuery = true)
   List<FlightSeatInfo> findByFlightNumber(int flightNumber);
 
 }

@@ -39,18 +39,9 @@ public class FlightService {
       List<FlightSeatInfo> seatInfoList = seatInfoRepository
           .findByFlightNumber(flight.getFlightNumber());
 
-      System.out.println(flight.getFlightNumber());
-
       for (FlightSeatInfo seatInfo : seatInfoList) {
         flightInfo.add(new FlightInfo(flight, seatInfo));
-        System.out.println("seat");
       }
-    }
-
-    for (FlightInfo f : flightInfo) {
-      System.out.print(f.getFlight().getFlightNumber());
-      System.out.print(" - ");
-      System.out.println(f.getSeatInfo().getSeatsAvailable());
     }
 
     return flightInfo;

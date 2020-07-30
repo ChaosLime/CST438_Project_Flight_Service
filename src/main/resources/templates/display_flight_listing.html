@@ -17,58 +17,63 @@
 	</style>
 </head>
 <body>
-	<h3 th:inline="text">Flights Leaving [[${departDate}]]</h3>
+<form action="#" th:action="@{/reservationConfirmation}" method="post">
+	<h3>Departure Flights</h3>
+	<h4 th:inline="text"><strong>DATE:</strong> [[${departureFlights[0].flight.date}]]
+	  <strong>FROM:</strong> [[${departureFlights[0].flight.departureAirport}]]
+	  <strong>TO:</strong> [[${departureFlights[0].flight.arrivalAirport}]]</h4>
 	<a th:inline="text">[[${departNotFound}]]</a>
 	<table>
 		<tr>
 			<th>Flight #</th>
 			<th>Airline</th>
-			<th>Departing City</th>
-			<th>Arrival City</th>
 			<th>Departure Time</th>
 			<th>Arrival Time</th>
 			<th>Seats Available</th>
 			<th>Seat Type</th>
 			<th>Cost</th>
+			<th>Selection</th>
 		</tr>
 		<tr th:each="departureFlight : ${departureFlights}">
 		    <td th:text="${departureFlight.flight.flightNumber}"></td>
 			<td th:text="${departureFlight.flight.airline}"></td>
-			<td th:text="${departureFlight.flight.departureAirport}"></td>
-			<td th:text="${departureFlight.flight.arrivalAirport}"></td>
 			<td th:text="${departureFlight.flight.departureTime}"></td>
 			<td th:text="${departureFlight.flight.arrivalTime}"></td>
 			<td th:text="${departureFlight.seatInfo.seatsAvailable}"></td>
 			<td th:text="${departureFlight.seatInfo.seatType}"></td>
 			<td th:text="${departureFlight.seatInfo.cost}"></td>
+			<td> <input type="radio" name="departureFlight" th:value="${departureFlight}"> </td>
 		</tr>
 	</table>
 	<br />
-	<h3 th:inline="text">Flights Returning [[${returnDate}]]</h3>
+	<h3 th:inline="text">Return Flights</h3>
+	<h4 th:inline="text"><strong>DATE:</strong> [[${returnFlights[0].flight.date}]]
+	  <strong>FROM:</strong> [[${returnFlights[0].flight.departureAirport}]]
+	  <strong>TO:</strong> [[${returnFlights[0].flight.arrivalAirport}]]</h4>
 	<a th:inline="text">[[${returnNotFound}]]</a>
 	<table>
 		<tr>
 			<th>Flight #</th>
 			<th>Airline</th>
-			<th>Departing City</th>
-			<th>Arrival City</th>
 			<th>Departure Time</th>
 			<th>Arrival Time</th>
 			<th>Seats Available</th>
 			<th>Seat Type</th>
 			<th>Cost</th>
+			<th>Selection</th>
 		</tr>
 		<tr th:each="returnFlight : ${returnFlights}">
 		    <td th:text="${returnFlight.flight.flightNumber}"></td>
 			<td th:text="${returnFlight.flight.airline}"></td>
-			<td th:text="${returnFlight.flight.departureAirport}"></td>
-			<td th:text="${returnFlight.flight.arrivalAirport}"></td>
 			<td th:text="${returnFlight.flight.departureTime}"></td>
 			<td th:text="${returnFlight.flight.arrivalTime}"></td>
 			<td th:text="${returnFlight.seatInfo.seatsAvailable}"></td>
 			<td th:text="${returnFlight.seatInfo.seatType}"></td>
 			<td th:text="${returnFlight.seatInfo.cost}"></td>
+			<td> <input type="radio" name="returnFlight" th:value="${returnFlight}"> </td>
 		</tr>
 	</table>
+	<input type="submit" value="Submit" />
+	</form>
 </body>
 </html>
