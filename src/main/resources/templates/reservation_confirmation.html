@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Flight Confirmation</title>
+    <style>
+		table {
+		  border-collapse: collapse;
+		  width: 90%;
+		}
+		
+		th, td {
+		  text-align: left;
+		  padding: 8px;
+		}
+		
+		tr:nth-child(even) {background-color: #f2f2f2;}
+	</style>
+</head>
+<body>
+    <h2>Your Flights Have Been Confirmed</h2>
+	<h3>Departure Flight</h3>
+	<h2 th:inline="text">Seat Id: [[${departureFlight}]]</h2>
+	
+	<h3>Return Flight</h3>
+	<h2 th:inline="text">Seat Id: [[${returnFlight}]]</h2>
+
+</body>
+</html>

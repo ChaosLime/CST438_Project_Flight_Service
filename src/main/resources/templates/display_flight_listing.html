@@ -5,7 +5,7 @@
     <style>
 		table {
 		  border-collapse: collapse;
-		  width: 100%;
+		  width: 90%;
 		}
 		
 		th, td {
@@ -42,7 +42,7 @@
 			<td th:text="${departureFlight.seatInfo.seatsAvailable}"></td>
 			<td th:text="${departureFlight.seatInfo.seatType}"></td>
 			<td th:text="${departureFlight.seatInfo.cost}"></td>
-			<td> <input type="radio" name="departureFlight" th:value="${departureFlight}"> </td>
+			<td> <input type="radio" name="departureFlight" th:value="${departureFlight.seatInfo.Id}"> </td>
 		</tr>
 	</table>
 	<br />
@@ -70,7 +70,7 @@
 			<td th:text="${returnFlight.seatInfo.seatsAvailable}"></td>
 			<td th:text="${returnFlight.seatInfo.seatType}"></td>
 			<td th:text="${returnFlight.seatInfo.cost}"></td>
-			<td> <input type="radio" name="returnFlight" th:value="${returnFlight}"> </td>
+			<td> <input type="radio" name="returnFlight" th:value="${returnFlight.seatInfo.Id}"> </td>
 		</tr>
 	</table>
 	<input type="submit" value="Submit" />

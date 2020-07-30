@@ -80,6 +80,18 @@ public class FlightController {
     return "display_flight_listing";
   }
 
+  @PostMapping("/reservationConfirmation")
+  public String returnConfirmation(@RequestParam("departureFlight") int departureFlightSeatInfoId,
+      @RequestParam("returnFlight") int returnFlightSeatInfoId, Model model) {
+
+    // TODO: remove 1 seat from db and enter into booked db
+
+    model.addAttribute("departureFlight", departureFlightSeatInfoId);
+    model.addAttribute("returnFlight", returnFlightSeatInfoId);
+
+    return "reservation_confirmation";
+  }
+
   private String formatFlightDate(String date) {
 
     String properDateFormat = date.substring(5).replace('-', '/');
