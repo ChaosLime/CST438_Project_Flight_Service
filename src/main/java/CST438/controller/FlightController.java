@@ -11,27 +11,124 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import CST438.domain.Flight;
 import CST438.domain.FormInfo;
+import CST438.domain.User;
 import CST438.service.FlightService;
+import CST438.service.UserService;
 
 @Controller
 public class FlightController {
 
-  // @Autowired
-  // ReservationRepository reservationRepository;
-
   @Autowired
   FlightService flightService;
 
+  @Autowired
+  UserService userService;
+
   @GetMapping("/")
-  public String landingPage() {
+  public String landingPage(@Valid User user, BindingResult result, Model model) {
+    User newUser = new User();
+    model.addAttribute("newUser", newUser);
     return "landing_page";
   }
 
-  @GetMapping("/reservation")
-  public String getFormInfo(Model model) {
+  // For returning or existing users only
+  @PostMapping("/user_directory")
+  public String getUserDirectory(String email, Model model) {
+    List<User> currentUserInfo = userService.getAccountInfo(email);
+
+    String error = "";
+
+    if (currentUserInfo.isEmpty()) {
+      error = "Email [" + email
+          + "] is not found in our database. If this is a mistake, please check spelling and try again.";
+      System.out.println("Email [" + email + "] is not found in user table.");
+      model.addAttribute("error", error);
+      return "error_page";
+    } else {
+      error = "";
+    }
+
+    System.out.println("Email [" + email + "] found. Existing User.");
+    model.addAttribute("userInfo", currentUserInfo);
+
+    model.addAttribute("error", error);
+    return "user_directory";
+  }
+
+  // For new user path
+  @PostMapping("/new_user")
+  public String getNewUserDirectory(@Valid User newUser, BindingResult result, Model model) {
+    String email = newUser.getEmail();
+    String first_name = newUser.getFirst_name();
+    String last_name = newUser.getLast_name();
+
+    // check if email exists already in db
+    List<User> doesUserExist = userService.getAccountInfo(email);
+
+    // Error validation and user input handling.
+    String error = "";
+
+    if (!doesUserExist.isEmpty()) {
+      System.out.println("Email [" + email + "] exists already. Can not create new account.");
+
+      error = "Account with the email [" + email
+          + "] already exists. Can not make an account when it already exists.";
+      model.addAttribute("error", error);
+      return "error_page";
+
+    } else {
+      error = "";
+      if (email.isBlank()) {
+        System.out.println("Email entered was blank");
+      } else {
+        System.out.println("Email [" + email + "] is not recorded in the user table");
+      }
+    }
+
+    // Checking user inputs for edge cases.
+    if (first_name.equals("")) {
+      error = "Account Creation Failed. First Name can not be left blank, please try again";
+      model.addAttribute("error", error);
+      return "error_page";
+    } else {
+      error = "";
+    }
+    if (last_name.equals("")) {
+      error = "Account Creation Failed. Last Name can not be left blank, please try again";
+      model.addAttribute("error", error);
+      return "error_page";
+    } else {
+      error = "";
+    }
+    if (email.equals("")) {
+      error = "Account Creation Failed. Email can not be left blank, please try again";
+      model.addAttribute("error", error);
+      return "error_page";
+    } else {
+      error = "";
+    }
+
+    System.out.println("New User generated.");
+    System.out.println("Saving new user into database.");
+    userService.saveIntoDatabase(newUser);
+
+    model.addAttribute("userInfo", newUser);
+
+    return "new_user";
+  }
+
+  @PostMapping("/reservation")
+  public String getFormInfo(@Valid User userInfo, BindingResult result, Model model) {
     FormInfo formInfo = new FormInfo();
     model.addAttribute("formInfo", formInfo);
+    model.addAttribute("userInfo", userInfo);
     return "reservation_form";
+  }
+
+  @PostMapping("/view_reservations")
+  public String viewReservations(@Valid User userInfo, BindingResult result, Model model) {
+    model.addAttribute("userInfo", userInfo);
+    return "view_reservations";
   }
 
   @PostMapping("/flights")
