@@ -1,7 +1,5 @@
 package CST438.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +11,22 @@ public class FlightSeatInfoService {
   @Autowired
   FlightSeatInfoRepository flightSeatRepo;
 
-  public List<FlightSeatInfo> getSeatInfo(int flightNumber, int seatsAvailable, String seatType) {
+  @Autowired
+  FlightRepository flightRepo;
 
-    List<FlightSeatInfo> seatInfo = flightSeatRepo.findByFlightNumber(flightNumber);
+  public FlightInfo getFlight(int seatInfoId) {
 
-    return seatInfo;
+    FlightSeatInfo seatInfo = flightSeatRepo.findById(seatInfoId);
 
+    // remove a seat from available in db
+    seatInfo.setSeatsAvailable(seatInfo.getSeatsAvailable() - 1);
+    flightSeatRepo.save(seatInfo);
+
+    Flight flight = flightRepo.findByFlightNumber(seatInfo.getFlightNumber());
+
+    FlightInfo flightInfo = new FlightInfo(flight, seatInfo);
+
+    return flightInfo;
   }
 
 }

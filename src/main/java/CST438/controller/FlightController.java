@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import CST438.domain.FlightInfo;
 import CST438.domain.FormInfo;
+import CST438.service.FlightSeatInfoService;
 import CST438.service.FlightService;
 
 @Controller
@@ -21,6 +22,9 @@ public class FlightController {
 
   @Autowired
   FlightService flightService;
+
+  @Autowired
+  FlightSeatInfoService seatInfoService;
 
   @GetMapping("/")
   public String landingPage() {
@@ -84,10 +88,17 @@ public class FlightController {
   public String returnConfirmation(@RequestParam("departureFlight") int departureFlightSeatInfoId,
       @RequestParam("returnFlight") int returnFlightSeatInfoId, Model model) {
 
-    // TODO: remove 1 seat from db and enter into booked db
+    // TODO: remove 1 seat from db and enter into booked db.
+    FlightInfo departureFlight = seatInfoService.getFlight(departureFlightSeatInfoId);
+    model.addAttribute("departureFlight", departureFlight);
 
-    model.addAttribute("departureFlight", departureFlightSeatInfoId);
-    model.addAttribute("returnFlight", returnFlightSeatInfoId);
+    FlightInfo returnFlight = seatInfoService.getFlight(returnFlightSeatInfoId);
+    model.addAttribute("returnFlight", returnFlight);
+
+    double totalCost = departureFlight.getSeatInfo().getCost()
+        + returnFlight.getSeatInfo().getCost();
+    totalCost = Math.round(totalCost * 100d) / 100d; // two decimals only
+    model.addAttribute("totalCost", totalCost);
 
     return "reservation_confirmation";
   }
