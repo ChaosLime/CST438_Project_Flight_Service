@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Error</title>
+</head>
+<body>
+	<h1>The Flight Reservation System&#8482;</h1>
+	
+	An Error has occurred!<br>
+	<a th:inline="text">[[${error}]]</a><br>
+
+	<a href="/">Try again?</a>
+	</body>
+</html>
