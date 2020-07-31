@@ -1,6 +1,8 @@
 package CST438.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "dummy_flight_data")
@@ -15,9 +17,9 @@ public class Flight {
   private String arrivalAirport;
   private String arrivalTime;
 
-  //@JoinColumn(name = "flightNumber")
-  //private FlightSeatInfo flightSeatInfo;
-  
+  // @JoinColumn(name = "flightNumber")
+  // private FlightSeatInfo flightSeatInfo;
+
   public Flight() {
     // this(0, "airline", "departureAirport", "departureTime", "arrivalAirport",
     // "arrivalTime",
@@ -34,7 +36,7 @@ public class Flight {
     this.arrivalAirport = arrivalAirport;
     this.arrivalTime = arrivalTime;
     this.date = date;
-    //this.flightSeatInfo = f;
+    // this.flightSeatInfo = f;
   }
 
   public String getAirline() {
@@ -92,15 +94,12 @@ public class Flight {
   public void setArrivalAirport(String arrivalAirport) {
     this.arrivalAirport = arrivalAirport;
   }
-  
-  /*
-  public FlightSeatInfo getFlightSeatInfo() {
-    return flightSeatInfo;
-  }
 
-  public void setFlightSeatInfo(FlightSeatInfo flightSeatInfo) {
-    this.flightSeatInfo = flightSeatInfo;
-  }
-  */
+  /*
+   * public FlightSeatInfo getFlightSeatInfo() { return flightSeatInfo; }
+   * 
+   * public void setFlightSeatInfo(FlightSeatInfo flightSeatInfo) { this.flightSeatInfo =
+   * flightSeatInfo; }
+   */
 
 }
