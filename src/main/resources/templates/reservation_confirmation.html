@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Flight Confirmation</title>
+    <style>
+		table {
+		  border-collapse: collapse;
+		  width: 90%;
+		}
+		
+		th, td {
+		  text-align: left;
+		  padding: 8px;
+		}
+		
+		tr:nth-child(even) {background-color: #f2f2f2;}
+	</style>
+</head>
+<body>
+    <h2>Your Flights Have Been Confirmed</h2>
+	<table>
+		<tr>
+			<th>Flight #</th>
+			<th>Airline</th>
+			<th>Seat Type</th>
+			<th>Departure Time</th>
+			<th>Departure Airport</th>
+			<th>Arrival Time</th>
+			<th>Arrival Airport</th>
+			<th>Cost</th>
+		</tr>
+		<tr>
+		    <td th:inline="text">[[${departureFlight.flight.flightNumber}]]</td>
+		    <td th:inline="text">[[${departureFlight.flight.airline}]]</td>
+		    <td th:inline="text">[[${departureFlight.seatInfo.seatType}]]</td>
+		    <td th:inline="text">[[${departureFlight.flight.departureTime}]]</td>
+		    <td th:inline="text">[[${departureFlight.flight.departureAirport}]]</td>
+		    <td th:inline="text">[[${departureFlight.flight.arrivalTime}]]</td>
+		    <td th:inline="text">[[${departureFlight.flight.arrivalAirport}]]</td>    
+		    <td th:inline="text">$[[${departureFlight.seatInfo.cost}]]</td>
+		</tr>
+		<tr>
+		    <td th:inline="text">[[${returnFlight.flight.flightNumber}]]</td>
+		    <td th:inline="text">[[${returnFlight.flight.airline}]]</td>
+		    <td th:inline="text">[[${returnFlight.seatInfo.seatType}]]</td>
+		    <td th:inline="text">[[${returnFlight.flight.departureTime}]]</td>
+		    <td th:inline="text">[[${returnFlight.flight.departureAirport}]]</td>
+		    <td th:inline="text">[[${returnFlight.flight.arrivalTime}]]</td>
+		    <td th:inline="text">[[${returnFlight.flight.arrivalAirport}]]</td>    
+		    <td th:inline="text">$[[${returnFlight.seatInfo.cost}]]</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><strong>Total:</strong></td>
+			<td th:inline="text">$[[${totalCost}]]</td>
+		</tr>
+	</table>
+</body>
+</html>
