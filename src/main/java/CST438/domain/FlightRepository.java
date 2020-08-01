@@ -10,11 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FlightRepository extends JpaRepository<Flight, Long> {
 
-  @Query("SELECT flight FROM Flight flight WHERE flight.date = :date AND flight.departureAirport = :departureAirport AND flight.arrivalAirport = :arrivalAirport")
-  List<Flight> findByDateAndAirports(@Param("date") String date,
-      @Param("departureAirport") String departureAirport,
-      @Param("arrivalAirport") String arrivalAirport);
-
   @Query("SELECT flight FROM Flight flight")
   List<Flight> findAllFlights();
 
@@ -23,4 +18,11 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
 
   @Query(value = "SELECT * FROM dummy_flight_data WHERE date = ?1", nativeQuery = true)
   List<Flight> findByDate(String date);
+
+  @Query("SELECT flight FROM Flight flight WHERE flight.date = :date AND flight.departureAirport = :departureAirport AND flight.arrivalAirport = :arrivalAirport")
+  List<Flight> findByDateAndAirports(@Param("date") String date,
+      @Param("departureAirport") String departureAirport,
+      @Param("arrivalAirport") String arrivalAirport);
+
+  Flight findByFlightNumber(int flightNumber);
 }

@@ -9,9 +9,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import CST438.domain.Flight;
+import CST438.domain.FlightInfo;
 import CST438.domain.FormInfo;
 import CST438.domain.User;
+import CST438.service.FlightSeatInfoService;
 import CST438.service.FlightService;
 import CST438.service.UserService;
 
@@ -23,6 +24,9 @@ public class FlightController {
 
   @Autowired
   UserService userService;
+
+  @Autowired
+  FlightSeatInfoService seatInfoService;
 
   @GetMapping("/")
   public String landingPage(@Valid User user, BindingResult result, Model model) {
@@ -145,8 +149,8 @@ public class FlightController {
     String flightNotFound;
 
     startDate = formatFlightDate(startDate);
-    List<Flight> departureFlights =
-        flightService.getFlightList(startDate, originCity, destinationCity);
+    List<FlightInfo> departureFlights = flightService.getFlightAndSeatInfo(startDate, originCity,
+        destinationCity);
 
     // If no departure flights are found
     if (departureFlights.isEmpty()) {
@@ -159,9 +163,9 @@ public class FlightController {
     model.addAttribute("departDate", startDate);
     model.addAttribute("departureFlights", departureFlights);
 
-
     endDate = formatFlightDate(endDate);
-    List<Flight> returnFlights = flightService.getFlightList(endDate, destinationCity, originCity);
+    List<FlightInfo> returnFlights = flightService.getFlightAndSeatInfo(endDate, destinationCity,
+        originCity);
 
     // If no return flights are found
     if (returnFlights.isEmpty()) {
@@ -174,8 +178,26 @@ public class FlightController {
     model.addAttribute("returnDate", endDate);
     model.addAttribute("returnFlights", returnFlights);
 
-
     return "display_flight_listing";
+  }
+
+  @PostMapping("/reservationConfirmation")
+  public String returnConfirmation(@RequestParam("departureFlight") int departureFlightSeatInfoId,
+      @RequestParam("returnFlight") int returnFlightSeatInfoId, Model model) {
+
+    // TODO: remove 1 seat from db and enter into booked db.
+    FlightInfo departureFlight = seatInfoService.getFlight(departureFlightSeatInfoId);
+    model.addAttribute("departureFlight", departureFlight);
+
+    FlightInfo returnFlight = seatInfoService.getFlight(returnFlightSeatInfoId);
+    model.addAttribute("returnFlight", returnFlight);
+
+    double totalCost = departureFlight.getSeatInfo().getCost()
+        + returnFlight.getSeatInfo().getCost();
+    totalCost = Math.round(totalCost * 100d) / 100d; // two decimals only
+    model.addAttribute("totalCost", totalCost);
+
+    return "reservation_confirmation";
   }
 
   private String formatFlightDate(String date) {
