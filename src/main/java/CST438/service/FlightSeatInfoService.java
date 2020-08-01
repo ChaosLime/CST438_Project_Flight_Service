@@ -28,5 +28,15 @@ public class FlightSeatInfoService {
 
     return flightInfo;
   }
+  
+  /*
+  public FlightSeatInfo findById(int id) {
+	  
+	  FlightSeatInfo seat = flightSeatRepo.findOne(id);
+	  
+	  return seat;
+	  
+  }
+  */
 
 }
