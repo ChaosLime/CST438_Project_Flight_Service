@@ -1,6 +1,5 @@
 package CST438.domain;
 
-import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,17 +12,21 @@ public class User {
   @Id
   @GeneratedValue
   private int id;
+
   private String email;
-  private LocalDateTime create_date = java.time.LocalDateTime.now();
+
+  @GeneratedValue
+  private static String create_date;
+
   private String last_name;
+
   private String first_name;
 
   public User() {
-
+    this(0, "email", create_date, "last_name", "first_name");
   }
 
-  public User(int id, String email, String first_name, LocalDateTime create_date,
-      String last_name) {
+  public User(int id, String email, String create_date, String last_name, String first_name) {
     super();
     this.id = id;
     this.email = email;
@@ -49,13 +52,13 @@ public class User {
     this.email = email;
   }
 
-  public LocalDateTime getCreate_date() {
+
+  public String getCreate_date() {
     return create_date;
   }
 
-  public void setCreate_date(LocalDateTime localDateTime) {
-
-    this.create_date = localDateTime;
+  public void setCreate_date(String create_date) {
+    this.create_date = create_date;
   }
 
   public String getFirst_name() {
@@ -73,7 +76,6 @@ public class User {
   public void setLast_name(String last_name) {
     this.last_name = last_name;
   }
-
 
 
 }
