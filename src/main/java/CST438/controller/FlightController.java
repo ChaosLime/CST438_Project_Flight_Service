@@ -35,7 +35,7 @@ public class FlightController {
   @PostMapping("/user_directory")
   public String getUserDirectory(String email, Model model) {
     List<User> currentUserInfo = userService.getAccountInfo(email);
-
+    System.out.println(currentUserInfo);
     String error = "";
 
     if (currentUserInfo.isEmpty()) {
