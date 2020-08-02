@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Flight Reservation System</title>
+</head>
+<body>
+	<h1>The Flight Reservation System&#8482;</h1>
+	
+	<a th:inline="text">[[${error}]]</a>
+	<!-- userInfo object contains a user and their info from User Entity -->
+	<div th:each="user : ${userInfo}">
+	<h2>Welcome <span th:text="${user.first_name}"></span> <span th:text="${user.last_name}"></span></h2>
+	ID: <span th:text="${user.id}"></span><br>
+	Email: <span th:text="${user.email}"></span><br>
+
+	<hr>
+	<form action="#" th:action="@{/reservation}" method="GET">
+		<input type="hidden">
+		<input type="submit" value="Make a Reservation">
+	</form>
+	<hr>
+	</div>
+	(be sure to pass user object into reservation/view_reservations)<br>
+	<a href="/reservation">Make a flight reservation</a><br>
+	<a href="/view_reservations">View your reservations</a><br>
+	<hr>
+	</body>
+</html>
