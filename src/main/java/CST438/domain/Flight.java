@@ -1,6 +1,8 @@
 package CST438.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "dummy_flight_data")
@@ -87,16 +89,8 @@ public class Flight {
   public void setArrivalAirport(String arrivalAirport) {
     this.arrivalAirport = arrivalAirport;
   }
-  
-  /*
-  public FlightSeatInfo getFlightSeatInfo() {
-    return flightSeatInfo;
-  }
 
-  public void setFlightSeatInfo(FlightSeatInfo flightSeatInfo) {
-    this.flightSeatInfo = flightSeatInfo;
-  }
-  */
+
   // https://stackoverflow.com/questions/8180430/how-to-override-equals-method-in-java
   @Override
   public boolean equals(Object obj) {
@@ -123,3 +117,5 @@ public class Flight {
     }
   }
 }
+}
+

@@ -15,10 +15,10 @@
 		<input type="text" th:field="*{destinationCity}"/>
 		<span th:if="${#fields.hasErrors('destinationCity')}" th:errors="*{destinationCity}"> </span> <br>
 		
-		Departure Date:
+		Departure Date: <br>
 		<input type="date" th:field="*{startDate}"/>
 		<span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"> </span> <br>
-		Return Date:
+		Return Date: <br>
 		<input type="date" th:field="*{endDate}"/>
 		<span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"> </span> <br>
 
