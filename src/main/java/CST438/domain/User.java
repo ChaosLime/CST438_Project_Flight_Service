@@ -35,7 +35,6 @@ public class User {
     this.last_name = last_name;
   }
 
-
   public long getId() {
     return id;
   }
@@ -51,8 +50,7 @@ public class User {
   public void setEmail(String email) {
     this.email = email;
   }
-
-
+  
   public String getCreate_date() {
     return create_date;
   }
@@ -76,6 +74,4 @@ public class User {
   public void setLast_name(String last_name) {
     this.last_name = last_name;
   }
-
-
 }
