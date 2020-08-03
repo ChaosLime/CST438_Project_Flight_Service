@@ -97,25 +97,22 @@ public class Flight {
     if (obj == null) {
       return false;
     }
-    
+
     if (!Flight.class.isAssignableFrom(obj.getClass())) {
       return false;
     }
-    
+
     final Flight flight = (Flight) obj;
-    
-    if(flightNumber == flight.flightNumber &&
-        airline.equals(flight.airline) &&
-        departureAirport.equals(flight.departureAirport) &&
-        departureTime.equals(flight.departureTime) &&
-        date.equals(flight.date) &&
-        arrivalAirport.equals(flight.arrivalAirport) &&
-        arrivalTime.equals(flight.arrivalTime)) {
+
+    if (flightNumber == flight.flightNumber && airline.equals(flight.airline)
+        && departureAirport.equals(flight.departureAirport)
+        && departureTime.equals(flight.departureTime) && date.equals(flight.date)
+        && arrivalAirport.equals(flight.arrivalAirport) && arrivalTime.equals(flight.arrivalTime)) {
       return true;
     } else {
       return false;
     }
   }
 }
-}
+
 
