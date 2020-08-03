@@ -56,8 +56,8 @@ public class FlightRestControllerTest {
   
   @Test
   public void test() throws Exception {
-    Flight flight1 = new Flight(1, "abc", "LAX", "10:00 AM", "SMX", "1:00 PM", "07/30/2020", new FlightSeatInfo("1", 10, "econ", (double) 99.99));
-    Flight flight2 = new Flight(2, "def", "NYC", "9:30 PM", "LAX", "5:00 AM", "08/2/2020", new FlightSeatInfo("2", 1, "lux", (double) 465.95));
+    Flight flight1 = new Flight(1, "abc", "LAX", "10:00 AM", "SMX", "1:00 PM", "07/30/2020", new FlightSeatInfo(1, 10, "econ", (double) 99.99));
+    Flight flight2 = new Flight(2, "def", "NYC", "9:30 PM", "LAX", "5:00 AM", "08/2/2020", new FlightSeatInfo(2, 1, "lux", (double) 465.95));
     
     List<Flight> flightList = new ArrayList<Flight>();
     flightList.add(flight1);

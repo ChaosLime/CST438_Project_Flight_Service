@@ -1,114 +1,92 @@
-/*
- * This class is used when gathering and displaying flight information for a user
- */
-
 package CST438.domain;
 
-//import java.util.Date;
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-// TODO: do we need a company attribute (ie: Southwest, United, etc)
-// TODO: find out if flightNumber is an int or a String
 @Entity
-@Table(name="dummy_flight_seat_information")
+@Table(name = "dummy_flight_seat_information")
 public class FlightSeatInfo {
 
   @Id
-  @GeneratedValue
   private int id;
-  
-  @NotNull
-  private String flightNumber;
-
-  @NotNull
-  private double cost;
-
-  @NotNull
+  private int flightNumber;
   private int seatsAvailable;
-
-  @NotNull
   private String seatType;
+  private double cost;
 
   public FlightSeatInfo() {
 
   }
 
-  public FlightSeatInfo(@NotNull String flightNumber, @NotNull int seatsAvailable, @NotNull String seatType,
-		  @NotNull double cost) {
-	  
+  public FlightSeatInfo(int flightNumber, int seatsAvailable, String seatType, double cost) {
+
     super();
     this.flightNumber = flightNumber;
     this.seatsAvailable = seatsAvailable;
     this.seatType = seatType;
     this.cost = cost;
+
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public int getFlightNumber() {
+    return flightNumber;
+  }
+
+  public void setFlightNumber(int flightNumber) {
+    this.flightNumber = flightNumber;
+  }
+
+  public double getCost() {
+    return cost;
+  }
+
+  public void setCost(double cost) {
+    this.cost = cost;
+  }
+
+  public int getSeatsAvailable() {
+    return seatsAvailable;
+  }
+
+  public void setSeatsAvailable(int seatsAvailable) {
+    this.seatsAvailable = seatsAvailable;
+  }
+
+  public String getSeatType() {
+    return seatType;
+  }
+  
+  public void setSeatType(String seatType) {
+    this.seatType = seatType;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
+    }
     
-  }
-
-public int getId() {
-	return id;
-}
-
-public void setId(int id) {
-	this.id = id;
-}
-
-public String getFlightNumber() {
-	return flightNumber;
-}
-
-public void setFlightNumber(String flightNumber) {
-	this.flightNumber = flightNumber;
-}
-
-public double getCost() {
-	return cost;
-}
-
-public void setCost(double cost) {
-	this.cost = cost;
-}
-
-public int getSeatsAvailable() {
-	return seatsAvailable;
-}
-
-public void setSeatsAvailable(int seatsAvailable) {
-	this.seatsAvailable = seatsAvailable;
-}
-
-public String getSeatType() {
-	return seatType;
-}
-
-public void setSeatType(String seatType) {
-	this.seatType = seatType;
-}
-
-@Override
-public boolean equals(Object obj) {
-  if (obj == null) {
-    return false;
+    if (!FlightSeatInfo.class.isAssignableFrom(obj.getClass())) {
+      return false;
+    }
+    
+    final FlightSeatInfo fSI = (FlightSeatInfo) obj;
+    
+    if (flightNumber == fSI.flightNumber &&
+        seatsAvailable == fSI.seatsAvailable &&
+        cost == fSI.cost &&
+        seatType.equals(fSI.seatType)){
+      return true;
+    } else {
+      return false;
+    }
   }
   
-  if (!FlightSeatInfo.class.isAssignableFrom(obj.getClass())) {
-    return false;
-  }
-  
-  final FlightSeatInfo fSI = (FlightSeatInfo) obj;
-  
-  if (flightNumber.equals(fSI.flightNumber) &&
-      seatsAvailable == fSI.seatsAvailable &&
-      cost == fSI.cost &&
-      seatType.equals(fSI.seatType)){
-    return true;
-  } else {
-    return false;
-  }
-}
 }

@@ -15,13 +15,8 @@ public class Flight {
   private String arrivalAirport;
   private String arrivalTime;
 
-  //@JoinColumn(name = "flightNumber")
-  //private FlightSeatInfo flightSeatInfo;
-  
   public Flight() {
-    // this(0, "airline", "departureAirport", "departureTime", "arrivalAirport",
-    // "arrivalTime",
-    // "date");
+
   }
 
   public Flight(int flightNumber, String airline, String departureAirport, String departureTime,
@@ -34,7 +29,7 @@ public class Flight {
     this.arrivalAirport = arrivalAirport;
     this.arrivalTime = arrivalTime;
     this.date = date;
-    //this.flightSeatInfo = f;
+    // this.flightSeatInfo = f;
   }
 
   public String getAirline() {
