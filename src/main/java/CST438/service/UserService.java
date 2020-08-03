@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import CST438.domain.User;
-import CST438.domain.UserRepository;
+import CST438.repository.UserRepository;
 
 @Service
 public class UserService {

@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import CST438.domain.*;
+import CST438.repository.FlightRepository;
+import CST438.repository.FlightSeatInfoRepository;
 
 @Service
 public class FlightSeatInfoService {

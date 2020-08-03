@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import CST438.domain.Flight;
 import CST438.domain.FlightInfo;
-import CST438.domain.FlightRepository;
 import CST438.domain.FlightSeatInfo;
-import CST438.domain.FlightSeatInfoRepository;
+import CST438.repository.FlightRepository;
+import CST438.repository.FlightSeatInfoRepository;
 
 @Service
 public class FlightService {

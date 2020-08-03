@@ -7,12 +7,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends AbstractEntity {
 
-  @Id
-  @GeneratedValue
-  private int id;
-
+  
   private String email;
 
   @GeneratedValue
@@ -28,21 +25,12 @@ public class User {
 
   public User(int id, String email, String create_date, String last_name, String first_name) {
     super();
-    this.id = id;
     this.email = email;
     this.create_date = create_date;
     this.first_name = first_name;
     this.last_name = last_name;
   }
 
-
-  public long getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
 
   public String getEmail() {
     return email;
