@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Flight Reservation System</title>
+     <style>
+		table {
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+		
+		th, td {
+		  text-align: left;
+		  padding: 8px;
+		}
+		
+		tr:nth-child(even) {background-color: #f2f2f2;}
+	</style>
+</head>
+<body>
+	<div th:each="user : ${userInfo}">	
+		<h1>The Flight Reservation System&#8482;</h1>
+		
+		<h2>Reservations for <span th:text="${user.first_name}"></span> <span th:text="${user.last_name}"></span></h2>
+		
+		<form action="#" th:action="@{/reservation}" method="POST">
+			<input type="submit" value="Want to make a new Reservation?">
+		</form>
+	
+		<!-- Put list here -->
+		<br><br>
+		(display reservation list here by bookingID)<br>
+		(get booking ID's unique to user, then display all Flights listed)<br>
+		(if no bookingID's exist, suggest to make a reservation)<br>
+			
+	</div>
+	</body>
+</html>
