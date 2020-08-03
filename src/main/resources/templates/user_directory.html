@@ -8,7 +8,6 @@
 	<!-- userInfo object contains a user and their info from User Entity -->
 	<div th:each="user : ${userInfo}">	
 		
-		
 	<h2>Welcome back <span th:text="${user.first_name}"></span> <span th:text="${user.last_name}"></span></h2>
 	ID: <span th:text="${user.id}"></span><br>
 	Email: <span th:text="${user.email}"></span><br>
@@ -25,6 +24,5 @@
 		</form>
 		<br>
 		<hr>
-		
 	</body>
 </html>
