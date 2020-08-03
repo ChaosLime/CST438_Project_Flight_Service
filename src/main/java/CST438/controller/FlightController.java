@@ -82,7 +82,7 @@ public class FlightController {
 
     } else {
       error = "";
-      if (email.isBlank()) {
+      if (email.equals("")) {
         System.out.println("Email entered was blank");
       } else {
         System.out.println("Email [" + email + "] is not recorded in the user table");
@@ -149,8 +149,8 @@ public class FlightController {
     String flightNotFound;
 
     startDate = formatFlightDate(startDate);
-    List<FlightInfo> departureFlights = flightService.getFlightAndSeatInfo(startDate, originCity,
-        destinationCity);
+    List<FlightInfo> departureFlights =
+        flightService.getFlightAndSeatInfo(startDate, originCity, destinationCity);
 
     // If no departure flights are found
     if (departureFlights.isEmpty()) {
@@ -164,8 +164,8 @@ public class FlightController {
     model.addAttribute("departureFlights", departureFlights);
 
     endDate = formatFlightDate(endDate);
-    List<FlightInfo> returnFlights = flightService.getFlightAndSeatInfo(endDate, destinationCity,
-        originCity);
+    List<FlightInfo> returnFlights =
+        flightService.getFlightAndSeatInfo(endDate, destinationCity, originCity);
 
     // If no return flights are found
     if (returnFlights.isEmpty()) {
@@ -192,8 +192,8 @@ public class FlightController {
     FlightInfo returnFlight = seatInfoService.getFlight(returnFlightSeatInfoId);
     model.addAttribute("returnFlight", returnFlight);
 
-    double totalCost = departureFlight.getSeatInfo().getCost()
-        + returnFlight.getSeatInfo().getCost();
+    double totalCost =
+        departureFlight.getSeatInfo().getCost() + returnFlight.getSeatInfo().getCost();
     totalCost = Math.round(totalCost * 100d) / 100d; // two decimals only
     model.addAttribute("totalCost", totalCost);
 
