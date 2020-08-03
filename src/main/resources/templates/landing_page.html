@@ -11,7 +11,7 @@
 	<h4>Login</h4>
 		<form th:action="@{user_directory}" th:object="${user}" method="POST">
 			<label>Email:</label><br>
-			<input type="text" th:field="*{email}"><br><br>
+			<input type="email" th:field="*{email}"><br><br>
 			<input type="submit" value="Login"/>
 			<h5>Hint: old@aol.com for testing an existing user</h5>	
 		</form>
