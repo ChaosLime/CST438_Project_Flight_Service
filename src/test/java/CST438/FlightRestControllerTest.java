@@ -1,6 +1,5 @@
 package CST438;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import CST438.controller.FlightRestController;
 import CST438.domain.Flight;
+import CST438.domain.FlightInfo;
 import CST438.domain.FlightRepository;
 import CST438.domain.FlightSeatInfo;
 import CST438.service.FlightService;
@@ -45,7 +45,7 @@ public class FlightRestControllerTest {
   private MockMvc mvc;
   
   // These objects will be magically initialized by the initFields method below.
-  private JacksonTester<List<Flight>> jsonFlightListAttempt;
+  private JacksonTester<List<FlightInfo>> jsonFlightListAttempt;
 
   // This method is executed before each Test.
   @BeforeEach
@@ -56,28 +56,33 @@ public class FlightRestControllerTest {
   
   @Test
   public void test() throws Exception {
-    Flight flight1 = new Flight(1, "abc", "LAX", "10:00 AM", "SMX", "1:00 PM", "07/30/2020", new FlightSeatInfo(1, 10, "econ", (double) 99.99));
-    Flight flight2 = new Flight(2, "def", "NYC", "9:30 PM", "LAX", "5:00 AM", "08/2/2020", new FlightSeatInfo(2, 1, "lux", (double) 465.95));
+    Flight flight1 = new Flight(1, "abc", "LAX", "10:00 AM", "SMX", "1:00 PM", "07/30/2020");
+    Flight flight2 = new Flight(2, "def", "NYC", "9:30 PM", "LAX", "5:00 AM", "08/2/2020");
     
-    List<Flight> flightList = new ArrayList<Flight>();
-    flightList.add(flight1);
-    flightList.add(flight2);
+    FlightInfo flightInfo1 = new FlightInfo(flight1, new FlightSeatInfo(1, 10, "econ", (double) 99.99));
+    FlightInfo flightInfo2 = new FlightInfo(flight2, new FlightSeatInfo(2, 1, "lux", (double) 465.95));
     
-    assertThat(flightList).isNotEmpty();
+    List<FlightInfo> flightInfoList = new ArrayList<FlightInfo>();
     
-    given(flightService.getFlightList("08-18-2020", "Denver", "Los Angeles")).willReturn(flightList);
+    flightInfoList.add(flightInfo1);
+    flightInfoList.add(flightInfo2);
     
-    List<Flight> flightListResult = flightService.getFlightList("08-18-2020", "Denver", "Los Angeles");
     
-    assertThat(flightListResult).isEqualTo(flightList);
+    assertThat(flightInfoList).isNotEmpty();
+    
+    given(flightService.getFlightAndSeatInfo("08/18/2020", "Denver", "Los Angeles")).willReturn(flightInfoList);
+    
+    List<FlightInfo> flightListResult = flightService.getFlightAndSeatInfo("08/18/2020", "Denver", "Los Angeles");
+    
+    assertThat(flightListResult).isEqualTo(flightInfoList);
     
     MockHttpServletResponse response = mvc.perform(get("/api/08-18-2020/Denver/Los Angeles"))
             .andReturn().getResponse();
     
     assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     
-    List<Flight> flightListResult2 = jsonFlightListAttempt.parseObject(response.getContentAsString());
+    List<FlightInfo> flightInfoListResult2 = jsonFlightListAttempt.parseObject(response.getContentAsString());
     
-    assertThat(flightListResult2).isEqualTo(flightList);
+    assertThat(flightInfoListResult2).isEqualTo(flightInfoList);
   }
 }

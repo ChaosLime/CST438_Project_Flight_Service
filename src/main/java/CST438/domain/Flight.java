@@ -20,7 +20,7 @@ public class Flight {
   }
 
   public Flight(int flightNumber, String airline, String departureAirport, String departureTime,
-      String arrivalAirport, String arrivalTime, String date, FlightSeatInfo f) {
+      String arrivalAirport, String arrivalTime, String date) {
     super();
     this.flightNumber = flightNumber;
     this.airline = airline;
