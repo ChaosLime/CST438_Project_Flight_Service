@@ -90,7 +90,25 @@ public void setSeatType(String seatType) {
 	this.seatType = seatType;
 }
 
+@Override
+public boolean equals(Object obj) {
+  if (obj == null) {
+    return false;
+  }
   
+  if (!FlightSeatInfo.class.isAssignableFrom(obj.getClass())) {
+    return false;
+  }
   
-
+  final FlightSeatInfo fSI = (FlightSeatInfo) obj;
+  
+  if (flightNumber.equals(fSI.flightNumber) &&
+      seatsAvailable == fSI.seatsAvailable &&
+      cost == fSI.cost &&
+      seatType.equals(fSI.seatType)){
+    return true;
+  } else {
+    return false;
+  }
+}
 }
