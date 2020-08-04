@@ -47,7 +47,7 @@ public class FlightServiceTest {
     List<Flight> expectedData = new ArrayList<Flight>();
     expectedData.add(testFlight);
 
-    assertEquals(testData, expectedData);
+    assertEquals(expectedData, testData);
   }
 
   @Test
@@ -62,7 +62,7 @@ public class FlightServiceTest {
         testFlight.getDepartureAirport(), testFlight.getArrivalAirport());
     List<Flight> expectedData = null;
 
-    assertEquals(testData, expectedData);
+    assertEquals(expectedData, testData);
   }
 
   @Test
@@ -86,7 +86,7 @@ public class FlightServiceTest {
     List<FlightInfo> expectedData = new ArrayList<FlightInfo>();
     expectedData.add(flightInfo);
 
-    assertEquals(testData, expectedData);
+    assertEquals(expectedData, testData);
   }
 
   private Flight getFakeFlight() {
