@@ -12,8 +12,8 @@ public class UserService {
   @Autowired
   UserRepository userRepository;
 
-  public List<User> getAccountInfo(String email) {
-    List<User> user = userRepository.findbyEmail(email);
+  public User getAccountInfo(String email) {
+    User user = userRepository.findbyEmail(email);
     return user;
   }
 
