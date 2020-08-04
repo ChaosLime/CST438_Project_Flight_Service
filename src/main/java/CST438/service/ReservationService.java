@@ -1,11 +1,20 @@
 package CST438.service;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import CST438.domain.Reservation;
-import CST438.domain.ReservationRequest;
+import CST438.repository.ReservationRepository;
 
-public interface ReservationService {
-	
-    public Reservation bookFlight(ReservationRequest reservationRequest);
-    
+@Service
+public class ReservationService {
+
+  @Autowired
+  private ReservationRepository reservationRepository;
+
+  public void bookFlight(Reservation reservation) {
+    reservationRepository.save(reservation);
+  }
+
+
+
 }
