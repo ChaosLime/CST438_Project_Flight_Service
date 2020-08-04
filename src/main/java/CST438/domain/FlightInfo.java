@@ -2,8 +2,8 @@ package CST438.domain;
 
 public class FlightInfo extends AbstractEntity {
 
-  private Flight flight;
-  private FlightSeatInfo seatInfo;
+  public Flight flight;
+  public FlightSeatInfo seatInfo;
 
   public FlightInfo(Flight flight, FlightSeatInfo seatInfo) {
     super();
