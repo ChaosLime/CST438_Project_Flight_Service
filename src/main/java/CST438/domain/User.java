@@ -2,14 +2,13 @@ package CST438.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
 public class User extends AbstractEntity {
 
-  
+
   private String email;
 
   @GeneratedValue
@@ -20,7 +19,7 @@ public class User extends AbstractEntity {
   private String first_name;
 
   public User() {
-    this(0, "email", create_date, "last_name", "first_name");
+    // this(0, "test", create_date, "last_name", "first_name");
   }
 
   public User(int id, String email, String create_date, String last_name, String first_name) {
