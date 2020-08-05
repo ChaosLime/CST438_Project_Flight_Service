@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import CST438.domain.FlightInfo;
 import CST438.domain.FormInfo;
+import CST438.domain.Reservation;
 import CST438.domain.User;
 import CST438.service.FlightSeatInfoService;
 import CST438.service.FlightService;
+import CST438.service.ReservationService;
 import CST438.service.UserService;
 
 @Controller
@@ -28,32 +30,39 @@ public class FlightController {
   @Autowired
   FlightSeatInfoService seatInfoService;
 
+  @Autowired
+  ReservationService reservationService;
+
   @GetMapping("/")
-  public String landingPage(@Valid User user, BindingResult result, Model model) {
-    User newUser = new User();
-    model.addAttribute("newUser", newUser);
+  public String landingPage(Model model) {
+    User user = new User();
+    model.addAttribute("user", user);
     return "landing_page";
   }
 
   // For returning or existing users only
   @PostMapping("/user_directory")
-  public String getUserDirectory(String email, Model model) {
-    List<User> currentUserInfo = userService.getAccountInfo(email);
-    System.out.println(currentUserInfo);
+  public String getUserDirectory(@Valid User user, BindingResult result, String email,
+      Model model) {
+    User currentUserInfo = userService.getAccountInfo(user.getEmail());
+
     String error = "";
 
-    if (currentUserInfo.isEmpty()) {
+    // error validation for user, checks system if it is found or not,
+    // else return error to try again.
+    if (currentUserInfo == null) {
       error = "Email [" + email
           + "] is not found in our database. If this is a mistake, please check spelling and try again.";
       System.out.println("Email [" + email + "] is not found in user table.");
+
       model.addAttribute("error", error);
       return "error_page";
     } else {
       error = "";
     }
 
-    System.out.println("Email [" + email + "] found. Existing User.");
-    model.addAttribute("userInfo", currentUserInfo);
+    System.out.println("Email [" + currentUserInfo.getEmail() + "] found. Existing User.");
+    model.addAttribute("user", currentUserInfo);
 
     model.addAttribute("error", error);
     return "user_directory";
@@ -67,12 +76,12 @@ public class FlightController {
     String last_name = newUser.getLast_name();
 
     // check if email exists already in db
-    List<User> doesUserExist = userService.getAccountInfo(email);
+    User doesUserExist = userService.getAccountInfo(email);
 
     // Error validation and user input handling.
     String error = "";
 
-    if (!doesUserExist.isEmpty()) {
+    if (doesUserExist != null) {
       System.out.println("Email [" + email + "] exists already. Can not create new account.");
 
       error = "Account with the email [" + email
@@ -82,11 +91,12 @@ public class FlightController {
 
     } else {
       error = "";
-      if (email.equals("")) {
-        System.out.println("Email entered was blank");
-      } else {
-        System.out.println("Email [" + email + "] is not recorded in the user table");
-      }
+    }
+
+    if (email.equals("")) {
+      System.out.println("Email entered was blank");
+    } else {
+      System.out.println("Email [" + email + "] is not recorded in the user table");
     }
 
     // Checking user inputs for edge cases.
@@ -116,31 +126,27 @@ public class FlightController {
     System.out.println("Saving new user into database.");
     userService.saveIntoDatabase(newUser);
 
-    model.addAttribute("userInfo", newUser);
+    model.addAttribute("user", newUser);
 
     return "new_user";
   }
 
   @PostMapping("/reservation")
-  public String getFormInfo(@Valid User userInfo, BindingResult result, Model model) {
+  public String getFormInfo(@Valid User user, BindingResult result, Model model) {
     FormInfo formInfo = new FormInfo();
     model.addAttribute("formInfo", formInfo);
-    model.addAttribute("userInfo", userInfo);
+    model.addAttribute("user", user);
     return "reservation_form";
   }
 
-  @PostMapping("/view_reservations")
-  public String viewReservations(@Valid User userInfo, BindingResult result, Model model) {
-    model.addAttribute("userInfo", userInfo);
-    return "view_reservations";
-  }
-
   @PostMapping("/flights")
-  public String getAllFlights(@Valid FormInfo formInfo, BindingResult result,
-      @RequestParam("originCity") String originCity,
-      @RequestParam("destinationCity") String destinationCity,
-      @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate,
+  public String getAllFlights(@Valid FormInfo formInfo, @Valid User user, BindingResult result,
       Model model) {
+
+    String originCity = formInfo.getOriginCity();
+    String destinationCity = formInfo.getDestinationCity();
+    String startDate = formInfo.getStartDate();
+    String endDate = formInfo.getEndDate();
 
     if (result.hasErrors()) {
       return "reservation_form";
@@ -153,13 +159,14 @@ public class FlightController {
         flightService.getFlightAndSeatInfo(startDate, originCity, destinationCity);
 
     // If no departure flights are found
-    if (departureFlights.isEmpty()) {
-      flightNotFound = "No departure flights found, please try a different date or destination";
+    if (departureFlights.size() == 0) {
+      flightNotFound = "No Departure Flights found, please try different date or destination.";
+      model.addAttribute("error", flightNotFound);
+      return "error_page";
     } else {
       flightNotFound = "";
     }
 
-    model.addAttribute("departNotFound", flightNotFound);
     model.addAttribute("departDate", startDate);
     model.addAttribute("departureFlights", departureFlights);
 
@@ -169,12 +176,13 @@ public class FlightController {
 
     // If no return flights are found
     if (returnFlights.isEmpty()) {
-      flightNotFound = "No return flights found, please try a different date or destination";
+      flightNotFound = "No Return Flights found, please try a different date or destination.";
+      model.addAttribute("error", flightNotFound);
+      return "error_page";
     } else {
       flightNotFound = "";
     }
 
-    model.addAttribute("returnNotFound", flightNotFound);
     model.addAttribute("returnDate", endDate);
     model.addAttribute("returnFlights", returnFlights);
 
@@ -182,15 +190,24 @@ public class FlightController {
   }
 
   @PostMapping("/reservationConfirmation")
-  public String returnConfirmation(@RequestParam("departureFlight") int departureFlightSeatInfoId,
+  public String returnConfirmation(@Valid User user,
+      @RequestParam("departureFlight") int departureFlightSeatInfoId,
       @RequestParam("returnFlight") int returnFlightSeatInfoId, Model model) {
 
     // TODO: remove 1 seat from db and enter into booked db.
     FlightInfo departureFlight = seatInfoService.getFlight(departureFlightSeatInfoId);
     model.addAttribute("departureFlight", departureFlight);
+    System.out.println("Departure Flight seatID: [" + departureFlight.seatInfo.getId() + "]");
 
     FlightInfo returnFlight = seatInfoService.getFlight(returnFlightSeatInfoId);
     model.addAttribute("returnFlight", returnFlight);
+    System.out.println("Return Flight seatID: [" + returnFlight.seatInfo.getId() + "]");
+
+    Reservation bookingInfo = new Reservation(user.getEmail(), departureFlight.seatInfo.getId(),
+        returnFlight.seatInfo.getId());
+
+    reservationService.bookFlight(bookingInfo);
+    model.addAttribute("bookingInfo", bookingInfo);
 
     double totalCost =
         departureFlight.getSeatInfo().getCost() + returnFlight.getSeatInfo().getCost();
@@ -198,6 +215,28 @@ public class FlightController {
     model.addAttribute("totalCost", totalCost);
 
     return "reservation_confirmation";
+  }
+
+
+  @PostMapping("/view_reservations")
+  public String viewReservations(@Valid Reservation bookingInfo, BindingResult result,
+      Model model) {
+
+    System.out.println("Booking Id: [" + bookingInfo.getBookId() + "]");
+
+    User user = userService.getAccountInfo(bookingInfo.getUserEmail());
+
+    FlightInfo departureFlight =
+        seatInfoService.getFlight(bookingInfo.getDepartureFlightSeatInfoId());
+
+    FlightInfo returnFlight = seatInfoService.getFlight(bookingInfo.getReturnFlightSeatInfoId());
+
+    model.addAttribute("bookingInfo", bookingInfo);
+    model.addAttribute("user", user);
+    model.addAttribute("departureFlight", departureFlight);
+    model.addAttribute("returnFlight", returnFlight);
+
+    return "view_reservations";
   }
 
   private String formatFlightDate(String date) {

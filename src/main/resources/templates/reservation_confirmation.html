@@ -60,5 +60,17 @@
 			<td th:inline="text">$[[${totalCost}]]</td>
 		</tr>
 	</table>
+	
+	
+	<form action="#" th:action="@{/view_reservations}" th:object="${bookingInfo}" method="POST">
+
+			<input type="hidden" th:field="*{bookId}">
+			<input type="hidden" th:field="*{userEmail}">
+			<input type="hidden" th:field="*{departureFlightSeatInfoId}">
+			<input type="hidden" th:field="*{returnFlightSeatInfoId}">
+
+		<input type="submit" value="View Booking" />	
+	</form>
+	
 </body>
 </html>
