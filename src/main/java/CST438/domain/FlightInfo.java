@@ -5,6 +5,10 @@ public class FlightInfo extends AbstractEntity {
   public Flight flight;
   public FlightSeatInfo seatInfo;
 
+  public FlightInfo() {
+
+  }
+
   public FlightInfo(Flight flight, FlightSeatInfo seatInfo) {
     super();
     this.flight = flight;
@@ -25,6 +29,25 @@ public class FlightInfo extends AbstractEntity {
 
   public void setSeatInfo(FlightSeatInfo seatInfo) {
     this.seatInfo = seatInfo;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) {
+      return false;
+    }
+
+    if (!FlightInfo.class.isAssignableFrom(obj.getClass())) {
+      return false;
+    }
+
+    final FlightInfo newFlightInfo = (FlightInfo) obj;
+
+    if (flight.equals(newFlightInfo.flight) && seatInfo.equals(newFlightInfo.seatInfo)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
