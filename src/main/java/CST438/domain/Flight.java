@@ -13,9 +13,9 @@ public class Flight {
   private String airline;
   private String departureAirport;
   private String departureTime;
-  private String date;
   private String arrivalAirport;
   private String arrivalTime;
+  private String date;
 
   public Flight() {
 
@@ -90,20 +90,19 @@ public class Flight {
     this.arrivalAirport = arrivalAirport;
   }
 
-
   // https://stackoverflow.com/questions/8180430/how-to-override-equals-method-in-java
   @Override
   public boolean equals(Object obj) {
     if (obj == null) {
       return false;
     }
-
+    
     if (!Flight.class.isAssignableFrom(obj.getClass())) {
       return false;
     }
-
+    
     final Flight flight = (Flight) obj;
-
+    
     if (flightNumber == flight.flightNumber && airline.equals(flight.airline)
         && departureAirport.equals(flight.departureAirport)
         && departureTime.equals(flight.departureTime) && date.equals(flight.date)
@@ -114,5 +113,3 @@ public class Flight {
     }
   }
 }
-
-

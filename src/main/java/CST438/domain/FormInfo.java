@@ -3,8 +3,6 @@ package CST438.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.Size;
-import com.sun.istack.NotNull;
 
 @Entity
 public class FormInfo {
@@ -12,30 +10,16 @@ public class FormInfo {
   @Id
   @GeneratedValue
   private long id;
-
-  @NotNull
-  @Size(min = 1, max = 25)
   public String originCity;
-
-  @NotNull
-  @Size(min = 1, max = 25)
   public String destinationCity;
-
-  // TODO: Change @size to something more approiate?
-  // Consider using datatype date or datatime?
-  @NotNull
-  @Size(min = 10, max = 10)
   public String startDate;
-
-  @NotNull
-  @Size(min = 10, max = 10)
   public String endDate;
 
   public FormInfo() {
     originCity = null;
     destinationCity = null;
-    startDate = null;
-    endDate = null;
+    startDate = java.time.LocalDate.now().toString();
+    endDate = java.time.LocalDate.now().plusDays(1).toString();
   }
 
   public FormInfo(long id, String originCity, String destinationCity, String startDate,
@@ -46,7 +30,6 @@ public class FormInfo {
     this.destinationCity = destinationCity;
     this.startDate = startDate;
     this.endDate = endDate;
-
   }
 
   public String getOriginCity() {

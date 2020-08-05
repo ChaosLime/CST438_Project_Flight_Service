@@ -2,16 +2,11 @@ package CST438.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class User {
-
-  @Id
-  @GeneratedValue
-  private int id;
+public class User extends AbstractEntity {
 
   private String email;
 
@@ -22,26 +17,16 @@ public class User {
 
   private String first_name;
 
-  public User() {
-    this(0, "email", create_date, "last_name", "first_name");
-  }
+  public User() {}
 
   public User(int id, String email, String create_date, String last_name, String first_name) {
     super();
-    this.id = id;
     this.email = email;
     this.create_date = create_date;
     this.first_name = first_name;
     this.last_name = last_name;
   }
 
-  public long getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
 
   public String getEmail() {
     return email;
@@ -50,7 +35,7 @@ public class User {
   public void setEmail(String email) {
     this.email = email;
   }
-  
+
   public String getCreate_date() {
     return create_date;
   }
@@ -74,4 +59,5 @@ public class User {
   public void setLast_name(String last_name) {
     this.last_name = last_name;
   }
+
 }

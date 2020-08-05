@@ -4,10 +4,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "dummy_flight_seat_information")
-public class FlightSeatInfo {
+public class FlightSeatInfo extends AbstractEntity {
 
-  @Id
-  private int id;
   private int flightNumber;
   private int seatsAvailable;
   private String seatType;
@@ -25,14 +23,6 @@ public class FlightSeatInfo {
     this.seatType = seatType;
     this.cost = cost;
 
-  }
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
   }
 
   public int getFlightNumber() {
