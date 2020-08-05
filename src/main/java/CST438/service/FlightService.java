@@ -25,6 +25,10 @@ public class FlightService {
     List<Flight> flights = flightRepository.findByDateAndAirports(flightDate, departureCity,
         arrivalCity);
 
+    if (flights == null || flights.isEmpty()) {
+      return null;
+    }
+
     return flights;
   }
 
