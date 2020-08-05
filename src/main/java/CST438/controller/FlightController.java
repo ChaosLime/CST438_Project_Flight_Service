@@ -47,13 +47,19 @@ public class FlightController {
     User currentUserInfo = userService.getAccountInfo(user.getEmail());
 
     String error = "";
-    // TODO: fix this @nick
-    /*
-     * if (currentUserInfo.isEmpty()) { error = "Email [" + email +
-     * "] is not found in our database. If this is a mistake, please check spelling and try again.";
-     * System.out.println("Email [" + email + "] is not found in user table.");
-     * model.addAttribute("error", error); return "error_page"; } else { error = ""; }
-     */
+
+    // error validation for user, checks system if it is found or not, else return error to try
+    // again.
+    if (currentUserInfo == null) {
+      error = "Email [" + email
+          + "] is not found in our database. If this is a mistake, please check spelling and try again.";
+      System.out.println("Email [" + email + "] is not found in user table.");
+
+      model.addAttribute("error", error);
+      return "error_page";
+    } else {
+      error = "";
+    }
 
     System.out.println("Email [" + currentUserInfo.getEmail() + "] found. Existing User.");
     model.addAttribute("user", currentUserInfo);
@@ -74,33 +80,53 @@ public class FlightController {
 
     // Error validation and user input handling.
     String error = "";
-    // TODO: Fix validation to be from <List>User to User type
-    /*
-     * if (!doesUserExist.isEmpty()) { System.out.println("Email [" + email +
-     * "] exists already. Can not create new account.");
-     * 
-     * error = "Account with the email [" + email +
-     * "] already exists. Can not make an account when it already exists.";
-     * model.addAttribute("error", error); return "error_page";
-     * 
-     * } else { error = ""; if (email.equals("")) { System.out.println("Email entered was blank"); }
-     * else { System.out.println("Email [" + email + "] is not recorded in the user table"); } }
-     * 
-     * // Checking user inputs for edge cases. if (first_name.equals("")) { error =
-     * "Account Creation Failed. First Name can not be left blank, please try again";
-     * model.addAttribute("error", error); return "error_page"; } else { error = ""; } if
-     * (last_name.equals("")) { error =
-     * "Account Creation Failed. Last Name can not be left blank, please try again";
-     * model.addAttribute("error", error); return "error_page"; } else { error = ""; } if
-     * (email.equals("")) { error =
-     * "Account Creation Failed. Email can not be left blank, please try again";
-     * model.addAttribute("error", error); return "error_page"; } else { error = ""; }
-     */
+
+    if (doesUserExist != null) {
+      System.out.println("Email [" + email + "] exists already. Can not create new account.");
+
+      error = "Account with the email [" + email
+          + "] already exists. Can not make an account when it already exists.";
+      model.addAttribute("error", error);
+      return "error_page";
+
+    } else {
+      error = "";
+    }
+
+    if (email.equals("")) {
+      System.out.println("Email entered was blank");
+    } else {
+      System.out.println("Email [" + email + "] is not recorded in the user table");
+    }
+
+    // Checking user inputs for edge cases.
+    if (first_name.equals("")) {
+      error = "Account Creation Failed. First Name can not be left blank, please try again";
+      model.addAttribute("error", error);
+      return "error_page";
+    } else {
+      error = "";
+    }
+    if (last_name.equals("")) {
+      error = "Account Creation Failed. Last Name can not be left blank, please try again";
+      model.addAttribute("error", error);
+      return "error_page";
+    } else {
+      error = "";
+    }
+    if (email.equals("")) {
+      error = "Account Creation Failed. Email can not be left blank, please try again";
+      model.addAttribute("error", error);
+      return "error_page";
+    } else {
+      error = "";
+    }
+
     System.out.println("New User generated.");
     System.out.println("Saving new user into database.");
     userService.saveIntoDatabase(newUser);
 
-    model.addAttribute("userInfo", newUser);
+    model.addAttribute("user", newUser);
 
     return "new_user";
   }
@@ -113,11 +139,6 @@ public class FlightController {
     return "reservation_form";
   }
 
-  /*
-   * @PostMapping("/view_reservations") public String viewReservations(@Valid User user,
-   * BindingResult result, Model model) { model.addAttribute("user", user); return
-   * "view_reservations"; }
-   */
   @PostMapping("/flights")
   public String getAllFlights(@Valid FormInfo formInfo, @Valid User user, BindingResult result,
       @RequestParam("originCity") String originCity,
@@ -136,13 +157,16 @@ public class FlightController {
         flightService.getFlightAndSeatInfo(startDate, originCity, destinationCity);
 
     // If no departure flights are found
-    if (departureFlights.isEmpty()) {
-      flightNotFound = "No departure flights found, please try a different date or destination";
+    if (departureFlights.size() == 0) {
+      flightNotFound = "No Departure Flights found, please try different date or destination.";
+      model.addAttribute("error", flightNotFound);
+      return "error_page";
     } else {
       flightNotFound = "";
     }
 
-    model.addAttribute("departNotFound", flightNotFound);
+
+
     model.addAttribute("departDate", startDate);
     model.addAttribute("departureFlights", departureFlights);
 
@@ -152,12 +176,13 @@ public class FlightController {
 
     // If no return flights are found
     if (returnFlights.isEmpty()) {
-      flightNotFound = "No return flights found, please try a different date or destination";
+      flightNotFound = "No Return Flights found, please try a different date or destination.";
+      model.addAttribute("error", flightNotFound);
+      return "error_page";
     } else {
       flightNotFound = "";
     }
 
-    model.addAttribute("returnNotFound", flightNotFound);
     model.addAttribute("returnDate", endDate);
     model.addAttribute("returnFlights", returnFlights);
 
@@ -172,10 +197,11 @@ public class FlightController {
     // TODO: remove 1 seat from db and enter into booked db.
     FlightInfo departureFlight = seatInfoService.getFlight(departureFlightSeatInfoId);
     model.addAttribute("departureFlight", departureFlight);
-    System.out.println("Departure Flight seatID: " + departureFlight.seatInfo.getId());
+    System.out.println("Departure Flight seatID: [" + departureFlight.seatInfo.getId() + "]");
 
     FlightInfo returnFlight = seatInfoService.getFlight(returnFlightSeatInfoId);
     model.addAttribute("returnFlight", returnFlight);
+    System.out.println("Return Flight seatID: [" + returnFlight.seatInfo.getId() + "]");
 
     Reservation bookingInfo = new Reservation(user.getEmail(), departureFlight.seatInfo.getId(),
         returnFlight.seatInfo.getId());
@@ -187,7 +213,6 @@ public class FlightController {
         departureFlight.getSeatInfo().getCost() + returnFlight.getSeatInfo().getCost();
     totalCost = Math.round(totalCost * 100d) / 100d; // two decimals only
     model.addAttribute("totalCost", totalCost);
-
 
     return "reservation_confirmation";
   }
