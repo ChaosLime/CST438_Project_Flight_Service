@@ -9,29 +9,22 @@
 	
 	<form action="#" th:action="@{/flights}" th:object="${formInfo}" method="POST">
 		City of Origin:<br>
-		<input type="text" th:field="*{originCity}"/>
-		<span th:if="${#fields.hasErrors('originCity')}" th:errors="*{originCity}"> </span> <br>
+		<input type="text" th:field="*{originCity}"/><br>
 		Destination City: <br>
-		<input type="text" th:field="*{destinationCity}"/>
-		<span th:if="${#fields.hasErrors('destinationCity')}" th:errors="*{destinationCity}"> </span> <br>
-		
+		<input type="text" th:field="*{destinationCity}"/><br>
 		Departure Date: <br>
-		<input type="date" th:field="*{startDate}"/>
-		<span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"> </span> <br>
+		<input type="date" th:field="*{startDate}"/><br>
 		Return Date: <br>
-		<input type="date" th:field="*{endDate}"/>
-		<span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"> </span> <br>
+		<input type="date" th:field="*{endDate}"/><br>
 
 		<!-- User Entity passes here -->
 		<div th:object="${user}">
-		<input type="hidden" th:field="*{id}">
+			<input type="hidden" th:field="*{id}">
 			<input type="hidden" th:field="*{email}">
 			<input type="hidden" th:field="*{last_name}">
 			<input type="hidden" th:field="*{first_name}">
 			<input type="hidden" th:field="*{create_date}">
 		</div>
-
-
 		<input type="submit" value="Submit" />	
 	</form>
 	
