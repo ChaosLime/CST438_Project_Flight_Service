@@ -13,9 +13,9 @@ public class Flight {
   private String airline;
   private String departureAirport;
   private String departureTime;
-  private String date;
   private String arrivalAirport;
   private String arrivalTime;
+  private String date;
 
   public Flight() {
 
@@ -113,4 +113,3 @@ public class Flight {
     }
   }
 }
-
