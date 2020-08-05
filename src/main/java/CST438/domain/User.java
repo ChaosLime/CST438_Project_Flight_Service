@@ -8,7 +8,6 @@ import javax.persistence.Table;
 @Table(name = "user")
 public class User extends AbstractEntity {
 
-
   private String email;
 
   @GeneratedValue
@@ -18,9 +17,7 @@ public class User extends AbstractEntity {
 
   private String first_name;
 
-  public User() {
-    // this(0, "test", create_date, "last_name", "first_name");
-  }
+  public User() {}
 
   public User(int id, String email, String create_date, String last_name, String first_name) {
     super();
@@ -30,7 +27,6 @@ public class User extends AbstractEntity {
     this.last_name = last_name;
   }
 
-
   public String getEmail() {
     return email;
   }
@@ -38,7 +34,6 @@ public class User extends AbstractEntity {
   public void setEmail(String email) {
     this.email = email;
   }
-
 
   public String getCreate_date() {
     return create_date;
@@ -63,6 +58,5 @@ public class User extends AbstractEntity {
   public void setLast_name(String last_name) {
     this.last_name = last_name;
   }
-
 
 }
