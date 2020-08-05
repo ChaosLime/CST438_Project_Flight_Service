@@ -19,12 +19,12 @@
 <body>
 	<h1>The Flight Reservation System&#8482;</h1>
 	<div th:each="bookingInfo : ${bookingInfo}">	
-		<h2>BookingID:  <span th:text="${bookingInfo.bookId}"></span> <span th:text="${user.last_name}"></span></h2>
+		<h2>BookingID:  <span th:text="${bookingInfo.bookId}"></span></h2>
 	</div>
 	
 	<div th:each="user : ${user}">	
 		<h2>Reservations for <span th:text="${user.first_name}"></span> <span th:text="${user.last_name}"></span></h2>
-			<span th:text="${user.email}"></span>
+			Email: <span th:text="${user.email}"></span>
 	</div>
 	
 	<hr>
@@ -40,7 +40,6 @@
 			<th>Seats Available</th>
 			<th>Seat Type</th>
 			<th>Cost</th>
-			<th>Selection</th>
 		</tr>
 		<tr th:each="departureFlight : ${departureFlight}">
 		    <td th:text="${departureFlight.flight.flightNumber}"></td>
@@ -54,9 +53,7 @@
 			</td>
 		</tr>
 	</table>
-	
-	
-	
+		
 	</div>
 	<hr>
 	<h2>Return Flight:</h2><br>
@@ -70,7 +67,6 @@
 			<th>Seats Available</th>
 			<th>Seat Type</th>
 			<th>Cost</th>
-			<th>Selection</th>
 		</tr>
 		<tr th:each="returnFlight : ${returnFlight}">
 		    <td th:text="${returnFlight.flight.flightNumber}"></td>
@@ -86,7 +82,6 @@
 	</table>
 		
 	</div>
-	
-	
+		
 	</body>
 </html>
