@@ -53,9 +53,9 @@ public class FlightRestControllerTest {
   }
 
   /**
-   * This test is ensuring that the flight service is functional before testing the 
-   * flightSearchAPI. If the flight service isn't functional, then neither will the
-   * flightSearchAPI.
+   * This test is ensuring that the flight service is functional before testing the flightSearchAPI.
+   * If the flight service isn't functional, then neither will the flightSearchAPI.
+   * 
    * @throws Exception
    */
 
@@ -76,41 +76,48 @@ public class FlightRestControllerTest {
 
 
     assertThat(flightInfoList).isNotEmpty();
-    
-    given(flightService.getFlightAndSeatInfo("8/18/2020", "Denver", "Los Angeles")).willReturn(flightInfoList);
-    
-    List<FlightInfo> flightListResult = flightService.getFlightAndSeatInfo("8/18/2020", "Denver", "Los Angeles");
-    
+
+    given(flightService.getFlightAndSeatInfo("8/18/2020", "Denver", "Los Angeles"))
+        .willReturn(flightInfoList);
+
+    List<FlightInfo> flightListResult =
+        flightService.getFlightAndSeatInfo("8/18/2020", "Denver", "Los Angeles");
+
     assertThat(flightListResult).isEqualTo(flightInfoList);
   }
-  
+
   /**
-   * This test works on the assumption that the flight service is functional.
-   * This test just tests the FlightSearchAPI only.
+   * This test works on the assumption that the flight service is functional. This test just tests
+   * the FlightSearchAPI only.
+   * 
    * @throws Exception
    */
   @Test
   public void flightSearchApiTest() throws Exception {
     Flight flight1 = new Flight(1, "abc", "LAX", "10:00 AM", "SMX", "1:00 PM", "07/30/2020");
     Flight flight2 = new Flight(2, "def", "NYC", "9:30 PM", "LAX", "5:00 AM", "08/2/2020");
-    
-    FlightInfo flightInfo1 = new FlightInfo(flight1, new FlightSeatInfo(1, 10, "econ", (double) 99.99));
-    FlightInfo flightInfo2 = new FlightInfo(flight2, new FlightSeatInfo(2, 1, "lux", (double) 465.95));
-    
+
+    FlightInfo flightInfo1 =
+        new FlightInfo(flight1, new FlightSeatInfo(1, 10, "econ", (double) 99.99));
+    FlightInfo flightInfo2 =
+        new FlightInfo(flight2, new FlightSeatInfo(2, 1, "lux", (double) 465.95));
+
     List<FlightInfo> flightInfoList = new ArrayList<FlightInfo>();
-    
+
     flightInfoList.add(flightInfo1);
-    flightInfoList.add(flightInfo2);   
-    
-    given(flightService.getFlightAndSeatInfo("8/18/2020", "Denver", "Los Angeles")).willReturn(flightInfoList);
-    
-    MockHttpServletResponse response = mvc.perform(get("/api/08-18-2020/Denver/Los Angeles"))
-            .andReturn().getResponse();
-    
+    flightInfoList.add(flightInfo2);
+
+    given(flightService.getFlightAndSeatInfo("8/18/2020", "Denver", "Los Angeles"))
+        .willReturn(flightInfoList);
+
+    MockHttpServletResponse response =
+        mvc.perform(get("/api/08-18-2020/Denver/Los Angeles")).andReturn().getResponse();
+
     assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-    
-    List<FlightInfo> flightInfoListResultFromApi= jsonFlightListAttempt.parseObject(response.getContentAsString());
-    
+
+    List<FlightInfo> flightInfoListResultFromApi =
+        jsonFlightListAttempt.parseObject(response.getContentAsString());
+
     assertThat(flightInfoListResultFromApi).isEqualTo(flightInfoList);
 
     given(flightService.getFlightAndSeatInfo("08/18/2020", "Denver", "Los Angeles"))
@@ -120,16 +127,6 @@ public class FlightRestControllerTest {
         flightService.getFlightAndSeatInfo("08/18/2020", "Denver", "Los Angeles");
 
     assertThat(flightListResult).isEqualTo(flightInfoList);
-
-    MockHttpServletResponse response =
-        mvc.perform(get("/api/08-18-2020/Denver/Los Angeles")).andReturn().getResponse();
-
-    assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-
-    List<FlightInfo> flightInfoListResult2 =
-        jsonFlightListAttempt.parseObject(response.getContentAsString());
-
-    assertThat(flightInfoListResult2).isEqualTo(flightInfoList);
 
   }
 }
