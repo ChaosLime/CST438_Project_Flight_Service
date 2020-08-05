@@ -48,8 +48,8 @@ public class FlightController {
 
     String error = "";
 
-    // error validation for user, checks system if it is found or not, else return error to try
-    // again.
+    // error validation for user, checks system if it is found or not,
+    // else return error to try again.
     if (currentUserInfo == null) {
       error = "Email [" + email
           + "] is not found in our database. If this is a mistake, please check spelling and try again.";
@@ -141,10 +141,12 @@ public class FlightController {
 
   @PostMapping("/flights")
   public String getAllFlights(@Valid FormInfo formInfo, @Valid User user, BindingResult result,
-      @RequestParam("originCity") String originCity,
-      @RequestParam("destinationCity") String destinationCity,
-      @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate,
       Model model) {
+
+    String originCity = formInfo.getOriginCity();
+    String destinationCity = formInfo.getDestinationCity();
+    String startDate = formInfo.getStartDate();
+    String endDate = formInfo.getEndDate();
 
     if (result.hasErrors()) {
       return "reservation_form";
@@ -164,8 +166,6 @@ public class FlightController {
     } else {
       flightNotFound = "";
     }
-
-
 
     model.addAttribute("departDate", startDate);
     model.addAttribute("departureFlights", departureFlights);
