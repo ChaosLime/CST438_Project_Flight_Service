@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Flights</title>
+    <style>
+		table {
+		  border-collapse: collapse;
+		  width: 90%;
+		}
+		
+		th, td {
+		  text-align: left;
+		  padding: 8px;
+		}
+		
+		tr:nth-child(even) {background-color: #f2f2f2;}
+	</style>
+</head>
+<body>
+<form action="#" th:action="@{/reservationCancellation}" method="post">
+	<h3>Current Reservations</h3>
+	
+	<table>
+		<tr>
+			<th>Booking ID#</th>
+			<th>Flight #</th>
+			<th>Airline</th>
+			<th>Departure Time</th>
+		</tr>
+		<tr>
+		<div th:each="bookingInfo0 : ${bookingInfo0}">
+		    <td th:text="${bookingInfo0.bookId}"></td>
+		</div>
+		<div th:each="flightInfo0 : ${flightInfo0}">
+			<td th:text="${flightInfo0.flight.flightNumber}"></td>
+		    <td th:text="${flightInfo0.flight.airline}"></td>
+		    <td th:text="${flightInfo0.flight.date}"></td>
+		    <td> <input type="radio"> </td>
+		</div>
+		</tr>
+		<tr th:each="bookingInfo1 : ${bookingInfo1}">
+		    <td th:text="${bookingInfo1.bookId}"></td>
+		</tr>
+		<tr th:each="flightInfo1 : ${flightInfo1}">
+			<td th:text="${flightInfo1.flight.flightNumber}"></td>
+		    <td th:text="${flightInfo1.flight.airline}"></td>
+		    <td th:text="${flightInfo1.flight.date}"></td>
+		    <td> <input type="radio"> </td>
+		</tr>  
+		<tr th:each="bookingInfo2 : ${bookingInfo2}">
+		    <td th:text="${bookingInfo2.bookId}"></td>
+		</tr>
+		<tr th:each="flightInfo2 : ${flightInfo2}">
+			<td th:text="${flightInfo2.flight.flightNumber}"></td>
+		    <td th:text="${flightInfo2.flight.airline}"></td>
+		    <td th:text="${flightInfo2.flight.date}"></td>
+		    <td> <input type="radio"> </td>
+		</tr>  
+		<tr th:each="bookingInfo3 : ${bookingInfo3}">
+		    <td th:text="${bookingInfo3.bookId}"></td>
+		</tr>
+		<tr th:each="flightInfo3 : ${flightInfo3}">
+			<td th:text="${flightInfo3.flight.flightNumber}"></td>
+		    <td th:text="${flightInfo3.flight.airline}"></td>
+		    <td th:text="${flightInfo3.flight.date}"></td>
+		    <td> <input type="radio"> </td>
+		</tr> 
+		<tr th:each="bookingInfo4 : ${bookingInfo4}">
+		    <td th:text="${bookingInfo4.bookId}"></td>
+		</tr>
+		<tr th:each="flightInfo4 : ${flightInfo4}">
+			<td th:text="${flightInfo4.flight.flightNumber}"></td>
+		    <td th:text="${flightInfo4.flight.airline}"></td>
+		    <td th:text="${flightInfo4.flight.date}"></td>
+		    <td> <input type="radio"> </td>
+		</tr>   		 
+		   			
+			
+			
+	</table>
+	<br />
+	
+	<input type="submit" value="Submit" />
+	</form>
+</body>
+</html>

@@ -24,7 +24,15 @@
 			<input type="submit" value="Make a Reservation">
 		</form>
 		(TODO, put form here that can allow the returning user view all past bookings page, and able to cancel the selected flight)
-		
+		<br>
+		<form action="#" th:action="@{/reservationListing}" th:object="${user}" method="POST">
+			<input type="hidden" th:field="*{id}">
+			<input type="hidden" th:field="*{email}">
+			<input type="hidden" th:field="*{last_name}">
+			<input type="hidden" th:field="*{first_name}">
+			<input type="hidden" th:field="*{create_date}">
+			<input type="submit" value="View Current Reservations">
+		</form>
 		<br>
 		<hr>
 	</body>

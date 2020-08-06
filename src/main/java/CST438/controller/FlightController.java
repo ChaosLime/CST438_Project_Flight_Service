@@ -1,5 +1,7 @@
 package CST438.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -204,7 +206,7 @@ public class FlightController {
     System.out.println("Return Flight seatID: [" + returnFlight.seatInfo.getId() + "]");
 
     Reservation bookingInfo = new Reservation(user.getEmail(), departureFlight.seatInfo.getId(),
-        returnFlight.seatInfo.getId());
+        returnFlight.seatInfo.getId(), false);
 
     reservationService.bookFlight(bookingInfo);
     model.addAttribute("bookingInfo", bookingInfo);
@@ -216,8 +218,87 @@ public class FlightController {
 
     return "reservation_confirmation";
   }
+  
+  @PostMapping("/reservationListing")
+  public String getAllBookings(@Valid User user, BindingResult result, Model model) {
 
+    //System.out.println("email: " + user.getEmail());  
+    
+    List<Reservation> reservationList =	reservationService.getBookingList(user.getEmail());
+    
+    /*
+    List<Integer> seatIdList = new ArrayList();
+    
+    for (int i = 0; i < reservationList.size(); i++) {
+    	
+    	seatIdList.add(reservationList.get(i).getDepartureFlightSeatInfoId());
+    	    	
+    }
+    
+    seatInfoService.getBookedFlight(seatIdList);
+    */
+    
+    //System.out.println(Arrays.toString(reservationList.toArray()));
+    
+    //List<FlightInfo> flightInfoList = seatInfoService.getFlight(reservationList.get)
+    
+    
+    
+    for (int i = 0; i < reservationList.size(); i++) {
+    	
+    	Reservation reservation = reservationList.get(i);
+    	
+    	int seatId = reservation.getDepartureFlightSeatInfoId();
+    	System.out.println(seatId);
+    	FlightInfo flightInfo = seatInfoService.getBookedFlights(seatId);
+    	System.out.println(flightInfo);
+    	System.out.println(flightInfo.getFlight().getAirline());
+    	
+    	
+    	model.addAttribute("flightInfo" + i, flightInfo);
+    	model.addAttribute("bookingInfo" + i, reservationList);
+    	
+    }
+ 
+    
+    
 
+    /*
+    // If no return flights are found
+    if (returnFlights.isEmpty()) {
+      flightNotFound = "No Return Flights found, please try a different date or destination.";
+      model.addAttribute("error", flightNotFound);
+      return "error_page";
+    } else {
+      flightNotFound = "";
+    }
+
+    model.addAttribute("returnDate", endDate);
+    model.addAttribute("returnFlights", returnFlights);
+*/
+    return "view_booking_list";
+  }
+  
+  /*
+  @PostMapping("/reservationCancellation")
+  public String returnCancellation(@Valid User user, Model model) {
+
+   
+
+    Reservation bookingInfo = new Reservation(user.getEmail(), departureFlight.seatInfo.getId(),
+        returnFlight.seatInfo.getId(), false);
+
+    reservationService.bookFlight(bookingInfo);
+    model.addAttribute("bookingInfo", bookingInfo);
+
+    double totalCost =
+        departureFlight.getSeatInfo().getCost() + returnFlight.getSeatInfo().getCost();
+    totalCost = Math.round(totalCost * 100d) / 100d; // two decimals only
+    model.addAttribute("totalCost", totalCost);
+
+    return "reservation_cancellation";
+  }
+*/
   @PostMapping("/view_reservations")
   public String viewReservations(@Valid Reservation bookingInfo, BindingResult result,
       Model model) {

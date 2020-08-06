@@ -16,4 +16,9 @@ public interface FlightSeatInfoRepository extends JpaRepository<FlightSeatInfo, 
   List<FlightSeatInfo> findByFlightNumber(int flightNumber);
 
   FlightSeatInfo findById(int id);
+  
+ 
+  
+  
+  
 }

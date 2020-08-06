@@ -15,18 +15,27 @@ public class Reservation {
   private String userEmail;
   private int departureFlightSeatInfoId;
   private int returnFlightSeatInfoId;
-  // TODO Bool Cancelled?
+  private boolean isCancelled;
 
   public Reservation() {
 
   }
 
-  public Reservation(String userEmail, int departureFlightSeatInfoId, int returnFlightSeatInfoId) {
+  public Reservation(String userEmail, int departureFlightSeatInfoId, int returnFlightSeatInfoId, boolean isCancelled) {
     super();
     this.userEmail = userEmail;
     this.departureFlightSeatInfoId = departureFlightSeatInfoId;
     this.returnFlightSeatInfoId = returnFlightSeatInfoId;
+    this.isCancelled = isCancelled;
   }
+
+  public boolean isCancelled() {
+	return isCancelled;
+  }
+
+  public void setCancelled(boolean isCancelled) {
+	this.isCancelled = isCancelled;
+	}
 
   public long getBookId() {
     return bookId;
