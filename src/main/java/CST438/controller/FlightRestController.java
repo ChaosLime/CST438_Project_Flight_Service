@@ -54,7 +54,7 @@ public class FlightRestController {
 
     List<FlightInfo> flightInfo =
         flightService.getFlightAndSeatInfo(flightDate, departureCity, arrivalCity);
-    if (flightInfo == null) {
+    if (flightInfo.isEmpty()) {
       // Flight List was empty. Send 404 return code.
       return new ResponseEntity<List<FlightInfo>>(HttpStatus.NOT_FOUND);
     } else {
@@ -87,7 +87,7 @@ public class FlightRestController {
       
       return new ResponseEntity<Long>(bookingId, HttpStatus.OK);
     } else {
-      return new ResponseEntity<Long>((long)-1, HttpStatus.NOT_FOUND);
+      return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
     }
   }
   
