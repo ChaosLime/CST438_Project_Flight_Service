@@ -44,7 +44,9 @@ public class FlightService {
           .findByFlightNumber(flight.getFlightNumber());
 
       for (FlightSeatInfo seatInfo : seatInfoList) {
-        flightInfo.add(new FlightInfo(flight, seatInfo));
+        if (seatInfo.getSeatsAvailable() > 0) {
+          flightInfo.add(new FlightInfo(flight, seatInfo));
+        }
       }
     }
 
