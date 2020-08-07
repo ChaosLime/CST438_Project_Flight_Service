@@ -20,8 +20,13 @@ import CST438.controller.FlightRestController;
 import CST438.domain.Flight;
 import CST438.domain.FlightInfo;
 import CST438.domain.FlightSeatInfo;
+import CST438.domain.Reservation;
 import CST438.repository.FlightRepository;
+import CST438.repository.FlightSeatInfoRepository;
+import CST438.repository.ReservationRepository;
+import CST438.service.FlightSeatInfoService;
 import CST438.service.FlightService;
+import CST438.service.ReservationService;
 
 // class must be annotated as WebMvcTest, not SpringBootTest
 @WebMvcTest(FlightRestController.class)
@@ -33,9 +38,21 @@ public class FlightRestControllerTest {
 
   @MockBean
   private FlightService flightService;
+  
+  @MockBean
+  private ReservationService reservationService;
+  
+  @MockBean
+  private ReservationRepository reservationRepository;
+   
+  @MockBean
+  private FlightSeatInfoService flightSeatInfoService;
 
   @MockBean
   private FlightRepository flightRepository;
+  
+  @MockBean
+  private FlightSeatInfoRepository flightSeatInfoRepository;
 
   // This class is used for make simulated HTTP requests to the class
   // being tested.
@@ -111,7 +128,7 @@ public class FlightRestControllerTest {
         .willReturn(flightInfoList);
 
     MockHttpServletResponse response =
-        mvc.perform(get("/api/08-18-2020/Denver/Los Angeles")).andReturn().getResponse();
+        mvc.perform(get("/api/FlightDate/08-18-2020/DepartureCity/Denver/ArrivalCity/Los Angeles")).andReturn().getResponse();
 
     assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 
@@ -128,5 +145,118 @@ public class FlightRestControllerTest {
 
     assertThat(flightListResult).isEqualTo(flightInfoList);
 
+  }
+  
+  @Test
+  public void createBookingApiTest() throws Exception {
+    Flight flight1 = new Flight(1, "abc", "LAX", "10:00 AM", "SMX", "1:00 PM", "07/30/2020");
+    Flight flight2 = new Flight(2, "def", "NYC", "9:30 PM", "LAX", "5:00 AM", "08/2/2020");
+
+    FlightInfo flightInfo1 =
+        new FlightInfo(flight1, new FlightSeatInfo(1, 10, "econ", (double) 99.99));
+    FlightInfo flightInfo2 =
+        new FlightInfo(flight2, new FlightSeatInfo(2, 1, "lux", (double) 465.95));
+
+    given(flightSeatInfoService.onlyGetFlight(1)).willReturn(flightInfo1);
+    given(flightSeatInfoService.onlyGetFlight(2)).willReturn(flightInfo2);
+
+    MockHttpServletResponse response =
+        mvc.perform(get("/api/SeatID1/1/SeatID2/2")).andReturn().getResponse();
+
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    
+    String retrievedBookingId = response.getContentAsString();
+    
+    assertThat(retrievedBookingId).isEqualTo("0");
+    
+    
+    
+    Flight flight3 = new Flight(1, "ghi", "SLO", "10:00 AM", "SMX", "1:00 PM", "07/30/2020");
+    Flight flight4 = new Flight(2, "jkl", "SMX", "9:30 PM", "LAX", "5:00 AM", "08/2/2020");
+
+    FlightInfo flightInfo3 =
+        new FlightInfo(flight3, new FlightSeatInfo(3, 7, "lux", (double) 199.99));
+    FlightInfo flightInfo4 =
+        new FlightInfo(flight4, new FlightSeatInfo(4, 4, "econ", (double) 65.95));
+
+    given(flightSeatInfoService.onlyGetFlight(3)).willReturn(flightInfo3);
+    given(flightSeatInfoService.onlyGetFlight(4)).willReturn(flightInfo4);
+
+    response = mvc.perform(get("/api/SeatID1/3/SeatID2/4")).andReturn().getResponse();
+
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    
+    retrievedBookingId = response.getContentAsString();
+    
+    assertThat(retrievedBookingId).isEqualTo("0");
+  }
+  
+  @Test
+  public void viewBookingApiTest() throws Exception {
+    Flight flight1 = new Flight(1, "abc", "LAX", "10:00 AM", "SMX", "1:00 PM", "07/30/2020");
+    Flight flight2 = new Flight(2, "def", "NYC", "9:30 PM", "LAX", "5:00 AM", "08/2/2020");
+
+    FlightSeatInfo flightSeatInfo1 = new FlightSeatInfo(1, 10, "econ", (double) 99.99);
+    FlightSeatInfo flightSeatInfo2 = new FlightSeatInfo(2, 1, "lux", (double) 465.95);
+    
+    FlightInfo flightInfo1 = new FlightInfo(flight1, flightSeatInfo1);
+    FlightInfo flightInfo2 = new FlightInfo(flight2, flightSeatInfo2);
+    
+    List<FlightInfo> flightInfoList = new ArrayList<FlightInfo>();
+
+    flightInfoList.add(flightInfo1);
+    flightInfoList.add(flightInfo2);
+
+    given(flightSeatInfoService.onlyGetFlight(1)).willReturn(flightInfo1);
+    given(flightSeatInfoService.onlyGetFlight(2)).willReturn(flightInfo2);
+    
+    Reservation reservation = new Reservation(null, 1, 2);
+    
+    given(reservationService.getBooking(0)).willReturn(reservation);
+
+    MockHttpServletResponse response =
+        mvc.perform(get("/api/BookingID/0")).andReturn().getResponse();
+
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    
+    List<FlightInfo> flightInfoListResultFromApi =
+        jsonFlightListAttempt.parseObject(response.getContentAsString());
+    
+    assertThat(flightInfoListResultFromApi).isEqualTo(flightInfoList);
+  }
+  
+  @Test
+  public void cancelBookingApiTest() throws Exception {
+    Flight flight1 = new Flight(1, "abc", "LAX", "10:00 AM", "SMX", "1:00 PM", "07/30/2020");
+    Flight flight2 = new Flight(2, "def", "NYC", "9:30 PM", "LAX", "5:00 AM", "08/2/2020");
+
+    FlightSeatInfo flightSeatInfo1 = new FlightSeatInfo(1, 10, "econ", (double) 99.99);
+    FlightSeatInfo flightSeatInfo2 = new FlightSeatInfo(2, 1, "lux", (double) 465.95);
+    
+    FlightInfo flightInfo1 = new FlightInfo(flight1, flightSeatInfo1);
+    FlightInfo flightInfo2 = new FlightInfo(flight2, flightSeatInfo2);
+    
+    List<FlightInfo> flightInfoList = new ArrayList<FlightInfo>();
+
+    flightInfoList.add(flightInfo1);
+    flightInfoList.add(flightInfo2);
+
+    given(flightSeatInfoService.onlyGetFlight(1)).willReturn(flightInfo1);
+    given(flightSeatInfoService.onlyGetFlight(2)).willReturn(flightInfo2);
+    
+    given(reservationService.cancelBooking((long) 0)).willReturn(true);
+    
+    Reservation reservation = new Reservation(null, 1, 2);
+    
+    given(reservationService.getBooking(0)).willReturn(reservation);
+
+    MockHttpServletResponse response =
+        mvc.perform(get("/api/Cancel/BookingID/0")).andReturn().getResponse();
+
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    
+    response = mvc.perform(get("/api/Cancel/BookingID/1")).andReturn().getResponse();
+    
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
   }
 }

@@ -14,5 +14,24 @@ public class ReservationService {
   public void bookFlight(Reservation reservation) {
     reservationRepository.save(reservation);
   }
-
+  
+  public Reservation getBooking(long id) {
+    
+    Reservation booking = reservationRepository.findBookingByID(id);
+      return booking;
+      
+  }
+  
+  public boolean cancelBooking(long id) {
+    
+    reservationRepository.cancelBooking(id);
+    
+    Reservation booking = reservationRepository.findBookingByID(id);
+    
+    if (booking.isCancelled()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
