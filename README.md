@@ -8,6 +8,7 @@ Deployment Site: https://cst438flightservice.herokuapp.com/
 Acceptable Cities to be used are: **Denver**, **Los Angeles**. Date range from **08-18-2020** to **08-22-2020** are the valid for searching. Due to the limited scope of the test data within the database, this is all that can be provided. Demo results below are for example only, your results may vary based on your inputs.
 
 **TO SEARCH FOR ___ONE___ FLIGHT**
+
 To retrieve flight data for **one** direction, follow the following url scheme locally:
 >localhost:8080/api/FlightDate/**08-18-2020**/DepartureCity/**Denver**/ArrivalCity/**Los Angeles**
 
