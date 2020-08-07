@@ -1,5 +1,5 @@
 This project for CST438 Software Engineering 2020. 
-This service is a flight reservation program that is accessed through forms by springboot HTML controller or to be accessed through a REST controller given an API call(s).
+This service is a flight reservation program that is accessed through forms by springboot HTML controller or to be accessed through a REST controller given an API call(s). Additional Info over local deloyment of service can/will be provided.
 
 Deployment Site: https://cst438flightservice.herokuapp.com/
 
@@ -111,7 +111,8 @@ API Failure (or empty search result):
 >Returned 404 status.
 
 **TO BOOK A FLIGHT**
->Requires **two** seatInfo.id from the previous API call.Meaning, you will have to search for flights total of **two** times for a round trip. Program only handles round trip at this time. One for departure to destination, and one from destination back to origin. 
+
+Requires **two** seatInfo.id from the previous API call.Meaning, you will have to search for flights total of **two** times for a round trip. Program only handles round trip at this time. One for departure to destination, and one from destination back to origin. When these two ID's are provided into the API, a singular value will be returned. This is your BookingID. Store this with your user as you will need this for all things related to the booking.
 
 Local:
 > localhost:8080/api/SeatID1/**512**/SeatID2/**647**
@@ -124,6 +125,9 @@ API Failure (nothing booked. Invalid seat ID?):
 >Returned 404 status.
 
 **TO VIEW FLIGHT DETAILS BY BOOKINGID**
+
+Using the Previous API's bookingID that was provided, you can view the details of that flight.
+
 Local:
 >localhost:8080/api/BookingID/**6**
 
@@ -142,6 +146,9 @@ API Failure (Invalid booking ID):
 >Returned status 404.
 
 **TO CANCEL EXISTING BOOKINGID**
+
+You can cancel your booking using your bookingID.
+
 >localhost:8080/api/Cancel/BookingID/**6**
 
 Valid API result:
