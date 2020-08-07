@@ -31,6 +31,22 @@ public class FlightSeatInfoService {
 
     return flightInfo;
   }
+  
+  public FlightInfo onlyGetFlight(int seatInfoId) {
+
+    FlightSeatInfo seatInfo = flightSeatRepo.findById(seatInfoId);
+
+    if (seatInfo != null) {
+      Flight flight = flightRepo.findByFlightNumber(seatInfo.getFlightNumber());
+
+      FlightInfo flightInfo = new FlightInfo(flight, seatInfo);
+
+      return flightInfo;
+    } else
+    {
+      return null;
+    }
+  }
 
   /*
    * public FlightSeatInfo findById(int id) {
