@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import CST438.domain.FlightInfo;
 import CST438.domain.Reservation;
@@ -28,10 +27,10 @@ public class FlightRestController {
 
   @Autowired
   private FlightService flightService;
-  
+
   @Autowired
   private ReservationService reservationService;
-  
+
   @Autowired
   private FlightSeatInfoService flightSeatInfoService;
 
@@ -61,78 +60,77 @@ public class FlightRestController {
       return new ResponseEntity<List<FlightInfo>>(flightInfo, HttpStatus.OK);
     }
   }
-  
+
   @GetMapping("/api/SeatID1/{seatId1}/SeatID2/{seatId2}")
-  public ResponseEntity<Long> getReservationFlightInfo(
-      @PathVariable("seatId1") String seatId1,
-      @PathVariable("seatId2") String seatId2) { 
-    
+  public ResponseEntity<Long> getReservationFlightInfo(@PathVariable("seatId1") String seatId1,
+      @PathVariable("seatId2") String seatId2) {
+
     // Checks to make sure that there is such a seat id.
     FlightInfo flightInfoCheck2 = flightSeatInfoService.onlyGetFlight(Integer.parseInt(seatId2));
     FlightInfo flightInfoCheck1 = flightSeatInfoService.onlyGetFlight(Integer.parseInt(seatId1));
-    
-    
+
+
     if (flightInfoCheck1 != null && flightInfoCheck2 != null) {
-      
+
       // Now actually reserve the seats.
       flightSeatInfoService.getFlight(Integer.parseInt(seatId1));
       flightSeatInfoService.getFlight(Integer.parseInt(seatId2));
-    
-      Reservation booking = new Reservation(null, Integer.parseInt(seatId1),
-                                                Integer.parseInt(seatId2));
-    
+
+      Reservation booking =
+          new Reservation(null, Integer.parseInt(seatId1), Integer.parseInt(seatId2));
+
       reservationService.bookFlight(booking);
-      
+
       long bookingId = booking.getBookId();
-      
+
       return new ResponseEntity<Long>(bookingId, HttpStatus.OK);
     } else {
       return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
     }
   }
-  
-  
+
+
   @GetMapping("/api/BookingID/{bookingID}")
   public ResponseEntity<List<FlightInfo>> getReservationFlightInfo(
       @PathVariable("bookingID") String bookingID) {
 
     Reservation booking = reservationService.getBooking(Long.parseLong(bookingID));
-    
+
     if (booking != null) {
-    
+
       int seatId1 = booking.getDepartureFlightSeatInfoId();
       int seatId2 = booking.getReturnFlightSeatInfoId();
-      
+
       FlightInfo flight1 = flightSeatInfoService.onlyGetFlight(seatId1);
-      FlightInfo flight2 = flightSeatInfoService.onlyGetFlight(seatId2);    
-      
+      FlightInfo flight2 = flightSeatInfoService.onlyGetFlight(seatId2);
+
       List<FlightInfo> roundTrip = new ArrayList<FlightInfo>();
-      
+
       roundTrip.add(flight1);
       roundTrip.add(flight2);
-      
+
       return new ResponseEntity<List<FlightInfo>>(roundTrip, HttpStatus.OK);
     } else {
       return new ResponseEntity<List<FlightInfo>>(HttpStatus.NOT_FOUND);
     }
   }
-  
+
   @GetMapping("/api/Cancel/BookingID/{bookingID}")
   public ResponseEntity<HttpStatus> cancelReservationFlightInfo(
       @PathVariable("bookingID") String bookingId) {
 
     Reservation booking = reservationService.getBooking(Long.parseLong(bookingId));
-    
+
     if (booking != null) {
-      
+
       boolean cancelledSuccessfully = reservationService.cancelBooking(booking.getBookId());
-    
+
       if (cancelledSuccessfully) {
         return new ResponseEntity<HttpStatus>(HttpStatus.OK);
       } else {
         return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
       }
-      
+
     } else {
       return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
     }
