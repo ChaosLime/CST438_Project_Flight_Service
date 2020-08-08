@@ -22,8 +22,13 @@ public class UserService {
     return user;
   }
 
-  public void saveIntoDatabase(User user) {
-    userRepository.save(user);
-  }
+  public Boolean saveIntoDatabase(User user) {
 
+    if (user.getEmail() != null) {
+      userRepository.save(user);
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
