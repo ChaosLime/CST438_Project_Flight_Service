@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Flight Reservation System</title>
+     
+	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+	<h1>The Flight Reservation System&#8482;</h1>
+	<div th:each="bookingInfo : ${bookingInfo}">
+	<br/>
+		
+		<div class="text-danger"><h2>The Reservation below has been CANCELLED for <span th:text="${bookingInfo.userEmail}"></span> (will still appear in user's reservations page but as 'cancelled')</h2> 
+		</div>
+		<br/>
+		<h3>Departure Flight</h3>
+		<div class="row">
+		<div th:each="departureFlight: ${departureFlight}">
+		<table class="table">
+		<tr>
+			<th>Flight #</th>
+			<th>Departure Time</th>
+			<th>Arrival Time</th>
+			
+		</tr>
+		<tr th:each="departureFlight : ${departureFlight}">
+		    <td th:text="${departureFlight.flight.flightNumber}"></td>
+		    <td th:text="${departureFlight.flight.departureTime}"></td>
+			<td th:text="${departureFlight.flight.arrivalTime}"></td>
+		</tr>
+		</table>
+		</div>
+	</div>
+		
+		<h3>Returning Flight</h3>
+		<div class="row">
+		<div th:each="returnFlight: ${returnFlight}">
+		<table class="table">
+		<tr>
+			<th>Flight #</th>
+			<th>Departure Time</th>
+			<th>Arrival Time</th>
+			
+		</tr>
+		<tr th:each="returnFlight : ${returnFlight}">
+		    <td th:text="${returnFlight.flight.flightNumber}"></td>
+			<td th:text="${returnFlight.flight.departureTime}"></td>
+			<td th:text="${returnFlight.flight.arrivalTime}"></td>
+		</tr>
+		</table>
+	</div>
+	</div>
+	
+	</div>
+	
+	
+	
+	</div>
+	
+	
+	
+
+	
+		<br/><hr>
+		<a th:href="@{/}">Back to Main Page</a>
+	
+</body>
+</html>

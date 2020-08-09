@@ -27,4 +27,6 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
       @Param("arrivalAirport") String arrivalAirport);
 
   Flight findByFlightNumber(int flightNumber);
+
+    
 }

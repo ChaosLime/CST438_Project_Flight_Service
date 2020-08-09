@@ -32,16 +32,14 @@ public class FlightService {
     return flights;
   }
 
-  public List<FlightInfo> getFlightAndSeatInfo(String flightDate, String departureCity,
-      String arrivalCity) {
-    List<Flight> flights = flightRepository.findByDateAndAirports(flightDate, departureCity,
-        arrivalCity);
+  public List<FlightInfo> getFlightAndSeatInfo(String flightDate, String departureCity, String arrivalCity) {
+	  
+    List<Flight> flights = flightRepository.findByDateAndAirports(flightDate, departureCity, arrivalCity);
 
     List<FlightInfo> flightInfo = new ArrayList<FlightInfo>();
 
     for (Flight flight : flights) {
-      List<FlightSeatInfo> seatInfoList = seatInfoRepository
-          .findByFlightNumber(flight.getFlightNumber());
+      List<FlightSeatInfo> seatInfoList = seatInfoRepository.findByFlightNumber(flight.getFlightNumber());
 
       for (FlightSeatInfo seatInfo : seatInfoList) {
         if (seatInfo.getSeatsAvailable() > 0) {

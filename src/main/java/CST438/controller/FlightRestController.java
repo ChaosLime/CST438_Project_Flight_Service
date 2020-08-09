@@ -77,7 +77,7 @@ public class FlightRestController {
       flightSeatInfoService.getFlight(Integer.parseInt(seatId2));
 
       Reservation booking =
-          new Reservation(null, Integer.parseInt(seatId1), Integer.parseInt(seatId2));
+          new Reservation(null, Integer.parseInt(seatId1), Integer.parseInt(seatId2), false);
 
       reservationService.bookFlight(booking);
 

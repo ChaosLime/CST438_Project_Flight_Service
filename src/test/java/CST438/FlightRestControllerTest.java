@@ -210,7 +210,7 @@ public class FlightRestControllerTest {
     given(flightSeatInfoService.onlyGetFlight(1)).willReturn(flightInfo1);
     given(flightSeatInfoService.onlyGetFlight(2)).willReturn(flightInfo2);
     
-    Reservation reservation = new Reservation(null, 1, 2);
+    Reservation reservation = new Reservation(null, 1, 2, false);
     
     given(reservationService.getBooking(0)).willReturn(reservation);
 
@@ -246,7 +246,7 @@ public class FlightRestControllerTest {
     
     given(reservationService.cancelBooking((long) 0)).willReturn(true);
     
-    Reservation reservation = new Reservation(null, 1, 2);
+    Reservation reservation = new Reservation(null, 1, 2, false);
     
     given(reservationService.getBooking(0)).willReturn(reservation);
 
