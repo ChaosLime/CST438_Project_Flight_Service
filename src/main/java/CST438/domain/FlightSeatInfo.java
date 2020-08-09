@@ -1,6 +1,7 @@
 package CST438.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "dummy_flight_seat_information")
@@ -52,7 +53,7 @@ public class FlightSeatInfo extends AbstractEntity {
   public String getSeatType() {
     return seatType;
   }
-  
+
   public void setSeatType(String seatType) {
     this.seatType = seatType;
   }
@@ -62,21 +63,19 @@ public class FlightSeatInfo extends AbstractEntity {
     if (obj == null) {
       return false;
     }
-    
+
     if (!FlightSeatInfo.class.isAssignableFrom(obj.getClass())) {
       return false;
     }
-    
+
     final FlightSeatInfo fSI = (FlightSeatInfo) obj;
-    
-    if (flightNumber == fSI.flightNumber &&
-        seatsAvailable == fSI.seatsAvailable &&
-        cost == fSI.cost &&
-        seatType.equals(fSI.seatType)){
+
+    if (flightNumber == fSI.flightNumber && seatsAvailable == fSI.seatsAvailable && cost == fSI.cost
+        && seatType.equals(fSI.seatType)) {
       return true;
     } else {
       return false;
     }
   }
-  
+
 }

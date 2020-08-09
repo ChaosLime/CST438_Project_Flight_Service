@@ -1,8 +1,5 @@
 package CST438.service;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import CST438.domain.Flight;
@@ -34,17 +31,15 @@ public class FlightSeatInfoService {
 
     return flightInfo;
   }
-  
 
   public FlightInfo getBookedFlights(int seatInfoId) {
 
-	    FlightSeatInfo seatInfo = flightSeatRepo.findById(seatInfoId);
+    FlightSeatInfo seatInfo = flightSeatRepo.findById(seatInfoId);
 
-	    Flight flight = flightRepo.findByFlightNumber(seatInfo.getFlightNumber());
-	    FlightInfo flightInfo = new FlightInfo(flight, seatInfo);
+    Flight flight = flightRepo.findByFlightNumber(seatInfo.getFlightNumber());
+    FlightInfo flightInfo = new FlightInfo(flight, seatInfo);
 
-	    return flightInfo;
-	  
+    return flightInfo;
   }
 
   public FlightInfo onlyGetFlight(int seatInfoId) {
@@ -57,13 +52,8 @@ public class FlightSeatInfoService {
       FlightInfo flightInfo = new FlightInfo(flight, seatInfo);
 
       return flightInfo;
-    } else
-    {
+    } else {
       return null;
     }
   }
-
-  
-  
-
 }
