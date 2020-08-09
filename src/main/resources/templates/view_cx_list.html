@@ -28,7 +28,7 @@
 	<div class="container">
         
         <div th:each="user : ${user}">	
-		<h3>View or Cancel Reservations for <span th:text="${user.first_name}"></span> <span th:text="${user.last_name}"></span></h3>
+		<h3 class="text-danger">CANCELLED RESERVATIONS for </h3><h3><span th:text="${user.first_name}"></span> <span th:text="${user.last_name}"></span></h3>
 			 <strong><span th:text="${user.email}"></span></strong>
 		</div>
 		<br/>
@@ -141,15 +141,6 @@
                 </tbody>
             </table>
             <br />
-            
-            <form action="#" th:object="${user}"  th:action="@{/cancelledListing}" method="post">
-			<input type="hidden" th:field="*{id}">
-			<input type="hidden" th:field="*{email}">
-			<input type="hidden" th:field="*{last_name}">
-			<input type="hidden" th:field="*{first_name}">
-			<input type="hidden" th:field="*{create_date}">
-			<input type="submit" class="btn btn-warning" value="View Cancelled Reservations">
-			</form>
 	
 			
 			<br/><hr>

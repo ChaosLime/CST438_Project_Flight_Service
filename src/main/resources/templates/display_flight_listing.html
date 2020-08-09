@@ -2,28 +2,21 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
     <title>Flights</title>
-    <style>
-		table {
-		  border-collapse: collapse;
-		  width: 90%;
-		}
-		
-		th, td {
-		  text-align: left;
-		  padding: 8px;
-		}
-		
-		tr:nth-child(even) {background-color: #f2f2f2;}
-	</style>
+    
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </head>
 <body>
+<div class="container">
 <form action="#" th:action="@{/reservationConfirmation}" method="post">
 	<h3>Departure Flights</h3>
 	<h4 th:inline="text"><strong>DATE:</strong> [[${departureFlights[0].flight.date}]]
 	  <strong>FROM:</strong> [[${departureFlights[0].flight.departureAirport}]]
-	  <strong>TO:</strong> [[${departureFlights[0].flight.arrivalAirport}]]</h4>
+	  <strong>TO:</strong> [[${departureFlights[0].flight.arrivalAirport}]]</h4><hr>
+	  <div><input type="submit" class="btn btn-success" value="Submit"></div>
 	<a th:inline="text">[[${departNotFound}]]</a>
-	<table>
+	<br/>
+	<table class="table">
 		<tr>
 			<th>Flight #</th>
 			<th>Airline</th>
@@ -50,8 +43,10 @@
 	<h4 th:inline="text"><strong>DATE:</strong> [[${returnFlights[0].flight.date}]]
 	  <strong>FROM:</strong> [[${returnFlights[0].flight.departureAirport}]]
 	  <strong>TO:</strong> [[${returnFlights[0].flight.arrivalAirport}]]</h4>
+	  
 	<a th:inline="text">[[${returnNotFound}]]</a>
-	<table>
+	<br/>
+	<table class="table">
 		<tr>
 			<th>Flight #</th>
 			<th>Airline</th>
@@ -81,7 +76,9 @@
 			<input type="hidden" th:field="*{first_name}">
 			<input type="hidden" th:field="*{create_date}">
 		</div>
-	<input type="submit" value="Submit" />
+	
 	</form>
+
+</div>
 </body>
 </html>

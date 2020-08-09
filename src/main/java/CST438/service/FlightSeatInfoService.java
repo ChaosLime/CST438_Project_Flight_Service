@@ -47,33 +47,6 @@ public class FlightSeatInfoService {
 	  
   }
   
-  /*
-  //public List<FlightInfo>getBookedFlight(List<Integer> seatInfoId) {
-	public void getBookedFlight(List<Integer> seatInfoId) {
-
-	    List<FlightSeatInfo> seatInfo = flightSeatRepo.findByIdList(seatInfoId);
-
-	    List<Flight> flight = flightRepo.findByFlightNumberList(seatInfo.get(0).getFlightNumber());
-	    
-	    System.out.println(Arrays.toString(seatInfo.toArray()));
-	    
-	    System.out.println(Arrays.toString(flight.toArray()));
-
-	    //List<FlightInfo> flightInfo = new FlightInfo(flight, seatInfo);
-
-	    //return flightInfo;
-	  
- }
- */
-
-  /*
-   * public FlightSeatInfo findById(int id) {
-   * 
-   * FlightSeatInfo seat = flightSeatRepo.findOne(id);
-   * 
-   * return seat;
-   * 
-   * }
-   */
+  
 
 }

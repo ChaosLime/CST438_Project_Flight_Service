@@ -29,7 +29,7 @@ public class Reservation {
     this.isCancelled = isCancelled;
   }
 
-  public boolean isCancelled() {
+  public boolean getIsCancelled() {
 	return isCancelled;
   }
 

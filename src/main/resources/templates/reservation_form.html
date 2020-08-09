@@ -3,19 +3,23 @@
 <head>
     <title>Flight Reservation</title>
 </head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <body>
+<div class="container">
 	<h3>Flight Reservation Form</h3>
-	<a>Please fill in details about your flight below</a>
+	<a>Please fill in details about your flight below</a><br/><br/>
+	<h4><strong><i>NOTE: MAXIMUM OF 5 RESERVATIONS PER USER ARE ALLOWED</i></strong></h4><br/>
 	
 	<form action="#" th:action="@{/flights}" th:object="${formInfo}" method="POST">
 		City of Origin:<br>
-		<input type="text" th:field="*{originCity}"/><br>
+		<input type="text" th:field="*{originCity}"/><br><br/>
 		Destination City: <br>
-		<input type="text" th:field="*{destinationCity}"/><br>
+		<input type="text" th:field="*{destinationCity}"/><br><br/>
 		Departure Date: <br>
-		<input type="date" th:field="*{startDate}"/><br>
+		<input type="date" th:field="*{startDate}"/><br><br/>
 		Return Date: <br>
-		<input type="date" th:field="*{endDate}"/><br>
+		<input type="date" th:field="*{endDate}"/><br><br/>
 
 		<!-- User Entity passes here -->
 		<div th:object="${user}">
@@ -25,8 +29,9 @@
 			<input type="hidden" th:field="*{first_name}">
 			<input type="hidden" th:field="*{create_date}">
 		</div>
-		<input type="submit" value="Submit" />	
+		
+		<input type="submit" class="btn btn-success" value="Submit" />	
 	</form>
-	
+</div>
 </body>
 </html>
