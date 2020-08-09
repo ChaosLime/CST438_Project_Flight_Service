@@ -68,5 +68,9 @@ public class Reservation {
   public void setReturnFlightSeatInfoId(int returnFlightSeatInfoId) {
     this.returnFlightSeatInfoId = returnFlightSeatInfoId;
   }
+  
+  public boolean isCancelled() {
+    return isCancelled;
+  }
 
 }

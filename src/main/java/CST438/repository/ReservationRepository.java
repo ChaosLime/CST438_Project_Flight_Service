@@ -8,12 +8,16 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
 import org.springframework.data.repository.query.Param;
+
 import org.springframework.stereotype.Repository;
+
 import CST438.domain.Reservation;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+
 	
 	//@Query("SELECT reservations FROM Reservation reservations WHERE reservations.user_email = :email")
 	@Query(value = "SELECT * FROM reservations WHERE book_id = ?1", nativeQuery = true)

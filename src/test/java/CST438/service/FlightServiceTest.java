@@ -89,6 +89,32 @@ public class FlightServiceTest {
     assertEquals(expectedData, testData);
   }
 
+  @Test
+  public void testNoSeatAvailable() {
+    Flight testFlight = getFakeFlight();
+    List<Flight> testFlights = new ArrayList<Flight>();
+    testFlights.add(testFlight);
+
+    given(flightRepo.findByDateAndAirports(testFlight.getDate(), testFlight.getDepartureAirport(),
+        testFlight.getArrivalAirport())).willReturn(testFlights);
+
+    List<FlightSeatInfo> seatInfoList = new ArrayList<FlightSeatInfo>();
+    FlightSeatInfo seatInfoZeroSeats = getFakeSeatInfo(testFlight);
+    seatInfoZeroSeats.setSeatsAvailable(0);
+    seatInfoList.add(seatInfoZeroSeats);
+    FlightSeatInfo seatInfoNegativeSeats = getFakeSeatInfo(testFlight);
+    seatInfoNegativeSeats.setSeatsAvailable(0);
+    seatInfoList.add(seatInfoNegativeSeats);
+
+    given(seatRepo.findByFlightNumber(testFlight.getFlightNumber())).willReturn(seatInfoList);
+
+    List<FlightInfo> testData = flightService.getFlightAndSeatInfo(testFlight.getDate(),
+        testFlight.getDepartureAirport(), testFlight.getArrivalAirport());
+    List<FlightInfo> expectedData = new ArrayList<FlightInfo>();
+
+    assertEquals(expectedData, testData);
+  }
+
   private Flight getFakeFlight() {
     Flight flight = new Flight(49, "Test Airline", "Depart Airport", "3:00 AM", "Arrival Airport",
         "5:30 PM", "8-29-2020");
