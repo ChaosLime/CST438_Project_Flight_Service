@@ -1,15 +1,7 @@
 package CST438.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-@Entity
 public class FormInfo {
 
-  @Id
-  @GeneratedValue
-  private long id;
   public String originCity;
   public String destinationCity;
   public String startDate;
@@ -22,10 +14,8 @@ public class FormInfo {
     endDate = java.time.LocalDate.now().plusDays(1).toString();
   }
 
-  public FormInfo(long id, String originCity, String destinationCity, String startDate,
-      String endDate) {
+  public FormInfo(String originCity, String destinationCity, String startDate, String endDate) {
     super();
-    this.id = id;
     this.originCity = originCity;
     this.destinationCity = destinationCity;
     this.startDate = startDate;
@@ -62,14 +52,6 @@ public class FormInfo {
 
   public void setEndDate(String endDate) {
     this.endDate = endDate;
-  }
-
-  public long getId() {
-    return id;
-  }
-
-  public void setId(long id) {
-    this.id = id;
   }
 
 }
