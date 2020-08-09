@@ -2,29 +2,10 @@
 <html xmlns:th="www.thymeleaf.org" >
 <head>
     <title>Flights</title>
-    <!--  
-    <style>
-		table {
-		  border-collapse: collapse;
-		  width: 90%;
-		}
-		
-		th, td {
-		  text-align: left;
-		  padding: 8px;
-		}
-		
-		tr:nth-child(even) {background-color: #f2f2f2;}
-	</style>
-	-->
-	<!--  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </head>
 <body>
-
-	
-		
 	<div class="container">
         
         <div th:each="user : ${user}">	
@@ -33,8 +14,6 @@
 		</div>
 		<br/>
 		<div class="row">
-            
-
             <table class="table">
                 <thead>
                     <tr>
@@ -135,35 +114,28 @@
 		   					<input type="submit"class="btn btn-info" value="Reservation Details" />
 		   				</form>
 		   				</td>
-                   	</tr>
-                   
-                                           
+                   	</tr>                  
                 </tbody>
             </table>
             <br />
             
             <form action="#" th:object="${user}"  th:action="@{/cancelledListing}" method="post">
-			<input type="hidden" th:field="*{id}">
-			<input type="hidden" th:field="*{email}">
-			<input type="hidden" th:field="*{last_name}">
-			<input type="hidden" th:field="*{first_name}">
-			<input type="hidden" th:field="*{create_date}">
-			<input type="submit" class="btn btn-warning" value="View Cancelled Reservations">
+				<input type="hidden" th:field="*{id}">
+				<input type="hidden" th:field="*{email}">
+				<input type="hidden" th:field="*{last_name}">
+				<input type="hidden" th:field="*{first_name}">
+				<input type="hidden" th:field="*{create_date}">
+				<input type="submit" class="btn btn-warning" value="View Cancelled Reservations">
 			</form>
-	
-			
+
 			<br/><hr>
-			<div><a class="btn btn-default" th:href="@{/}">Log out</a>
-			<form action="#" th:object="${user}"  th:action="@{/user_directory}" method="post">
-			<input type="hidden" th:field="*{email}">
-			<input type="submit" class="btn btn-default" value="Back to Main Page" />
-			</form>
-			</div>
-        </div>
-      
-
-    </div>
-    
-
-</body>
+				<div><a class="btn btn-default" th:href="@{/}">Log out</a>
+					<form action="#" th:object="${user}"  th:action="@{/user_directory}" method="post">
+						<input type="hidden" th:field="*{email}">
+						<input type="submit" class="btn btn-default" value="Back to Main Page" />
+					</form>
+				</div>
+        	</div>
+		</div>
+	</body>
 </html>

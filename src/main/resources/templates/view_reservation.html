@@ -2,117 +2,94 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
     <title>Flight Reservation System</title>
-     <!-- 
-     <style>
-		table {
-		  border-collapse: collapse;
-		  width: 100%;
-		}
-		
-		th, td {
-		  text-align: left;
-		  padding: 8px;
-		}
-		
-		tr:nth-child(even) {background-color: #f2f2f2;}
-	</style>
-	 -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </head>
-<body>
-<div class="container">
-	<h1>The Flight Reservation System&#8482;</h1>
-	<div th:each="bookingInfo : ${bookingInfo}">	
-		<!--  <h2>BookingID:  <span th:text="${bookingInfo.bookId}"></span></h2>-->
-	</div>
-	
-	<div th:each="user : ${user}">	
-		<h2>Reservations for <span th:text="${user.first_name}"></span> <span th:text="${user.last_name}"></span></h2>
-			Email: <span th:text="${user.email}"></span>
-	</div>
-	<br/><br/>
-		
-	
-	
-	<h2>Departure Flight:</h2><br>
-	<div class="row">
-	<div th:each="departureFlight: ${departureFlight}">
-	<table class="table">
-		<tr>
-			<th>Flight #</th>
-			<th>Airline</th>
-			<th>Departure Time</th>
-			<th>Arrival Time</th>
-			<th>Seats Available</th>
-			<th>Seat Type</th>
-			<th>Cost</th>
-		</tr>
-		<tr th:each="departureFlight : ${departureFlight}">
-		    <td th:text="${departureFlight.flight.flightNumber}"></td>
-			<td th:text="${departureFlight.flight.airline}"></td>
-			<td th:text="${departureFlight.flight.departureTime}"></td>
-			<td th:text="${departureFlight.flight.arrivalTime}"></td>
-			<td th:text="${departureFlight.seatInfo.seatsAvailable}"></td>
-			<td th:text="${departureFlight.seatInfo.seatType}"></td>
-			<td th:text="${departureFlight.seatInfo.cost}"></td>
-			<td>
-			</td>
-		</tr>
-	</table>
-		
-	</div>
-	</div>
-	
-	
-	<h2>Return Flight:</h2><br>
-	<div class="row">
-	<div th:each="returnFlight: ${returnFlight}">
-	<table class="table">
-		<tr>
-			<th>Flight #</th>
-			<th>Airline</th>
-			<th>Departure Time</th>
-			<th>Arrival Time</th>
-			<th>Seats Available</th>
-			<th>Seat Type</th>
-			<th>Cost</th>
-		</tr>
-		<tr th:each="returnFlight : ${returnFlight}">
-		    <td th:text="${returnFlight.flight.flightNumber}"></td>
-			<td th:text="${returnFlight.flight.airline}"></td>
-			<td th:text="${returnFlight.flight.departureTime}"></td>
-			<td th:text="${returnFlight.flight.arrivalTime}"></td>
-			<td th:text="${returnFlight.seatInfo.seatsAvailable}"></td>
-			<td th:text="${returnFlight.seatInfo.seatType}"></td>
-			<td th:text="${returnFlight.seatInfo.cost}"></td>
-			<td> 
-			</td>
-		</tr>
-	</table>
-			
-	</div>
-	</div>
-	<br/>
-		<form action="#" th:object="${bookingInfo}"  th:action="@{/reservationCancellation}" method="post">
-			<input type="hidden" th:field="*{bookId}">
-			<input type="hidden" th:field="*{userEmail}">
-			<input type="hidden" th:field="*{departureFlightSeatInfoId}">
-			<input type="hidden" th:field="*{returnFlightSeatInfoId}">
-			<input type="hidden" th:field="*{isCancelled}">
-			
-		   	<input type="submit" class="btn btn-danger" value="Cancel Reservation" />
-		</form>
-	
-	<br/><hr>
-			<div><a class="btn btn-default" th:href="@{/}">Log out</a>
-			<form action="#" th:object="${user}"  th:action="@{/user_directory}" method="post">
-			<input type="hidden" th:field="*{email}">
-			<input type="submit" class="btn btn-default" value="Back to Main Page" />
-			</form>
+	<body>
+		<div class="container">
+			<h1>The Flight Reservation System&#8482;</h1>
+			<div th:each="bookingInfo : ${bookingInfo}">	
+				<!--  <h2>BookingID:  <span th:text="${bookingInfo.bookId}"></span></h2>-->
 			</div>
 			
+			<div th:each="user : ${user}">	
+				<h2>Reservations for <span th:text="${user.first_name}"></span> <span th:text="${user.last_name}"></span></h2>
+					Email: <span th:text="${user.email}"></span>
+			</div>
+			<br/><br/>
+			<h2>Departure Flight:</h2><br>
+			<div class="row">
+				<div th:each="departureFlight: ${departureFlight}">
+					<table class="table">
+						<tr>
+							<th>Flight #</th>
+							<th>Airline</th>
+							<th>Departure Time</th>
+							<th>Arrival Time</th>
+							<th>Seats Available</th>
+							<th>Seat Type</th>
+							<th>Cost</th>
+						</tr>
+						<tr th:each="departureFlight : ${departureFlight}">
+						    <td th:text="${departureFlight.flight.flightNumber}"></td>
+							<td th:text="${departureFlight.flight.airline}"></td>
+							<td th:text="${departureFlight.flight.departureTime}"></td>
+							<td th:text="${departureFlight.flight.arrivalTime}"></td>
+							<td th:text="${departureFlight.seatInfo.seatsAvailable}"></td>
+							<td th:text="${departureFlight.seatInfo.seatType}"></td>
+							<td th:text="${departureFlight.seatInfo.cost}"></td>
+							<td>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+						
+			<h2>Return Flight:</h2><br>
+			<div class="row">
+				<div th:each="returnFlight: ${returnFlight}">
+					<table class="table">
+						<tr>
+							<th>Flight #</th>
+							<th>Airline</th>
+							<th>Departure Time</th>
+							<th>Arrival Time</th>
+							<th>Seats Available</th>
+							<th>Seat Type</th>
+							<th>Cost</th>
+						</tr>
+						<tr th:each="returnFlight : ${returnFlight}">
+						    <td th:text="${returnFlight.flight.flightNumber}"></td>
+							<td th:text="${returnFlight.flight.airline}"></td>
+							<td th:text="${returnFlight.flight.departureTime}"></td>
+							<td th:text="${returnFlight.flight.arrivalTime}"></td>
+							<td th:text="${returnFlight.seatInfo.seatsAvailable}"></td>
+							<td th:text="${returnFlight.seatInfo.seatType}"></td>
+							<td th:text="${returnFlight.seatInfo.cost}"></td>
+							<td> 
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<br/>
+				<form action="#" th:object="${bookingInfo}"  th:action="@{/reservationCancellation}" method="post">
+					<input type="hidden" th:field="*{bookId}">
+					<input type="hidden" th:field="*{userEmail}">
+					<input type="hidden" th:field="*{departureFlightSeatInfoId}">
+					<input type="hidden" th:field="*{returnFlightSeatInfoId}">
+					<input type="hidden" th:field="*{isCancelled}">
+					
+				   	<input type="submit" class="btn btn-danger" value="Cancel Reservation" />
+				</form>
+			
+			<br/><hr>
+					<div><a class="btn btn-default" th:href="@{/}">Log out</a>
+						<form action="#" th:object="${user}"  th:action="@{/user_directory}" method="post">
+							<input type="hidden" th:field="*{email}">
+							<input type="submit" class="btn btn-default" value="Back to Main Page" />
+						</form>
+					</div>
 		</div>
-		
 	</body>
 </html>

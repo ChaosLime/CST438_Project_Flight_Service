@@ -5,33 +5,30 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </head>
-<body>
-<div class="container">
-	<h1>Welcome to <br> The Flight Reservation System&#8482;</h1>
-	<h3>Please either login with existing account or create a new account</h3>
-	<hr>
-	
-	<h4>Login</h4>
-		<form th:action="@{user_directory}" th:object="${user}" method="POST">
-			<label>Email:</label><br>
-			<input type="email" th:field="*{email}"><br><br>
-			<input type="submit" value="Login"/>
-			<h5>Hint: old@aol.com for testing an existing user</h5>	
-		</form>
-	<hr>
-	
-	<h4>Create New Account</h4>	
-		<form th:action="@{new_user}" th:object="${user}" method="POST">
-			<label>First Name:</label><br>
-			<input type="text" th:field="*{first_name}"><br>
-			<label>Last Name:</label><br>
-			<input type="text" th:field="*{last_name}"><br>
-			<label>Email:</label><br>
-			<input type="email" th:field="*{email}"><br><br>
-			<input type="submit" value="Create">
-		</form>
-
-	<hr>
-</div>
-</body>
+	<body>
+	<div class="container">
+		<h1>Welcome to <br> The Flight Reservation System&#8482;</h1>
+		<h3>Please either login with existing account or create a new account</h3>
+		<hr>
+		<h4>Login</h4>
+			<form th:action="@{user_directory}" th:object="${user}" method="POST">
+				<label>Email:</label><br>
+				<input type="email" th:field="*{email}"><br><br>
+				<input type="submit" value="Login"/>
+				<h5>Hint: old@aol.com for testing an existing user</h5>	
+			</form>
+		<hr>
+		<h4>Create New Account</h4>	
+			<form th:action="@{new_user}" th:object="${user}" method="POST">
+				<label>First Name:</label><br>
+				<input type="text" th:field="*{first_name}"><br>
+				<label>Last Name:</label><br>
+				<input type="text" th:field="*{last_name}"><br>
+				<label>Email:</label><br>
+				<input type="email" th:field="*{email}"><br><br>
+				<input type="submit" value="Create">
+			</form>
+		<hr>
+	</div>
+	</body>
 </html>

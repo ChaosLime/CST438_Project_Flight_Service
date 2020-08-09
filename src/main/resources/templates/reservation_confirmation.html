@@ -2,82 +2,66 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
     <title>Flight Confirmation</title>
-    <!-- <style>
-		table {
-		  border-collapse: collapse;
-		  width: 90%;
-		}
-		
-		th, td {
-		  text-align: left;
-		  padding: 8px;
-		}
-		
-		tr:nth-child(even) {background-color: #f2f2f2;}
-	</style>-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </head>
-<body>
-<div class="container">
-    <h2>Your Flights Have Been Confirmed</h2>
-	<table class="table">
-		<tr>
-			<th>Flight #</th>
-			<th>Airline</th>
-			<th>Seat Type</th>
-			<th>Departure Time</th>
-			<th>Departure Airport</th>
-			<th>Arrival Time</th>
-			<th>Arrival Airport</th>
-			<th>Cost</th>
-		</tr>
-		<tr>
-		    <td th:inline="text">[[${departureFlight.flight.flightNumber}]]</td>
-		    <td th:inline="text">[[${departureFlight.flight.airline}]]</td>
-		    <td th:inline="text">[[${departureFlight.seatInfo.seatType}]]</td>
-		    <td th:inline="text">[[${departureFlight.flight.departureTime}]]</td>
-		    <td th:inline="text">[[${departureFlight.flight.departureAirport}]]</td>
-		    <td th:inline="text">[[${departureFlight.flight.arrivalTime}]]</td>
-		    <td th:inline="text">[[${departureFlight.flight.arrivalAirport}]]</td>    
-		    <td th:inline="text">$[[${departureFlight.seatInfo.cost}]]</td>
-		</tr>
-		<tr>
-		    <td th:inline="text">[[${returnFlight.flight.flightNumber}]]</td>
-		    <td th:inline="text">[[${returnFlight.flight.airline}]]</td>
-		    <td th:inline="text">[[${returnFlight.seatInfo.seatType}]]</td>
-		    <td th:inline="text">[[${returnFlight.flight.departureTime}]]</td>
-		    <td th:inline="text">[[${returnFlight.flight.departureAirport}]]</td>
-		    <td th:inline="text">[[${returnFlight.flight.arrivalTime}]]</td>
-		    <td th:inline="text">[[${returnFlight.flight.arrivalAirport}]]</td>    
-		    <td th:inline="text">$[[${returnFlight.seatInfo.cost}]]</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td><strong>Total:</strong></td>
-			<td th:inline="text">$[[${totalCost}]]</td>
-		</tr>
-	</table>
-	
-	
-	<form action="#" th:action="@{/view_reservation}" th:object="${bookingInfo}" method="POST">
-
-			<input type="hidden" th:field="*{bookId}">
-			<input type="hidden" th:field="*{userEmail}">
-			<input type="hidden" th:field="*{departureFlightSeatInfoId}">
-			<input type="hidden" th:field="*{returnFlightSeatInfoId}">
-
-		<input type="submit" value="View Booking" />	
-	</form>
-	
-	<br/><hr>
-			<a th:href="@{/}">Back to Main Page</a>
+	<body>
+		<div class="container">
+		    <h2>Your Flights Have Been Confirmed</h2>
+			<table class="table">
+				<tr>
+					<th>Flight #</th>
+					<th>Airline</th>
+					<th>Seat Type</th>
+					<th>Departure Time</th>
+					<th>Departure Airport</th>
+					<th>Arrival Time</th>
+					<th>Arrival Airport</th>
+					<th>Cost</th>
+				</tr>
+				<tr>
+				    <td th:inline="text">[[${departureFlight.flight.flightNumber}]]</td>
+				    <td th:inline="text">[[${departureFlight.flight.airline}]]</td>
+				    <td th:inline="text">[[${departureFlight.seatInfo.seatType}]]</td>
+				    <td th:inline="text">[[${departureFlight.flight.departureTime}]]</td>
+				    <td th:inline="text">[[${departureFlight.flight.departureAirport}]]</td>
+				    <td th:inline="text">[[${departureFlight.flight.arrivalTime}]]</td>
+				    <td th:inline="text">[[${departureFlight.flight.arrivalAirport}]]</td>    
+				    <td th:inline="text">$[[${departureFlight.seatInfo.cost}]]</td>
+				</tr>
+				<tr>
+				    <td th:inline="text">[[${returnFlight.flight.flightNumber}]]</td>
+				    <td th:inline="text">[[${returnFlight.flight.airline}]]</td>
+				    <td th:inline="text">[[${returnFlight.seatInfo.seatType}]]</td>
+				    <td th:inline="text">[[${returnFlight.flight.departureTime}]]</td>
+				    <td th:inline="text">[[${returnFlight.flight.departureAirport}]]</td>
+				    <td th:inline="text">[[${returnFlight.flight.arrivalTime}]]</td>
+				    <td th:inline="text">[[${returnFlight.flight.arrivalAirport}]]</td>    
+				    <td th:inline="text">$[[${returnFlight.seatInfo.cost}]]</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><strong>Total:</strong></td>
+					<td th:inline="text">$[[${totalCost}]]</td>
+				</tr>
+			</table>
+			<form action="#" th:action="@{/view_reservation}" th:object="${bookingInfo}" method="POST">
+		
+					<input type="hidden" th:field="*{bookId}">
+					<input type="hidden" th:field="*{userEmail}">
+					<input type="hidden" th:field="*{departureFlightSeatInfoId}">
+					<input type="hidden" th:field="*{returnFlightSeatInfoId}">
+					<input type="submit" value="View Booking" />	
+			</form>
 			
-	</div>
-</body>
+			<br/><hr>
+			<a th:href="@{/}">Back to Main Page</a>
+					
+		</div>
+	</body>
 </html>
