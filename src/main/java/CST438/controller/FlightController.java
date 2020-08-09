@@ -96,35 +96,43 @@ public class FlightController {
     if (email.equals("")) {
       System.out.println("Email entered was blank");
     } else {
-      System.out.println("Email [" + email + "] is not recorded in the user table");
+      System.out.println("Email [" + email + "] is not recorded in the user table.");
     }
 
     // Checking user inputs for edge cases.
     if (first_name.equals("")) {
-      error = "Account Creation Failed. First Name can not be left blank, please try again";
+      error = "Account Creation Failed. First Name can not be left blank.";
       model.addAttribute("error", error);
       return "error_page";
     } else {
       error = "";
     }
     if (last_name.equals("")) {
-      error = "Account Creation Failed. Last Name can not be left blank, please try again";
+      error = "Account Creation Failed. Last Name can not be left blank.";
       model.addAttribute("error", error);
       return "error_page";
     } else {
       error = "";
     }
     if (email.equals("")) {
-      error = "Account Creation Failed. Email can not be left blank, please try again";
+      error = "Account Creation Failed. Email can not be left blank.";
       model.addAttribute("error", error);
       return "error_page";
     } else {
       error = "";
     }
 
-    System.out.println("New User generated.");
-    System.out.println("Saving new user into database.");
-    userService.saveIntoDatabase(newUser);
+    Boolean validNewUser = userService.saveIntoDatabase(newUser);
+    if (validNewUser) {
+      System.out.println("Saving new user [" + newUser.getEmail() + "] into database.");
+
+    } else {
+      System.out.println("Issue generating new user, not saved.");
+      error = "Unexpected error occured during account creation.";
+      model.addAttribute("error", error);
+      return "error_page";
+    }
+
 
     model.addAttribute("user", newUser);
 
