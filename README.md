@@ -156,3 +156,15 @@ Valid API result:
 
 Invalid API result(from a non-existing booking id):
 >Returned status 404.
+
+**TO VIEW CANCELLED STATUS**
+
+You can view your booking's cancellation status using your bookingID.
+
+>localhost:8080/api/CancellationStatus/BookingID/**6**
+
+Valid API result:
+>Returned status 200. plus boolean (true = cancelled, false = not cancelled)
+
+Invalid API result(from a non-existing booking id):
+>Returned status 404.

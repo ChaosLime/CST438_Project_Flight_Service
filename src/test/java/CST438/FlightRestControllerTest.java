@@ -259,4 +259,41 @@ public class FlightRestControllerTest {
     
     assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
   }
+  
+  @Test
+  public void cancellationStatusApiTest() throws Exception {
+    Flight flight1 = new Flight(1, "abc", "LAX", "10:00 AM", "SMX", "1:00 PM", "07/30/2020");
+    Flight flight2 = new Flight(2, "def", "NYC", "9:30 PM", "LAX", "5:00 AM", "08/2/2020");
+
+    FlightSeatInfo flightSeatInfo1 = new FlightSeatInfo(1, 10, "econ", (double) 99.99);
+    FlightSeatInfo flightSeatInfo2 = new FlightSeatInfo(2, 1, "lux", (double) 465.95);
+    
+    FlightInfo flightInfo1 = new FlightInfo(flight1, flightSeatInfo1);
+    FlightInfo flightInfo2 = new FlightInfo(flight2, flightSeatInfo2);
+    
+    List<FlightInfo> flightInfoList = new ArrayList<FlightInfo>();
+
+    flightInfoList.add(flightInfo1);
+    flightInfoList.add(flightInfo2);
+
+    given(flightSeatInfoService.onlyGetFlight(1)).willReturn(flightInfo1);
+    given(flightSeatInfoService.onlyGetFlight(2)).willReturn(flightInfo2);
+    
+    Reservation reservation = new Reservation(null, 1, 2, false);
+    
+    given(reservationService.getBooking(0)).willReturn(reservation);
+    
+    given(reservationService.cancelBooking(reservation.getBookId())).willReturn(true);
+    
+    reservation.setCancelled(true);
+    
+    given(reservationRepository.findBookingByID((long) 0)).willReturn(reservation);
+
+    MockHttpServletResponse response =
+        mvc.perform(get("/api/CancellationStatus/BookingID/0")).andReturn().getResponse();
+
+    assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    
+    assertThat(Boolean.parseBoolean(response.getContentAsString())).isEqualTo(true);
+  }
 }

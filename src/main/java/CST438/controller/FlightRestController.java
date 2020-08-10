@@ -135,4 +135,17 @@ public class FlightRestController {
       return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
     }
   }
+  
+  @GetMapping("/api/CancellationStatus/BookingID/{bookingID}")
+  public ResponseEntity<Boolean> getReservation(
+      @PathVariable("bookingID") String bookingID) {
+
+    Reservation booking = reservationService.getBooking(Long.parseLong(bookingID));
+
+    if (booking != null) {
+      return new ResponseEntity<Boolean>(booking.isCancelled() ,HttpStatus.OK);
+    } else {
+      return new ResponseEntity<Boolean>(HttpStatus.NOT_FOUND);
+    }
+  }
 }
