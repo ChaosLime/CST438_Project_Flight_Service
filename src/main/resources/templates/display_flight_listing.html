@@ -66,6 +66,7 @@
 						<td> <input type="radio" name="returnFlight" th:value="${returnFlight.seatInfo.Id}"> </td>
 					</tr>
 				</table>
+				<div><input type="submit" class="btn btn-success" value="Submit"></div>
 				<!-- User Entity passes here -->
 				<div th:object="${user}">
 				<input type="hidden" th:field="*{id}">
