@@ -41,7 +41,7 @@ public class FlightController {
   }
 
   // For returning or existing users only
-  @PostMapping("/user_directory")
+  @PostMapping("/userDirectory")
   public String getUserDirectory(@Valid User user, BindingResult result, String email,
       Model model) {
     User currentUserInfo = userService.getAccountInfo(user.getEmail());
@@ -69,7 +69,7 @@ public class FlightController {
   }
 
   // For new user path
-  @PostMapping("/new_user")
+  @PostMapping("/newUser")
   public String getNewUserDirectory(@Valid User newUser, BindingResult result, Model model) {
     String email = newUser.getEmail();
     String first_name = newUser.getFirst_name();

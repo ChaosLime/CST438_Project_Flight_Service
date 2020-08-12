@@ -50,7 +50,7 @@
 					<td th:inline="text">$[[${totalCost}]]</td>
 				</tr>
 			</table>
-			<form action="#" th:action="@{/view_reservation}" th:object="${bookingInfo}" method="POST">
+			<form action="#" th:action="@{/viewReservation}" th:object="${bookingInfo}" method="POST">
 		
 					<input type="hidden" th:field="*{bookId}">
 					<input type="hidden" th:field="*{userEmail}">

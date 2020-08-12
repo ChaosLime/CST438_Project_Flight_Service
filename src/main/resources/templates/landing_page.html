@@ -11,15 +11,14 @@
 		<h3>Please either login with existing account or create a new account</h3>
 		<hr>
 		<h4>Login</h4>
-			<form th:action="@{user_directory}" th:object="${user}" method="POST">
+			<form th:action="@{userDirectory}" th:object="${user}" method="POST">
 				<label>Email:</label><br>
 				<input type="email" th:field="*{email}"><br><br>
 				<input type="submit" value="Login"/>
-				<h5>Hint: old@aol.com for testing an existing user</h5>	
 			</form>
 		<hr>
 		<h4>Create New Account</h4>	
-			<form th:action="@{new_user}" th:object="${user}" method="POST">
+			<form th:action="@{newUser}" th:object="${user}" method="POST">
 				<label>First Name:</label><br>
 				<input type="text" th:field="*{first_name}"><br>
 				<label>Last Name:</label><br>
