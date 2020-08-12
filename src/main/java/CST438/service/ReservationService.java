@@ -17,12 +17,14 @@ public class ReservationService {
   @Autowired
   private FlightSeatInfoRepository flightSeatRepo;
 
-  public void bookFlight(Reservation reservation) {
+  public boolean bookFlight(Reservation reservation) {
     reservationRepository.save(reservation);
+    return true;
   }
 
-  public void cancelFlight(Reservation reservation) {
+  public boolean cancelFlight(Reservation reservation) {
     reservationRepository.save(reservation);
+    return true;
   }
 
   public Reservation getBooking(long id) {
@@ -56,11 +58,13 @@ public class ReservationService {
     }
   }
 
-  public void updateSeat(int seatInfoId) {
+  public FlightSeatInfo updateSeat(int seatInfoId) {
 
     FlightSeatInfo seatInfo = flightSeatRepo.findById(seatInfoId);
 
     seatInfo.setSeatsAvailable(seatInfo.getSeatsAvailable() + 1);
     flightSeatRepo.save(seatInfo);
+    return seatInfo;
   }
+  
 }

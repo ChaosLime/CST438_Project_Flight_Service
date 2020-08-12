@@ -33,7 +33,7 @@
 		    			<td th:text="${flightInfo0.flight.date}"></td>
 		    			<td th:text="${flightInfo0.flight.departureAirport}"></td>
 		    			<td>
-		    			<form action="#" th:object="${book0}" th:action="@{/view_reservation}" method="post">
+		    			<form action="#" th:object="${book0}" th:action="@{/viewReservation}" method="post">
 		   					<input type="hidden" th:field="*{bookId}">
 							<input type="hidden" th:field="*{userEmail}">
 							<input type="hidden" th:field="*{departureFlightSeatInfoId}">
@@ -51,7 +51,7 @@
 		    			<td th:text="${flightInfo1.flight.date}"></td>
 		    			<td th:text="${flightInfo1.flight.departureAirport}"></td>
 		   				<td>
-		   				<form action="#" th:object="${book1}" th:action="@{/view_reservation}" method="post">
+		   				<form action="#" th:object="${book1}" th:action="@{/viewReservation}" method="post">
 		   					<input type="hidden" th:field="*{bookId}">
 							<input type="hidden" th:field="*{userEmail}">
 							<input type="hidden" th:field="*{departureFlightSeatInfoId}">
@@ -69,7 +69,7 @@
 		    			<td th:text="${flightInfo2.flight.date}"></td>
 		    			<td th:text="${flightInfo2.flight.departureAirport}"></td>
 		    			<td>
-		   				<form action="#" th:object="${book2}" th:action="@{/view_reservation}" method="post">
+		   				<form action="#" th:object="${book2}" th:action="@{/viewReservation}" method="post">
 		   					<input type="hidden" th:field="*{bookId}">
 							<input type="hidden" th:field="*{userEmail}">
 							<input type="hidden" th:field="*{departureFlightSeatInfoId}">
@@ -87,7 +87,7 @@
 		    			<td th:text="${flightInfo3.flight.date}"></td>
 		    			<td th:text="${flightInfo3.flight.departureAirport}"></td>
 		   				<td>
-		   				<form action="#" th:object="${book3}" th:action="@{/view_reservation}" method="post">
+		   				<form action="#" th:object="${book3}" th:action="@{/viewReservation}" method="post">
 		   					<input type="hidden" th:field="*{bookId}">
 							<input type="hidden" th:field="*{userEmail}">
 							<input type="hidden" th:field="*{departureFlightSeatInfoId}">
@@ -105,7 +105,7 @@
 		    			<td th:text="${flightInfo4.flight.date}"></td>
 		    			<td th:text="${flightInfo4.flight.departureAirport}"></td>
 		   				<td>
-		   				<form action="#" th:object="${book4}" th:action="@{/view_reservation}" method="post">
+		   				<form action="#" th:object="${book4}" th:action="@{/viewReservation}" method="post">
 		   					<input type="hidden" th:field="*{bookId}">
 							<input type="hidden" th:field="*{userEmail}">
 							<input type="hidden" th:field="*{departureFlightSeatInfoId}">
