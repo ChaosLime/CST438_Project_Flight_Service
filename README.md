@@ -1,7 +1,15 @@
 This project for CST438 Software Engineering 2020. 
-This service is a flight reservation program that is accessed through forms by springboot HTML controller or to be accessed through a REST controller given an API call(s). Additional Info over local deloyment of service can/will be provided.
+This service is a flight reservation program that is accessed through forms by Spring Boot HTML controller or to be accessed through a REST controller given an API call(s). Additional Info over local and remote deployment of the service is provided.
 
 Deployment Site: https://cst438flightservice.herokuapp.com/
+
+**UML DIAGRAM** <br>
+![UML](flightReservationServiceUML.png)
+
+
+**DATABASE DESIGN** <br>
+![Database](MySQL_Scripts/EER_Diagram.png)
+
 
 **HOW TO USE API**
 >Note: The bolded phrases are the parts that need to be changed. For testing and production, proposes, examples working within provided demos are working data.
