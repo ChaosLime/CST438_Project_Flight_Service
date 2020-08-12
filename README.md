@@ -13,7 +13,7 @@ Deployment Site: https://cst438flightservice.herokuapp.com/
 
 **HOW TO USE API**
 >Note: The bolded phrases are the parts that need to be changed. For testing and production, proposes, examples working within provided demos are working data.
-Acceptable Cities to be used are: **Denver**, **Los Angeles**. Date range from **08-18-2020** to **08-22-2020** are the valid for searching. Due to the limited scope of the test data within the database, this is all that can be provided. Demo results below are for example only, your results may vary based on your inputs.
+Acceptable Cities to be used are: **Denver**, **Los Angeles**. Other cities exist within the database such as **Boston**, **New York**, and **Hawaii**, but your results may vary as not all cities are completely designed to work together. Date range from **08-18-2020** to **08-22-2020** are the valid for searching. Due to the limited scope of the test data within the database, this is all that can be provided. Demo results below are for example only, your results may vary based on your inputs.
 
 **TO SEARCH FOR ___ONE___ FLIGHT**
 
