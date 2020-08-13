@@ -69,41 +69,6 @@ public class FlightRestControllerTest {
     JacksonTester.initFields(this, new ObjectMapper());
   }
 
-  // The FlightServiceTest.java tests the flight service. These tests use mocks
-  // for the FlightService class, so
-  // that if that class is not working, it will still not affect these tests.
-  /**
-   * This test is ensuring that the flight service is functional before testing
-   * the flightSearchAPI. If the flight service isn't functional, then neither
-   * will the flightSearchAPI.
-   * 
-   * @throws Exception
-   *//*
-      * 
-      * @Test public void flightServiceTest() throws Exception { Flight flight1 = new
-      * Flight(1, "abc", "LAX", "10:00 AM", "SMX", "1:00 PM", "07/30/2020"); Flight
-      * flight2 = new Flight(2, "def", "NYC", "9:30 PM", "LAX", "5:00 AM",
-      * "08/2/2020");
-      * 
-      * FlightInfo flightInfo1 = new FlightInfo(flight1, new FlightSeatInfo(1, 10,
-      * "econ", (double) 99.99)); FlightInfo flightInfo2 = new FlightInfo(flight2,
-      * new FlightSeatInfo(2, 1, "lux", (double) 465.95));
-      * 
-      * List<FlightInfo> flightInfoList = new ArrayList<FlightInfo>();
-      * 
-      * flightInfoList.add(flightInfo1); flightInfoList.add(flightInfo2);
-      * 
-      * //assertThat(flightInfoList).isNotEmpty();
-      * 
-      * given(flightService.getFlightAndSeatInfo("8/18/2020", "Denver",
-      * "Los Angeles")) .willReturn(flightInfoList);
-      * 
-      * List<FlightInfo> flightListResult =
-      * flightService.getFlightAndSeatInfo("8/18/2020", "Denver", "Los Angeles");
-      * 
-      * assertThat(flightListResult).isEqualTo(flightInfoList); }
-      */
-
   /**
    * This tests the FlightSearchAPI.
    * 
@@ -135,19 +100,6 @@ public class FlightRestControllerTest {
         .parseObject(response.getContentAsString());
 
     assertThat(flightInfoListResultFromApi).isEqualTo(flightInfoList);
-
-    // This tests the flight service. This service is already tested in the
-    // FlightServiceTest class
-    /*
-     * given(flightService.getFlightAndSeatInfo("08/18/2020", "Denver",
-     * "Los Angeles")) .willReturn(flightInfoList);
-     * 
-     * List<FlightInfo> flightListResult =
-     * flightService.getFlightAndSeatInfo("08/18/2020", "Denver", "Los Angeles");
-     * 
-     * assertThat(flightListResult).isEqualTo(flightInfoList);
-     */
-
   }
 
   @Test
@@ -180,29 +132,6 @@ public class FlightRestControllerTest {
 
     assertThat(retrievedBookingId).isEqualTo((bookingId + "")); // + "" makes the long a
     // string
-
-    // Why test the same thing twice?
-    /*
-     * Flight flight3 = new Flight(3, "ghi", "SLO", "10:00 AM", "SMX", "1:00 PM",
-     * "07/30/2020"); Flight flight4 = new Flight(4, "jkl", "SMX", "9:30 PM", "LAX",
-     * "5:00 AM", "08/2/2020");
-     * 
-     * FlightInfo flightInfo3 = new FlightInfo(flight3, new FlightSeatInfo(3, 7,
-     * "lux", (double) 199.99)); FlightInfo flightInfo4 = new FlightInfo(flight4,
-     * new FlightSeatInfo(4, 4, "econ", (double) 65.95));
-     * 
-     * given(flightSeatInfoService.onlyGetFlight(3)).willReturn(flightInfo3);
-     * given(flightSeatInfoService.onlyGetFlight(4)).willReturn(flightInfo4);
-     * 
-     * response =
-     * mvc.perform(get("/api/SeatID1/3/SeatID2/4")).andReturn().getResponse();
-     * 
-     * assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-     * 
-     * retrievedBookingId = response.getContentAsString();
-     * 
-     * assertThat(retrievedBookingId).isEqualTo("0");
-     */
   }
 
   @Test
