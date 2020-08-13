@@ -93,6 +93,11 @@ CREATE TABLE `hibernate_sequence` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+LOCK TABLES `hibernate_sequence` WRITE;
+/*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
+INSERT INTO `hibernate_sequence` VALUES (1);
+/*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `reservations`
