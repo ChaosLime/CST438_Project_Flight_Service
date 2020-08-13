@@ -13,23 +13,27 @@
 				<div class="text-danger">
 					<h2>The Reservation below has been CANCELLED for 
 						<span th:text="${bookingInfo.userEmail}"></span>
-						 (will still appear in user's reservations page but as 'cancelled')
 					</h2> 
 				</div>
 				<br/>
 				<h3>Departure Flight</h3>
 				<div class="row">
-					<div th:each="departureFlight: ${departureFlight}">
+					<div>
 						<table class="table">
 							<tr>
 								<th>Flight #</th>
+								<th>Airline</th>
+								<th>Departure City</th>
 								<th>Departure Time</th>
-								<th>Arrival Time</th>
-								
+								<th>Arrival City</th>
+								<th>Arrival Time</th>		
 							</tr>
 							<tr th:each="departureFlight : ${departureFlight}">
 							    <td th:text="${departureFlight.flight.flightNumber}"></td>
-							    <td th:text="${departureFlight.flight.departureTime}"></td>
+							    <td th:text="${departureFlight.flight.airline}"></td>
+								<td th:text="${departureFlight.flight.departureAirport}"></td>
+								<td th:text="${departureFlight.flight.departureTime}"></td>
+							    <td th:text="${departureFlight.flight.arrivalAirport}"></td>
 								<td th:text="${departureFlight.flight.arrivalTime}"></td>
 							</tr>
 						</table>
@@ -38,18 +42,24 @@
 				
 				<h3>Returning Flight</h3>
 				<div class="row">
-					<div th:each="returnFlight: ${returnFlight}">
+					<div>
 						<table class="table">
-						<tr>
-							<th>Flight #</th>
-							<th>Departure Time</th>
-							<th>Arrival Time</th>
-						</tr>
-						<tr th:each="returnFlight : ${returnFlight}">
-						    <td th:text="${returnFlight.flight.flightNumber}"></td>
-							<td th:text="${returnFlight.flight.departureTime}"></td>
-							<td th:text="${returnFlight.flight.arrivalTime}"></td>
-						</tr>
+							<tr>
+								<th>Flight #</th>
+								<th>Airline</th>
+								<th>Departure City</th>
+								<th>Departure Time</th>
+								<th>Arrival City</th>
+								<th>Arrival Time</th>
+							</tr>
+							<tr th:each="returnFlight : ${returnFlight}">
+							    <td th:text="${returnFlight.flight.flightNumber}"></td>
+								<td th:text="${returnFlight.flight.airline}"></td>
+								<td th:text="${returnFlight.flight.departureAirport}"></td>
+								<td th:text="${returnFlight.flight.departureTime}"></td>
+								<td th:text="${returnFlight.flight.arrivalAirport}"></td>
+								<td th:text="${returnFlight.flight.arrivalTime}"></td>
+							</tr>
 						</table>
 					</div>
 				</div>
