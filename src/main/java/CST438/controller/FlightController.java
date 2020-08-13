@@ -230,6 +230,7 @@ public class FlightController {
     List<Reservation> reservationList = reservationService.getBookingList(user.getEmail());
 
     if (reservationList.isEmpty()) {
+      model.addAttribute("user", user);
       return "no_reservations";
     }
 
@@ -259,6 +260,7 @@ public class FlightController {
     List<Reservation> cancelledList = reservationService.getCxBookingList(user.getEmail());
 
     if (cancelledList.isEmpty()) {
+      model.addAttribute("user", user);
       return "no_cancellations";
     }
 
