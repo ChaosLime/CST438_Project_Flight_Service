@@ -1,5 +1,6 @@
 package CST438.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import CST438.domain.FlightInfo;
 import CST438.domain.FormInfo;
 import CST438.domain.Reservation;
 import CST438.domain.User;
+import CST438.repository.ReservationRepository;
 import CST438.service.FlightSeatInfoService;
 import CST438.service.FlightService;
 import CST438.service.ReservationService;
@@ -228,105 +230,28 @@ public class FlightController {
 
     List<Reservation> reservationList = reservationService.getBookingList(user.getEmail());
 
-    model.addAttribute("bookingInfo", reservationList);
-
-    int seatId0, seatId1, seatId2, seatId3, seatId4;
-    Reservation book0, book1, book2, book3, book4;
-    FlightInfo flightInfo0, flightInfo1, flightInfo2, flightInfo3, flightInfo4;
-
-    switch (reservationList.size()) {
-
-    // TODO: abstract this logic to a singular function or class
-    case 0:
+    if (reservationList.isEmpty()) {
       return "no_reservations";
-    case 1:
-      book0 = reservationList.get(0);
-      seatId0 = book0.getDepartureFlightSeatInfoId();
-      flightInfo0 = seatInfoService.getBookedFlights(seatId0);
-      model.addAttribute("book0", book0);
-      model.addAttribute("flightInfo0", flightInfo0);
-      return "view_booking_list";
-    case 2:
-      book0 = reservationList.get(0);
-      seatId0 = book0.getDepartureFlightSeatInfoId();
-      flightInfo0 = seatInfoService.getBookedFlights(seatId0);
-      book1 = reservationList.get(1);
-      seatId1 = book1.getDepartureFlightSeatInfoId();
-      flightInfo1 = seatInfoService.getBookedFlights(seatId1);
-      model.addAttribute("book0", book0);
-      model.addAttribute("book1", book1);
-      model.addAttribute("flightInfo0", flightInfo0);
-      model.addAttribute("flightInfo1", flightInfo1);
-      return "view_booking_list";
-    case 3:
-      book0 = reservationList.get(0);
-      seatId0 = book0.getDepartureFlightSeatInfoId();
-      flightInfo0 = seatInfoService.getBookedFlights(seatId0);
-      book1 = reservationList.get(1);
-      seatId1 = book1.getDepartureFlightSeatInfoId();
-      flightInfo1 = seatInfoService.getBookedFlights(seatId1);
-      book2 = reservationList.get(2);
-      seatId2 = book2.getDepartureFlightSeatInfoId();
-      flightInfo2 = seatInfoService.getBookedFlights(seatId2);
-      model.addAttribute("book0", book0);
-      model.addAttribute("book1", book1);
-      model.addAttribute("book2", book2);
-      model.addAttribute("flightInfo0", flightInfo0);
-      model.addAttribute("flightInfo1", flightInfo1);
-      model.addAttribute("flightInfo2", flightInfo2);
-      return "view_booking_list";
-    case 4:
-      book0 = reservationList.get(0);
-      seatId0 = book0.getDepartureFlightSeatInfoId();
-      flightInfo0 = seatInfoService.getBookedFlights(seatId0);
-      book1 = reservationList.get(1);
-      seatId1 = book1.getDepartureFlightSeatInfoId();
-      flightInfo1 = seatInfoService.getBookedFlights(seatId1);
-      book2 = reservationList.get(2);
-      seatId2 = book2.getDepartureFlightSeatInfoId();
-      flightInfo2 = seatInfoService.getBookedFlights(seatId2);
-      book3 = reservationList.get(3);
-      seatId3 = book3.getDepartureFlightSeatInfoId();
-      flightInfo3 = seatInfoService.getBookedFlights(seatId3);
-      model.addAttribute("book0", book0);
-      model.addAttribute("book1", book1);
-      model.addAttribute("book2", book2);
-      model.addAttribute("book3", book3);
-      model.addAttribute("flightInfo0", flightInfo0);
-      model.addAttribute("flightInfo1", flightInfo1);
-      model.addAttribute("flightInfo2", flightInfo2);
-      model.addAttribute("flightInfo3", flightInfo3);
-      return "view_booking_list";
-    case 5:
-      book0 = reservationList.get(0);
-      seatId0 = book0.getDepartureFlightSeatInfoId();
-      flightInfo0 = seatInfoService.getBookedFlights(seatId0);
-      book1 = reservationList.get(1);
-      seatId1 = book1.getDepartureFlightSeatInfoId();
-      flightInfo1 = seatInfoService.getBookedFlights(seatId1);
-      book2 = reservationList.get(2);
-      seatId2 = book2.getDepartureFlightSeatInfoId();
-      flightInfo2 = seatInfoService.getBookedFlights(seatId2);
-      book3 = reservationList.get(3);
-      seatId3 = book3.getDepartureFlightSeatInfoId();
-      flightInfo3 = seatInfoService.getBookedFlights(seatId3);
-      book4 = reservationList.get(4);
-      seatId4 = book4.getDepartureFlightSeatInfoId();
-      flightInfo4 = seatInfoService.getBookedFlights(seatId4);
-      model.addAttribute("book0", book0);
-      model.addAttribute("book1", book1);
-      model.addAttribute("book2", book2);
-      model.addAttribute("book3", book3);
-      model.addAttribute("book4", book4);
-      model.addAttribute("flightInfo0", flightInfo0);
-      model.addAttribute("flightInfo1", flightInfo1);
-      model.addAttribute("flightInfo2", flightInfo2);
-      model.addAttribute("flightInfo3", flightInfo3);
-      model.addAttribute("flightInfo4", flightInfo4);
-
-      return "view_booking_list";
     }
-    return "exceeded_max_reserve";
+
+    List<FlightInfo> departureFlights = new ArrayList();
+    List<FlightInfo> arrivalFlights = new ArrayList();
+
+    for (int i = 0; i < reservationList.size(); i++) {
+      int departureSeatId = reservationList.get(i).getDepartureFlightSeatInfoId();
+      FlightInfo departureFlightInfo = seatInfoService.getBookedFlights(departureSeatId);
+      departureFlights.add(departureFlightInfo);
+
+      int arrivalSeatId = reservationList.get(i).getReturnFlightSeatInfoId();
+      FlightInfo arrivalFlightInfo = seatInfoService.getBookedFlights(arrivalSeatId);
+      arrivalFlights.add(arrivalFlightInfo);
+    }
+
+    model.addAttribute("bookingInfo", reservationList);
+    model.addAttribute("departureFlights", departureFlights);
+    model.addAttribute("arrivalFlights", arrivalFlights);
+
+    return "view_booking_list";
   }
 
   @PostMapping("/cancelledListing")
@@ -465,10 +390,11 @@ public class FlightController {
   }
 
   @PostMapping("/viewReservation")
-  public String viewReservations(@Valid Reservation bookingInfo, BindingResult result,
-      Model model) {
+  public String viewReservations(@RequestParam("bookingId") int bookingId, Model model) {
 
-    System.out.println("Booking Id: [" + bookingInfo.getBookId() + "]");
+    System.out.println("Booking Id: [" + bookingId + "]");
+
+    Reservation bookingInfo = reservationService.getBooking(bookingId);
 
     User user = userService.getAccountInfo(bookingInfo.getUserEmail());
 
