@@ -32,7 +32,6 @@ public class UserServiceTest {
     assertThat(userResult.getCreate_date()).isEqualTo(expectedUserResult.getCreate_date());
     assertThat(userResult.getLast_name()).isEqualTo(expectedUserResult.getLast_name());
     assertThat(userResult.getFirst_name()).isEqualTo(expectedUserResult.getFirst_name());
-
   }
 
   @Test
@@ -124,18 +123,13 @@ public class UserServiceTest {
     System.out.println("validSave test");
     User testUser = new User(1, "test@email.test", "creation_date", "last_name", "first_name");
 
-    // Boolean result = true;
-
     given(userService.saveIntoDatabase(testUser)).willReturn(true);
-    // when(userService.saveIntoDatabase(testUser)).thenReturn(true);
     Boolean result = userService.saveIntoDatabase(testUser);
     System.out.println("Valid result[ " + result + "]");
     Boolean expectedResult = true;
     System.out.println("Valid expectedResult[" + expectedResult + "]");
 
-
     assertThat(result).isEqualTo(expectedResult);
-
   }
 
   @Test
@@ -151,9 +145,6 @@ public class UserServiceTest {
     System.out.println("Invalid expectedResult[" + expectedResult + "]");
 
     assertThat(result).isEqualTo(expectedResult);
-
   }
-
-
 
 }

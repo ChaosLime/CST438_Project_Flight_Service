@@ -15,9 +15,10 @@ import CST438.service.FlightService;
 import CST438.service.ReservationService;
 
 /**
- * This API controller is designed to take three pieces of data: The flight date, departure and
- * arrival city. The flight date must be formatted with dashes '-'. Month and date can either have
- * leading zeros or not. Year must be for digits.
+ * This API controller is designed to take three pieces of data: The flight
+ * date, departure and arrival city. The flight date must be formatted with
+ * dashes '-'. Month and date can either have leading zeros or not. Year must be
+ * for digits.
  * 
  * @author Mitchell Saunders
  *
@@ -44,15 +45,16 @@ public class FlightRestController {
     int monthDashIndex = flightDate.indexOf('-', 0);
     int dayDashIndex = flightDate.indexOf('-', monthDashIndex + 1);
 
-    // Extract the number from the string and cast them as integers to remove the leading zeros.
+    // Extract the number from the string and cast them as integers to remove the
+    // leading zeros.
     int month = Integer.parseInt(flightDate.substring(0, monthDashIndex));
     int day = Integer.parseInt(flightDate.substring(monthDashIndex + 1, dayDashIndex));
     int year = Integer.parseInt(flightDate.substring(dayDashIndex + 1));
 
     flightDate = month + "/" + day + "/" + year;
 
-    List<FlightInfo> flightInfo =
-        flightService.getFlightAndSeatInfo(flightDate, departureCity, arrivalCity);
+    List<FlightInfo> flightInfo = flightService.getFlightAndSeatInfo(flightDate, departureCity,
+        arrivalCity);
     if (flightInfo.isEmpty()) {
       // Flight List was empty. Send 404 return code.
       return new ResponseEntity<List<FlightInfo>>(HttpStatus.NOT_FOUND);
@@ -66,9 +68,8 @@ public class FlightRestController {
       @PathVariable("seatId2") String seatId2) {
 
     // Checks to make sure that there is such a seat id.
-    FlightInfo flightInfoCheck2 = flightSeatInfoService.onlyGetFlight(Integer.parseInt(seatId2));
     FlightInfo flightInfoCheck1 = flightSeatInfoService.onlyGetFlight(Integer.parseInt(seatId1));
-
+    FlightInfo flightInfoCheck2 = flightSeatInfoService.onlyGetFlight(Integer.parseInt(seatId2));
 
     if (flightInfoCheck1 != null && flightInfoCheck2 != null) {
 
@@ -76,8 +77,8 @@ public class FlightRestController {
       flightSeatInfoService.getFlight(Integer.parseInt(seatId1));
       flightSeatInfoService.getFlight(Integer.parseInt(seatId2));
 
-      Reservation booking =
-          new Reservation(null, Integer.parseInt(seatId1), Integer.parseInt(seatId2), false);
+      Reservation booking = new Reservation(null, Integer.parseInt(seatId1),
+          Integer.parseInt(seatId2), false);
 
       reservationService.bookFlight(booking);
 
@@ -88,7 +89,6 @@ public class FlightRestController {
       return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
     }
   }
-
 
   @GetMapping("/api/BookingID/{bookingID}")
   public ResponseEntity<List<FlightInfo>> getReservationFlightInfo(
@@ -135,15 +135,14 @@ public class FlightRestController {
       return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
     }
   }
-  
+
   @GetMapping("/api/CancellationStatus/BookingID/{bookingID}")
-  public ResponseEntity<Boolean> getReservation(
-      @PathVariable("bookingID") String bookingID) {
+  public ResponseEntity<Boolean> getReservation(@PathVariable("bookingID") String bookingID) {
 
     Reservation booking = reservationService.getBooking(Long.parseLong(bookingID));
 
     if (booking != null) {
-      return new ResponseEntity<Boolean>(booking.isCancelled() ,HttpStatus.OK);
+      return new ResponseEntity<Boolean>(booking.isCancelled(), HttpStatus.OK);
     } else {
       return new ResponseEntity<Boolean>(HttpStatus.NOT_FOUND);
     }

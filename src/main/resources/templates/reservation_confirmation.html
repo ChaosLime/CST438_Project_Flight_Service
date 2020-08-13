@@ -50,13 +50,9 @@
 					<td th:inline="text">$[[${totalCost}]]</td>
 				</tr>
 			</table>
-			<form action="#" th:action="@{/viewReservation}" th:object="${bookingInfo}" method="POST">
-		
-					<input type="hidden" th:field="*{bookId}">
-					<input type="hidden" th:field="*{userEmail}">
-					<input type="hidden" th:field="*{departureFlightSeatInfoId}">
-					<input type="hidden" th:field="*{returnFlightSeatInfoId}">
-					<input type="submit" value="View Booking" />	
+			<form action="#" th:action="@{/viewReservation}" method="post">	
+					<input type="hidden" name="bookingId" th:value="*{bookingInfo.bookId}">
+					<input type="submit" class="btn btn-info" value="View Booking" />	
 			</form>
 			
 			<br/><hr>

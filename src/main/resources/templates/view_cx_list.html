@@ -8,7 +8,7 @@
 	<body>
 	<div class="container">
         
-        <div th:each="user : ${user}">	
+        <div>	
 		<h3 class="text-danger">CANCELLED RESERVATIONS for </h3><h3><span th:text="${user.first_name}"></span> <span th:text="${user.last_name}"></span></h3>
 			 <strong><span th:text="${user.email}"></span></strong>
 		</div>
@@ -16,104 +16,31 @@
 		<div class="row">
             <table class="table">
                 <thead>
-                    <tr>
-                        
-                        <th>Flight #</th>
-                        <th>Airline</th>
-                        <th>Departure Time</th>
-                        <th>Departure City</th>
+                    <tr>   
+                        <th>Departure</th>
+                        <th>Return</th>
+                        <th>Departure City</th>   
+                        <th>Destination City</th>          
+                        <th>Departure Airline</th>                
+                        <th>Return Airline</th>
                     </tr>
                 </thead>
                 <tbody>
-                	
-                    <tr th:each="flightInfo0 : ${flightInfo0}">
+                    <tr th:each="departureFlight, iterator : ${departureFlights}">
 					
-						<td th:text="${flightInfo0.flight.flightNumber}"></td>
-		    			<td th:text="${flightInfo0.flight.airline}"></td>
-		    			<td th:text="${flightInfo0.flight.date}"></td>
-		    			<td th:text="${flightInfo0.flight.departureAirport}"></td>
-		    			<td>
-			    			<form action="#" th:object="${book0}" th:action="@{/viewReservation}" method="post">
-			   					<input type="hidden" th:field="*{bookId}">
-								<input type="hidden" th:field="*{userEmail}">
-								<input type="hidden" th:field="*{departureFlightSeatInfoId}">
-								<input type="hidden" th:field="*{returnFlightSeatInfoId}">
-								<input type="hidden" th:field="*{isCancelled}">
-			   					<input type="submit" class="btn btn-info" value="Reservation Details" />
-			   				</form>
+						<td th:text="${departureFlight.flight.date}"></td>
+		    			<td th:text="${arrivalFlights[iterator.index].flight.date}"></td>
+						<td th:text="${departureFlight.flight.departureAirport}"></td>
+						<td th:text="${departureFlight.flight.arrivalAirport}"></td>
+						<td th:text="${departureFlight.flight.airline}"></td>
+						<td th:text="${arrivalFlights[iterator.index].flight.airline}"></td>  			
+ 		    			<td>
+		    				<form action="#" th:action="@{/viewReservation}" method="post">
+		    					<input type="hidden" name="bookingId" th:value="${bookingInfo[iterator.index].bookId}" />
+		   						<input type="submit" class="btn btn-info" value="Reservation Details" />
+		   					</form>
 		   				</td>
-                   	</tr>
-                   	
-                   	<tr th:each="flightInfo1 : ${flightInfo1}">
-					
-						<td th:text="${flightInfo1.flight.flightNumber}"></td>
-		    			<td th:text="${flightInfo1.flight.airline}"></td>
-		    			<td th:text="${flightInfo1.flight.date}"></td>
-		    			<td th:text="${flightInfo1.flight.departureAirport}"></td>
-		   				<td>
-			   				<form action="#" th:object="${book1}" th:action="@{/viewReservation}" method="post">
-			   					<input type="hidden" th:field="*{bookId}">
-								<input type="hidden" th:field="*{userEmail}">
-								<input type="hidden" th:field="*{departureFlightSeatInfoId}">
-								<input type="hidden" th:field="*{returnFlightSeatInfoId}">
-								<input type="hidden" th:field="*{isCancelled}">
-			   					<input type="submit" class="btn btn-info" value="Reservation Details" />
-			   				</form>
-		   				</td>
-                   	</tr>
-                    
-                   	<tr th:each="flightInfo2 : ${flightInfo2}">
-					
-						<td th:text="${flightInfo2.flight.flightNumber}"></td>
-		    			<td th:text="${flightInfo2.flight.airline}"></td>
-		    			<td th:text="${flightInfo2.flight.date}"></td>
-		    			<td th:text="${flightInfo2.flight.departureAirport}"></td>
-		    			<td>
-			   				<form action="#" th:object="${book2}" th:action="@{/viewReservation}" method="post">
-			   					<input type="hidden" th:field="*{bookId}">
-								<input type="hidden" th:field="*{userEmail}">
-								<input type="hidden" th:field="*{departureFlightSeatInfoId}">
-								<input type="hidden" th:field="*{returnFlightSeatInfoId}">
-								<input type="hidden" th:field="*{isCancelled}">
-			   					<input type="submit" class="btn btn-info" value="Reservation Details" />
-			   				</form>
-		   				</td>
-                   	</tr>
-                   	
-                   	<tr th:each="flightInfo3 : ${flightInfo3}">
-					
-						<td th:text="${flightInfo3.flight.flightNumber}"></td>
-		    			<td th:text="${flightInfo3.flight.airline}"></td>
-		    			<td th:text="${flightInfo3.flight.date}"></td>
-		    			<td th:text="${flightInfo3.flight.departureAirport}"></td>
-		   				<td>
-			   				<form action="#" th:object="${book3}" th:action="@{/viewReservation}" method="post">
-			   					<input type="hidden" th:field="*{bookId}">
-								<input type="hidden" th:field="*{userEmail}">
-								<input type="hidden" th:field="*{departureFlightSeatInfoId}">
-								<input type="hidden" th:field="*{returnFlightSeatInfoId}">
-								<input type="hidden" th:field="*{isCancelled}">
-			   					<input type="submit" class="btn btn-info" value="Reservation Details" />
-			   				</form>
-		   				</td>
-                   	</tr>
-              		<tr th:each="flightInfo4 : ${flightInfo4}">
-					
-						<td th:text="${flightInfo4.flight.flightNumber}"></td>
-		    			<td th:text="${flightInfo4.flight.airline}"></td>
-		    			<td th:text="${flightInfo4.flight.date}"></td>
-		    			<td th:text="${flightInfo4.flight.departureAirport}"></td>
-		   				<td>
-			   				<form action="#" th:object="${book4}" th:action="@{/viewReservation}" method="post">
-			   					<input type="hidden" th:field="*{bookId}">
-								<input type="hidden" th:field="*{userEmail}">
-								<input type="hidden" th:field="*{departureFlightSeatInfoId}">
-								<input type="hidden" th:field="*{returnFlightSeatInfoId}">
-								<input type="hidden" th:field="*{isCancelled}">
-			   					<input type="submit"class="btn btn-info" value="Reservation Details" />
-			   				</form>
-		   				</td>
-                   	</tr>                    
+                   	</tr>  
                 </tbody>
             </table>
             <br />	
