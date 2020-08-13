@@ -233,8 +233,8 @@ public class FlightController {
       return "no_reservations";
     }
 
-    List<FlightInfo> departureFlights = new ArrayList();
-    List<FlightInfo> arrivalFlights = new ArrayList();
+    List<FlightInfo> departureFlights = new ArrayList<FlightInfo>();
+    List<FlightInfo> arrivalFlights = new ArrayList<FlightInfo>();
 
     for (int i = 0; i < reservationList.size(); i++) {
       int departureSeatId = reservationList.get(i).getDepartureFlightSeatInfoId();
@@ -262,8 +262,8 @@ public class FlightController {
       return "no_cancellations";
     }
 
-    List<FlightInfo> departureFlights = new ArrayList();
-    List<FlightInfo> arrivalFlights = new ArrayList();
+    List<FlightInfo> departureFlights = new ArrayList<FlightInfo>();
+    List<FlightInfo> arrivalFlights = new ArrayList<FlightInfo>();
 
     for (int i = 0; i < cancelledList.size(); i++) {
       int departureSeatId = cancelledList.get(i).getDepartureFlightSeatInfoId();
@@ -297,10 +297,11 @@ public class FlightController {
     FlightInfo returnFlight =
         seatInfoService.getBookedFlights(bookingInfo.getReturnFlightSeatInfoId());
 
+    User user = userService.getAccountInfo(bookingInfo.getUserEmail());
+
     if (bookingInfo != null) {
       if (cancelledSuccessfully) {
 
-        User user = userService.getAccountInfo(bookingInfo.getUserEmail());
         model.addAttribute("user", user);
         model.addAttribute("bookingInfo", bookingInfo);
         model.addAttribute("departureFlight", departureFlight);
@@ -309,6 +310,7 @@ public class FlightController {
         return "cancelled";
       }
     }
+    model.addAttribute("user", user);
     return "not_found";
 
   }
@@ -336,10 +338,10 @@ public class FlightController {
     return "view_reservation";
   }
 
-  // TODO: move this out of the controller. Into the flight Class?
-  // Thought about it, but this is the way the controller is returning the data
-  // from the form.
-  // If this gets changed, the FlightClass would not know. mR
+  /**
+   * This function exists within the controller rather than the flight class due to the way the
+   * controller is returning data from the form.
+   */
   private String formatFlightDate(String date) {
 
     String properDateFormat = date.substring(5).replace('-', '/');
