@@ -14,7 +14,6 @@ import CST438.domain.FlightInfo;
 import CST438.domain.FormInfo;
 import CST438.domain.Reservation;
 import CST438.domain.User;
-import CST438.repository.ReservationRepository;
 import CST438.service.FlightSeatInfoService;
 import CST438.service.FlightService;
 import CST438.service.ReservationService;
@@ -164,8 +163,8 @@ public class FlightController {
     String flightNotFound;
 
     startDate = formatFlightDate(startDate);
-    List<FlightInfo> departureFlights = flightService.getFlightAndSeatInfo(startDate, originCity,
-        destinationCity);
+    List<FlightInfo> departureFlights =
+        flightService.getFlightAndSeatInfo(startDate, originCity, destinationCity);
 
     // If no departure flights are found
     if (departureFlights.size() == 0) {
@@ -180,8 +179,8 @@ public class FlightController {
     model.addAttribute("departureFlights", departureFlights);
 
     endDate = formatFlightDate(endDate);
-    List<FlightInfo> returnFlights = flightService.getFlightAndSeatInfo(endDate, destinationCity,
-        originCity);
+    List<FlightInfo> returnFlights =
+        flightService.getFlightAndSeatInfo(endDate, destinationCity, originCity);
 
     // If no return flights are found
     if (returnFlights.isEmpty()) {
@@ -217,8 +216,8 @@ public class FlightController {
     reservationService.bookFlight(bookingInfo);
     model.addAttribute("bookingInfo", bookingInfo);
 
-    double totalCost = departureFlight.getSeatInfo().getCost()
-        + returnFlight.getSeatInfo().getCost();
+    double totalCost =
+        departureFlight.getSeatInfo().getCost() + returnFlight.getSeatInfo().getCost();
     totalCost = Math.round(totalCost * 100d) / 100d; // two decimals only
     model.addAttribute("totalCost", totalCost);
 
@@ -292,15 +291,17 @@ public class FlightController {
 
     boolean cancelledSuccessfully = reservationService.cancelBooking(bookingInfo.getBookId());
 
-    FlightInfo departureFlight = seatInfoService
-        .getBookedFlights(bookingInfo.getDepartureFlightSeatInfoId());
+    FlightInfo departureFlight =
+        seatInfoService.getBookedFlights(bookingInfo.getDepartureFlightSeatInfoId());
 
-    FlightInfo returnFlight = seatInfoService
-        .getBookedFlights(bookingInfo.getReturnFlightSeatInfoId());
+    FlightInfo returnFlight =
+        seatInfoService.getBookedFlights(bookingInfo.getReturnFlightSeatInfoId());
 
     if (bookingInfo != null) {
       if (cancelledSuccessfully) {
 
+        User user = userService.getAccountInfo(bookingInfo.getUserEmail());
+        model.addAttribute("user", user);
         model.addAttribute("bookingInfo", bookingInfo);
         model.addAttribute("departureFlight", departureFlight);
         model.addAttribute("returnFlight", returnFlight);
@@ -321,11 +322,11 @@ public class FlightController {
 
     User user = userService.getAccountInfo(bookingInfo.getUserEmail());
 
-    FlightInfo departureFlight = seatInfoService
-        .getBookedFlights(bookingInfo.getDepartureFlightSeatInfoId());
+    FlightInfo departureFlight =
+        seatInfoService.getBookedFlights(bookingInfo.getDepartureFlightSeatInfoId());
 
-    FlightInfo returnFlight = seatInfoService
-        .getBookedFlights(bookingInfo.getReturnFlightSeatInfoId());
+    FlightInfo returnFlight =
+        seatInfoService.getBookedFlights(bookingInfo.getReturnFlightSeatInfoId());
 
     model.addAttribute("bookingInfo", bookingInfo);
     model.addAttribute("user", user);
