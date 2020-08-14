@@ -6,7 +6,11 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </head>
 	<body>
+	<div class="row">
+   	<div class="w-50 mx-auto">
+	
 		<div class="container">
+			<br><br>
 			<form action="#" th:action="@{/reservationConfirmation}" method="post">
 				<h3>Departure Flights</h3>
 				<h4 th:inline="text"><strong>DATE:</strong> [[${departureFlights[0].flight.date}]]
@@ -75,7 +79,15 @@
 					<input type="hidden" th:field="*{first_name}">
 					<input type="hidden" th:field="*{create_date}">
 				</div>
-			</form>
+			</form><br/>
+			<div><a class="btn btn-outline-dark" th:href="@{/}">Log out</a>
+					<form action="#" th:object="${user}"  th:action="@{/userDirectory}" method="post">
+						<br/><input type="hidden" th:field="*{email}">
+						<input type="submit" class="btn btn-outline-primary" value="Back to Main Page" />
+					</form>
+			</div>
 		</div>
+		</div></div>
+		<div th:insert="fragments/footer :: footer"></div>
 	</body>
 </html>

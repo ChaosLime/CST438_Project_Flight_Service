@@ -6,10 +6,13 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </head>
 	<body>
+	<div class="row">
+   	<div class="w-50 mx-auto">
+	
 	<div class="container">
         
         <div>	
-		<h3 class="text-danger">CANCELLED RESERVATIONS for </h3><h3><span th:text="${user.first_name}"></span> <span th:text="${user.last_name}"></span></h3>
+		<br><br><h3 class="text-danger">CANCELLED RESERVATIONS for </h3><h3><span th:text="${user.first_name}"></span> <span th:text="${user.last_name}"></span></h3>
 			 <strong><span th:text="${user.email}"></span></strong>
 		</div>
 		<br/>
@@ -47,12 +50,14 @@
 			
         	</div>
         	<br/><hr>
-				<div><a class="btn btn-default" th:href="@{/}">Log out</a>
+				<div><a class="btn btn-outline-dark" th:href="@{/}">Log out</a>
 					<form action="#" th:object="${user}"  th:action="@{/userDirectory}" method="post">
-						<input type="hidden" th:field="*{email}">
-						<input type="submit" class="btn btn-default" value="Back to Main Page" />
+						<br/><input type="hidden" th:field="*{email}">
+						<input type="submit" class="btn btn-outline-primary" value="Back to Main Page" />
 					</form>
-				</div>
+			</div>
     	</div>
+    	</div></div>
+    	<div th:insert="fragments/footer :: footer"></div>
    	</body>
 </html>

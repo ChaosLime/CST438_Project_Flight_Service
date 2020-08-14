@@ -6,8 +6,11 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </head>
 	<body>
+	<div class="row">
+   	<div class="w-50 mx-auto">
+	
 	<div class="container">
-		<h1>The Flight Reservation System&#8482;</h1>
+		<br><br><h1>The Flight Reservation System&#8482;</h1>
 			<!-- user object contains a user and their info from User Entity -->
 			<div th:each="user : ${user}">	
 				
@@ -15,6 +18,7 @@
 			Email: <span th:text="${user.email}"></span><br>
 			
 			</div>
+			<br/><br/>
 		<h3>Please select action below to continue</h3>
 			<hr>
 			<form action="#" th:action="@{/reservation}" th:object="${user}" method="POST">
@@ -36,7 +40,9 @@
 				<input type="submit" class="btn btn-info" value="View Current Reservations">
 			</form>
 			<br/><hr>
-				<div><a class="btn btn-default" th:href="@{/}">Log out</a></div>
+				<div><a class="btn btn-outline-dark" th:href="@{/}">Log out</a></div>
 	</div>
+	</div></div>
+	<div th:insert="fragments/footer :: footer"></div>
 	</body>
 </html>
