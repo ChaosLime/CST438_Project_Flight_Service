@@ -7,7 +7,7 @@ Mikie Reed<br>
 Mitchell Saunders<br>
 Nicholas Saunders<br>
 <br>
-This service is a flight reservation program that is accessed through forms by Spring Boot HTML controller or to be accessed through a REST controller given an API call(s). Additional Info over local and remote deployment of the service is provided.
+This service is a flight reservation program that is accessed through forms by Spring Boot HTML controller or to be accessed through a REST controller given an API call(s). Additional Info over local and remote deployment of the service is provided. Documentation regarding database design along with EER diagram is found within the projects 'MySQL_Scripts' directory.
 
 Deployment Site: https://cst438flightservice.herokuapp.com/
 
