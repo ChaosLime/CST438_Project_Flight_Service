@@ -6,11 +6,14 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </head>
 	<body>
+	<div class="row">
+   	<div class="w-50 mx-auto">
+	
 		<div class="container">
-			<h1>The Flight Reservation System&#8482;</h1>
+			<br><br><h1>The Flight Reservation System&#8482;</h1>
 			
 			<div>	
-				<h2>Reservations for <span th:text="${user.first_name}"></span> <span th:text="${user.last_name}"></span></h2>
+				<h2>Reservation Details for <span th:text="${user.first_name}"></span> <span th:text="${user.last_name}"></span></h2>
 					Email: <span th:text="${user.email}"></span>
 			</div>
 			<br/>
@@ -28,15 +31,15 @@
 							<th>Seat Type</th>
 							<th>Cost</th>
 						</tr>
-						<tr th:each="departureFlight : ${departureFlight}">
-						    <td th:text="${departureFlight.flight.flightNumber}"></td>
-							<td th:text="${departureFlight.flight.airline}"></td>
-							<td th:text="${departureFlight.flight.departureAirport}"></td>
-							<td th:text="${departureFlight.flight.departureTime}"></td>
-							<td th:text="${departureFlight.flight.arrivalAirport}"></td>
-							<td th:text="${departureFlight.flight.arrivalTime}"></td>
-							<td th:text="${departureFlight.seatInfo.seatType}"></td>
-							<td th:text="${departureFlight.seatInfo.cost}"></td>
+						<tr>
+						    <td th:inline="text">[[${departureFlight.flight.flightNumber}]]</td>
+				   			<td th:inline="text">[[${departureFlight.flight.airline}]]</td>
+				   			<td th:inline="text">[[${departureFlight.flight.departureAirport}]]</td>
+				    		<td th:inline="text">[[${departureFlight.flight.departureTime}]]</td>
+				    		<td th:inline="text">[[${departureFlight.flight.arrivalAirport}]]</td>
+				   	 		<td th:inline="text">[[${departureFlight.flight.arrivalTime}]]</td>				    		
+				    		<td th:inline="text">[[${departureFlight.seatInfo.seatType}]]</td>    
+				    		<td th:inline="text">$[[${departureFlight.seatInfo.cost}]]</td>
 						</tr>
 					</table>
 				</div>
@@ -56,15 +59,15 @@
 							<th>Seat Type</th>
 							<th>Cost</th>
 						</tr>
-						<tr th:each="returnFlight : ${returnFlight}">
-						    <td th:text="${returnFlight.flight.flightNumber}"></td>
-							<td th:text="${returnFlight.flight.airline}"></td>
-							<td th:text="${returnFlight.flight.departureAirport}"></td>
-							<td th:text="${returnFlight.flight.departureTime}"></td>
-							<td th:text="${returnFlight.flight.arrivalAirport}"></td>
-							<td th:text="${returnFlight.flight.arrivalTime}"></td>
-							<td th:text="${returnFlight.seatInfo.seatType}"></td>
-							<td th:text="${returnFlight.seatInfo.cost}"></td>
+						<tr>
+						    <td th:inline="text">[[${returnFlight.flight.flightNumber}]]</td>
+				   	 		<td th:inline="text">[[${returnFlight.flight.airline}]]</td>
+				    		<td th:inline="text">[[${returnFlight.flight.departureAirport}]]</td>
+				    		<td th:inline="text">[[${returnFlight.flight.departureTime}]]</td>
+				    		<td th:inline="text">[[${returnFlight.flight.arrivalAirport}]]</td>
+				    		<td th:inline="text">[[${returnFlight.flight.arrivalTime}]]</td>				    		
+				    		<td th:inline="text">[[${returnFlight.seatInfo.seatType}]]</td>    
+				    		<td th:inline="text">$[[${returnFlight.seatInfo.cost}]]</td>
 						</tr>
 					</table>
 				</div>
@@ -81,12 +84,14 @@
 				</form>
 			
 			<br/><hr>
-					<div><a class="btn btn-default" th:href="@{/}">Log out</a>
-						<form action="#" th:object="${user}"  th:action="@{/userDirectory}" method="post">
-							<input type="hidden" th:field="*{email}">
-							<input type="submit" class="btn btn-default" value="Back to Main Page" />
-						</form>
-					</div>
+					<div><a class="btn btn-outline-dark" th:href="@{/}">Log out</a>
+					<form action="#" th:object="${user}"  th:action="@{/userDirectory}" method="post">
+						<br/><input type="hidden" th:field="*{email}">
+						<input type="submit" class="btn btn-outline-primary" value="Back to Main Page" />
+					</form>
+			</div>
 		</div>
+		</div></div>
+		<div th:insert="fragments/footer :: footer"></div>
 	</body>
 </html>
